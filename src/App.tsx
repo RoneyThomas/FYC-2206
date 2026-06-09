@@ -7,26 +7,16 @@ import {
   Menu,
   Bell,
   X,
-  Check,
-  Users,
   Church,
-  Settings,
   ArrowRight,
   MapPin,
   CalendarDays,
-  Sparkles,
   Award,
-  BookOpen,
-  UserCheck,
-  Download,
-  Smartphone
 } from 'lucide-react';
 
 // Import our cohesive sub-views & data
 import { SPEAKERS } from './data';
 import SpeakersBiosModal from './components/SpeakersBiosModal';
-import RegistrationView from './components/RegistrationView';
-import YouthConnectView from './components/YouthConnectView';
 import ScheduleView from './components/ScheduleView';
 import SongsView from './components/SongsView';
 import MapView from './components/MapView';
@@ -36,42 +26,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-
-  // PWA Android install states
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [showInstallBanner, setShowInstallBanner] = useState(false);
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e: any) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      const ignored = sessionStorage.getItem('fyc_android_install_ignored');
-      if (!ignored) {
-        setShowInstallBanner(true);
-      }
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
-
-  const triggerAndroidInstall = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      console.log('User installed the App on Android device');
-    }
-    setDeferredPrompt(null);
-    setShowInstallBanner(false);
-  };
-
-  const dismissInstallBanner = () => {
-    sessionStorage.setItem('fyc_android_install_ignored', 'true');
-    setShowInstallBanner(false);
-  };
 
   // Dynamic Countdown states to July 2, 2026
   const [countdown, setCountdown] = useState({
@@ -178,19 +132,6 @@ export default function App() {
             })}
           </nav>
 
-          {/* Quick Registration Button for Header */}
-          {/* <button
-            onClick={() => handleTabChange('registration')}
-            className={`hidden sm:inline-flex px-3.5 py-1.5 rounded-lg text-xs font-extrabold items-center gap-1.5 cursor-pointer uppercase tracking-wider transition-all border ${
-              activeTab === 'registration'
-                ? 'bg-transparent text-[#ffe088] border-[#ffe088]'
-                : 'bg-[#735c00] hover:bg-[#574500] text-white border-transparent'
-            }`}
-          >
-            <UserCheck className="w-3.5 h-3.5 text-[#ffe088]" />
-            <span>Pass Ticket</span>
-          </button> */}
-
           {/* Notifications Trigger */}
           <button
             onClick={() => {
@@ -274,7 +215,7 @@ export default function App() {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg"
                   alt="Diocese of Canada Seal"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain rounded-4xl"
                 />
               </div>
               <div className="space-y-0.5">
@@ -293,7 +234,7 @@ export default function App() {
               // { id: 'registration', label: 'Delegate Ticket Pass', icon: UserCheck, subtitle: 'Secure check-in pass or amend' },
               { id: 'speakers', label: 'Keynote Speaker Ensembles', icon: Award, subtitle: 'Read academic profiles' },
               { id: 'meetings', label: 'Ministry Core Assemblies', icon: Church, subtitle: 'Sunday School & Youth committees' },
-              { id: 'connect', label: 'Youth Connect Wall', icon: Users, subtitle: 'Greeting post encourages' },
+              // { id: 'connect', label: 'Youth Connect Wall', icon: Users, subtitle: 'Greeting post encourages' },
               { id: 'map', label: 'Georgian College Directions', icon: Map, subtitle: 'Driving path, places & dining' }
             ].map((link) => {
               const Icon = link.icon;
@@ -332,62 +273,64 @@ export default function App() {
         {activeTab === 'home' && (
           <div className="space-y-12">
 
-            {/* 1. Hero visual Section */}
-            <section className="relative bg-[#000a1e] overflow-hidden flex flex-col items-center justify-center py-16 px-4 text-center border-b border-[#fed65b]/20">
-              {/* Subtle background matrix */}
-              <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+            <div>
+              {/* 1. Hero visual Section */}
+              <section className="relative bg-[#000a1e] overflow-hidden flex flex-col items-center justify-center py-16 px-4 text-center border-b border-[#fed65b]/20">
+                {/* Subtle background matrix */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
 
-              <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center space-y-5">
-                <p className="text-xs font-bold text-[#ffe088] uppercase tracking-widest leading-none font-sans">The Malankara Orthodox Syrian Church</p>
-                <h2 className="font-serif text-lg font-bold text-slate-300">Diocese of Canada</h2>
+                <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center space-y-5">
+                  <p className="text-xs font-bold text-[#ffe088] uppercase tracking-widest leading-none font-sans">The Malankara Orthodox Syrian Church</p>
+                  <h2 className="font-serif text-lg font-bold text-slate-300">Diocese of Canada</h2>
 
-                {/* Highly structured central emblem */}
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-lg flex items-center justify-center p-2.5 border-4 border-[#fed65b]">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg"
-                    alt="Diocesan Gold emblem seal"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-contain"
-                  />
+                  {/* Highly structured central emblem */}
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-lg flex items-center justify-center p-2.5 border-4 border-[#fed65b]">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg"
+                      alt="Diocesan Gold emblem seal"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-contain rounded-4xl"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <h1 className="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                      Family &amp; Youth <br />
+                      <span className="text-[#ffe088]">Conference 2026</span>
+                    </h1>
+                  </div>
+
+                  <div className="bg-[#ffe088]/10 border border-[#fed65b]/30 backdrop-blur-md rounded-xl py-3 px-6 mt-2 shadow-sm">
+                    <p className="font-serif text-[#ffe088] text-base sm:text-lg italic font-medium">"Timeless Truth for a Changing World"</p>
+                  </div>
                 </div>
+              </section>
 
-                <div className="space-y-2">
-                  <h1 className="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                    Family &amp; Youth <br />
-                    <span className="text-[#ffe088]">Conference 2026</span>
-                  </h1>
-                </div>
+              {/* 2. Dynamic countdown timers row */}
+              <section className="bg-[#002147] py-8 border-y border-[#fed65b]/30 text-white shadow-inner">
+                <div className="max-w-4xl mx-auto px-4 text-center space-y-5">
+                  <h3 className="font-serif text-[#ffe088] uppercase tracking-widest text-xs font-bold">Countdown to Conference</h3>
 
-                <div className="bg-[#ffe088]/10 border border-[#fed65b]/30 backdrop-blur-md rounded-xl py-3 px-6 mt-2 shadow-sm">
-                  <p className="font-serif text-[#ffe088] text-base sm:text-lg italic font-medium">"Timeless Truth for a Changing World"</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 2. Dynamic countdown timers row */}
-            <section className="bg-[#002147] py-8 border-y border-[#fed65b]/30 text-white shadow-inner">
-              <div className="max-w-4xl mx-auto px-4 text-center space-y-5">
-                <h3 className="font-serif text-[#ffe088] uppercase tracking-widest text-xs font-bold">Countdown to Conference</h3>
-
-                <div className="flex justify-center gap-3 sm:gap-6">
-                  {[
-                    { label: 'Days', value: countdown.days },
-                    { label: 'Hours', value: countdown.hours },
-                    { label: 'Mins', value: countdown.minutes },
-                    { label: 'Secs', value: countdown.seconds }
-                  ].map((unit, idx) => (
-                    <div key={idx} className="flex flex-col items-center">
-                      <div className="bg-white/10 border border-white/10 rounded-2xl w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center mb-1.5 shadow-sm">
-                        <span className="font-serif text-2xl sm:text-4xl text-white font-extrabold font-mono tracking-tight leading-none">
-                          {String(unit.value).padStart(2, '0')}
-                        </span>
+                  <div className="flex justify-center gap-3 sm:gap-6">
+                    {[
+                      { label: 'Days', value: countdown.days },
+                      { label: 'Hours', value: countdown.hours },
+                      { label: 'Mins', value: countdown.minutes },
+                      { label: 'Secs', value: countdown.seconds }
+                    ].map((unit, idx) => (
+                      <div key={idx} className="flex flex-col items-center">
+                        <div className="bg-white/10 border border-white/10 rounded-2xl w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center mb-1.5 shadow-sm">
+                          <span className="font-serif text-2xl sm:text-4xl text-white font-extrabold font-mono tracking-tight leading-none">
+                            {String(unit.value).padStart(2, '0')}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-[#ffe088] uppercase tracking-widest font-semibold">{unit.label}</span>
                       </div>
-                      <span className="text-[10px] text-[#ffe088] uppercase tracking-widest font-semibold">{unit.label}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </div>
 
             {/* 3. Welcome narrative & bento buttons cards */}
             <section className="px-4 max-w-4xl mx-auto text-center space-y-8">
@@ -526,9 +469,8 @@ export default function App() {
         {activeTab === 'schedule' && <ScheduleView />}
         {activeTab === 'songs' && <SongsView />}
         {activeTab === 'map' && <MapView />}
-        {activeTab === 'registration' && <RegistrationView />}
         {activeTab === 'speakers' && <SpeakersBiosModal isOpenInline />}
-        {activeTab === 'connect' && <YouthConnectView />}
+        {/* {activeTab === 'connect' && <YouthConnectView />} */}
 
         {/* Core assemblies / Association Details */}
         {activeTab === 'meetings' && (
@@ -567,7 +509,7 @@ export default function App() {
           { id: 'home', label: 'Home', icon: Home },
           { id: 'schedule', label: 'Schedule', icon: Calendar },
           { id: 'songs', label: 'Songs', icon: Music },
-          { id: 'connect', label: 'Connect', icon: Users },
+          // { id: 'connect', label: 'Connect', icon: Users },
           { id: 'map', label: 'Map', icon: Map }
         ].map((tab) => {
           const Icon = tab.icon;
@@ -587,37 +529,6 @@ export default function App() {
           );
         })}
       </nav>
-
-      {/* ================= ANDROID PWA INSTALLATION TOAST ================= */}
-      {showInstallBanner && (
-        <div id="android-install-banner" className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-96 bg-[#000a1e] text-white p-4 rounded-2xl shadow-2xl border border-[#ffe088]/20 z-50 flex items-center justify-between gap-3 animate-fade-in">
-          <div className="flex items-start gap-2.5">
-            <div className="bg-[#ffe088]/15 p-2 rounded-xl text-[#ffe088] shrink-0">
-              <Smartphone className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-bold font-serif text-[#ffe088]">Install FYC 2026 App</p>
-              <p className="text-[10px] text-slate-300 leading-normal">Get instant home screen launch, offline hymns, and Diocese updates.</p>
-            </div>
-          </div>
-          <div className="flex gap-1.5 shrink-0">
-            <button
-              onClick={dismissInstallBanner}
-              className="px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-slate-400 hover:text-white transition-all cursor-pointer"
-            >
-              Later
-            </button>
-            <button
-              onClick={triggerAndroidInstall}
-              className="px-3 py-1.5 bg-[#ffe088] hover:bg-[#ebd074] text-[#000a1e] text-[10px] font-extrabold rounded-lg flex items-center gap-1 cursor-pointer transition-all uppercase tracking-wider"
-            >
-              <Download className="w-3" />
-              <span>Install</span>
-            </button>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }

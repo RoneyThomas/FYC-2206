@@ -27,7 +27,7 @@ export default function RegistrationView() {
     if (!fullName || !email || !church) return;
 
     setIsSubmitting(true);
-    
+
     // Simulate brief latency for realism
     setTimeout(() => {
       const newReg: Registration = {
@@ -149,9 +149,8 @@ export default function RegistrationView() {
                     {[...Array(36)].map((_, i) => (
                       <div
                         key={i}
-                        className={`w-full h-full rounded-[1px] ${
-                          (i % 2 === 0 && i % 3 === 0) || i < 6 || i % 7 === 0 || i > 30 ? 'bg-slate-900' : 'bg-transparent'
-                        }`}
+                        className={`w-full h-full rounded-[1px] ${(i % 2 === 0 && i % 3 === 0) || i < 6 || i % 7 === 0 || i > 30 ? 'bg-slate-900' : 'bg-transparent'
+                          }`}
                       />
                     ))}
                   </div>
@@ -265,7 +264,7 @@ export default function RegistrationView() {
               <div className="space-y-2">
                 <label className="block text-xs font-semibold text-slate-600">Select Workshop Tracks (Optional)</label>
                 <p className="text-[11px] text-slate-400">Select the sessions you wish to physically sit in. Seat capacity is bounded.</p>
-                
+
                 <div className="space-y-2 pt-1">
                   {[
                     { id: 'Track A', name: 'Track A: Fostering Vocations under Secularism', seats: '14 seats left' },
@@ -276,11 +275,10 @@ export default function RegistrationView() {
                       type="button"
                       key={track.id}
                       onClick={() => toggleWorkshop(track.name)}
-                      className={`w-full text-left p-3.5 rounded-xl border transition-all flex justify-between items-center ${
-                        selectedWorkshops.includes(track.name)
+                      className={`w-full text-left p-3.5 rounded-xl border transition-all flex justify-between items-center ${selectedWorkshops.includes(track.name)
                           ? 'bg-[#ffe088]/10 border-[#fed65b] text-slate-900 font-medium'
                           : 'bg-transparent border-slate-200 text-slate-600 hover:bg-slate-50'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3">
                         <input
