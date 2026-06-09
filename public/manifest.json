@@ -1,0 +1,25 @@
+{
+  "name": "Family & Youth Conference 2026",
+  "short_name": "FYC 2026",
+  "description": "Malankara Orthodox Syrian Church - Diocese of Canada Family & Youth Conference 2026 app.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000a1e",
+  "theme_color": "#000a1e",
+  "orientation": "portrait-primary",
+  "categories": ["education", "reference", "utilities"],
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
