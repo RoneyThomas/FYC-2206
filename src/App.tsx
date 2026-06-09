@@ -13,6 +13,7 @@ import {
   CalendarDays,
   Award,
 } from 'lucide-react';
+import logoImage from './assets/logo.webp';
 
 // Import our cohesive sub-views & data
 import { SPEAKERS } from './data';
@@ -212,8 +213,8 @@ export default function App() {
             <div className="space-y-4 pt-1.5">
               <div className="w-14 h-14 bg-white rounded-full border-2 border-[#fff0aa] flex items-center justify-center p-1.5 shadow-sm overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg"
-                  alt="Diocese of Canada Seal"
+                  src={logoImage}
+                  alt="Diocese of Canada Logo"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-contain rounded-4xl"
                 />
@@ -286,8 +287,8 @@ export default function App() {
                   {/* Highly structured central emblem */}
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-lg flex items-center justify-center p-2.5 border-4 border-[#fed65b]">
                     <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgo7L33EjW-xMDrxBZVbA132ADEDKqpQsAcrmYAxJStwzXpRAtXdaCE-z3WPQTryvzDcN1p7Ujc2MqPhtXaEpBHUX_uW2xNMBAgQgSjJq5jfnt8Q0ZvHwoiDp7r7LLP39tOJM2XxznDFVWcewaFokndNcneAY4VCan2HJUwA1qQy_mHpkmlw04A0HE6YRfa3raaQfwwx8cZE7FmFn1nfdkOp4tH2CDaI5Fx7luJC4XSNMt0uPoQCRuL9witOFRkiVnKjRPjosoWooVCg"
-                      alt="Diocesan Gold emblem seal"
+                      src={logoImage}
+                      alt="Diocese of Canada Logo"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-contain rounded-4xl"
                     />
