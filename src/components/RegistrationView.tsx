@@ -267,9 +267,10 @@ export default function RegistrationView() {
 
                 <div className="space-y-2 pt-1">
                   {[
-                    { id: 'Track A', name: 'Track A: Fostering Vocations under Secularism', seats: '14 seats left' },
-                    { id: 'Track B', name: 'Track B: Syriac Chanting Liturgical Choir', seats: '5 seats left' },
-                    { id: 'Track C', name: 'Track C: Family & Youth Psychological Resilience', seats: '28 seats left' },
+                    { id: 'OCYM', name: 'OCYM (Youth Movement) Meeting', seats: '18 seats left' },
+                    { id: 'MMVS', name: 'MMVS (Women\'s Association) Meeting', seats: '12 seats left' },
+                    { id: 'Seniors', name: 'Seniors Fellowship (SDOF & SJEF) Meeting', seats: '24 seats left' },
+                    { id: 'Kids', name: 'Kids Session (Kids & MGOCSM)', seats: '15 seats left' },
                   ].map((track) => (
                     <button
                       type="button"

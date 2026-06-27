@@ -12,6 +12,10 @@ import {
   MapPin,
   CalendarDays,
   Award,
+  Mail,
+  Users,
+  BookOpen,
+  Heart,
 } from 'lucide-react';
 import logoImage from './assets/logo.webp';
 
@@ -412,6 +416,106 @@ export default function App() {
               </div>
             </section>
 
+            {/* About the Conference Section */}
+            <section className="px-4 max-w-5xl mx-auto space-y-12 py-4">
+              {/* Header */}
+              <div className="text-center relative">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold uppercase tracking-widest text-[#000a1e] relative inline-block">
+                  About the Conference
+                  <span className="absolute -bottom-2.5 left-1/4 right-1/4 h-0.5 bg-[#fed65b]"></span>
+                </h3>
+              </div>
+
+              {/* Main Split Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                {/* Left side: Major Highlight Callout */}
+                <div className="lg:col-span-5 bg-[#000a1e] text-white p-8 rounded-2xl border border-[#fed65b]/30 shadow-md flex flex-col justify-between relative overflow-hidden group hover:border-[#fed65b] transition-all">
+                  {/* Backdrop subtle glow */}
+                  <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#fed65b]/5 rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div className="space-y-6 relative z-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fed65b]/15 border border-[#fed65b]/30 text-[#ffe088] text-[10px] uppercase font-bold tracking-wider font-sans">
+                      <Church className="w-3.5 h-3.5" />
+                      <span>Historic Milestone</span>
+                    </div>
+                    
+                    <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#ffe088] leading-tight">
+                      A New Era of Orthodox Life in Canada
+                    </h4>
+                    
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
+                      The Diocese of Canada of the Malankara Orthodox Syrian Church prayerfully announces the first annual Family &amp; Youth Conference (FYC 2026), to be held from Thursday, July 2 to Saturday, July 4, 2026, at Georgian College, Barrie, Ontario.
+                    </p>
+
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
+                      As the first conference of its kind in the Diocese, FYC 2026 marks an important milestone in nurturing Orthodox Christian life within our growing community in Canada.
+                    </p>
+                  </div>
+
+                  <div className="pt-8 mt-6 border-t border-white/10 relative z-10">
+                    <p className="font-serif text-sm italic text-[#ffe088] leading-relaxed">
+                      "FYC 2026 is more than a conference—it is an opportunity to inspire a new generation, strengthen families, and build a vibrant Orthodox community in Canada."
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right side: Detailed Pillars */}
+                <div className="lg:col-span-7 flex flex-col justify-between gap-6">
+                  {/* Pillar 1: Gathering & Community */}
+                  <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:border-[#fed65b]/45 transition-all flex gap-4">
+                    <div className="p-3 bg-[#ffe088]/15 text-[#735c00] rounded-xl shrink-0 h-fit">
+                      <Users className="w-5.5 h-5.5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Communal Gathering &amp; Renewal</h5>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                        This historic gathering will bring together families, youth, clergy, and faithful from across Canada for a meaningful time of worship, learning, fellowship, and spiritual renewal.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Pillar 2: Core Theme & Identity */}
+                  <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:border-[#fed65b]/45 transition-all flex gap-4">
+                    <div className="p-3 bg-[#ffe088]/15 text-[#735c00] rounded-xl shrink-0 h-fit">
+                      <Heart className="w-5.5 h-5.5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Timeless Truths</h5>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                        Rooted in this theme, the conference seeks to reflect on the unchanging truth of Christ in a rapidly changing world. FYC 2026 aims to strengthen Orthodox identity, nurture strong Christian families, guide youth in faith, and deepen communion within the Church community.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Pillar 3: Liturgical & Educational Framework */}
+                  <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:border-[#fed65b]/45 transition-all flex gap-4">
+                    <div className="p-3 bg-[#ffe088]/15 text-[#735c00] rounded-xl shrink-0 h-fit">
+                      <BookOpen className="w-5.5 h-5.5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Sacraments, Workshops &amp; Guidance</h5>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                        The conference will include Divine Liturgy, canonical prayers, spiritual reflections, family and youth sessions, workshops, and fellowship opportunities rooted in the faith and traditions of the Malankara Orthodox Church. Sessions will address key aspects of Christian life, including biblical teachings, sacramental life, family relationships, youth challenges, social issues, and personal spiritual growth.
+                      </p>
+                      <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-sans pt-1">
+                        The conference will also include additional resource persons who will share insights and guidance for families and youth in the context of Orthodox Christian life.
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* Bottom Quote Banner */}
+              <div className="bg-[#ffe088]/10 border border-[#fed65b]/20 rounded-2xl p-6 text-center shadow-xs">
+                <p className="text-xs sm:text-sm text-[#735c00] font-sans font-medium leading-relaxed max-w-3xl mx-auto">
+                  This gathering promises to be a joyful celebration of faith, fellowship, and shared spiritual growth for the entire Diocese. We invite all delegates to prepare prayerfully for this blessed encounter.
+                </p>
+              </div>
+            </section>
+
             {/* 5. Keynote Speakers section lists exactly as requested */}
             <section className="px-4 max-w-5xl mx-auto space-y-10">
               <div className="text-center relative">
@@ -450,6 +554,66 @@ export default function App() {
                     </button>
                   </div>
                 ))}
+              </div>
+            </section>
+
+            {/* Contact & Committee Section */}
+            <section className="px-4 max-w-5xl mx-auto space-y-8 py-8 border-t border-slate-200">
+              <div className="text-center relative">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold uppercase tracking-widest text-[#000a1e] relative inline-block">
+                  Conference Contacts &amp; Committee
+                  <span className="absolute -bottom-2.5 left-1/4 right-1/4 h-0.5 bg-[#fed65b]"></span>
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                {/* Left Side: Contact details */}
+                <div className="md:col-span-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-[#fed65b] transition-all">
+                  <div className="space-y-4">
+                    <div className="w-12 h-12 rounded-xl bg-[#ffe088]/20 flex items-center justify-center text-[#735c00]">
+                      <Mail className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="font-serif text-base font-bold text-[#000a1e]">Get in Touch</h4>
+                      <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                        For registration inquiries, accommodation questions, or other conference details, feel free to reach out.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-slate-100">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Email Support</p>
+                    <a
+                      href="mailto:fyc@mosccanada.org"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-[#735c00] hover:text-[#000a1e] transition-colors font-sans"
+                    >
+                      fyc@mosccanada.org
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right Side: Committee Grid */}
+                <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { name: 'Rev. Fr. Dr. Thomas George', role: 'General Convenor', initials: 'TG' },
+                    { name: 'Rev. Fr. Sam Thankachan', role: 'Conference Coordinator', initials: 'ST' },
+                    { name: 'Mr. Manu Abraham', role: 'Secretary', initials: 'MA' },
+                    { name: 'Mr. Vivin Vettiyil', role: 'Joint Secretary', initials: 'VV' }
+                  ].map((member, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white p-4.5 rounded-xl border border-slate-200 shadow-xs hover:shadow-sm hover:border-[#fed65b]/35 transition-all flex items-center gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-[#000a1e] text-[#ffe088] font-bold text-xs flex items-center justify-center shrink-0 border border-[#fed65b]/20">
+                        {member.initials}
+                      </div>
+                      <div className="space-y-0.5 min-w-0">
+                        <p className="font-serif text-xs sm:text-sm font-extrabold text-[#000a1e] truncate">{member.name}</p>
+                        <p className="text-[10px] text-slate-500 font-sans tracking-wide uppercase font-semibold">{member.role}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GEORGIAN_COLLEGE_PLACES } from '../data';
-import { MapPin, Navigation, Car, Landmark, Coffee, Compass, Check, AlertTriangle, Phone } from 'lucide-react';
+import { MapPin, Navigation, Car, Landmark, Coffee, Compass, Check, AlertTriangle, Phone, X, Download, Maximize2 } from 'lucide-react';
 
 const PRE_DEFINED_DIRECTIONS = [
   {
@@ -54,6 +54,7 @@ export default function MapView() {
   const [customCalculated, setCustomCalculated] = useState<any | null>(null);
   const [activeZone, setActiveZone] = useState<any>(CAMPUS_ZONES[0]);
   const [activeDirectoryCategory, setActiveDirectoryCategory] = useState('All');
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const handleCustomDirectionSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,54 +105,59 @@ export default function MapView() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-        {/* Left column: SVG Interactive Campus Layout Map */}
+      <div className="w-full">
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm space-y-4">
             <div className="space-y-0.5">
-              <h3 className="font-serif text-lg font-bold text-[#000a1e] flex items-center gap-1.5">
-                <Compass className="w-5 h-5 text-[#735c00]" />
-                Interactive Campus Map
-              </h3>
-              <p className="text-xs text-slate-500">Click colored zones to inspect campus layouts, distances, and functional sessions.</p>
-            </div>
-
-            {/* Visual SVG map representation */}
-            <div className="relative aspect-video bg-indigo-950/5 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden flex items-center justify-center p-4">
-
-              {/* Simplistic stylized geometric map layers representing streets and parks */}
-              <div className="absolute inset-x-0 top-1/3 h-1 bg-white border-y border-slate-200"></div> {/* Highway route */}
-              <div className="absolute left-1/4 inset-y-0 w-1 bg-white border-x border-slate-200"></div> {/* Secondary avenue */}
-              <div className="absolute right-1/3 top-0 bottom-1/2 w-4 bg-emerald-100/50 rounded-bl-3xl border-l border-b border-emerald-200"></div> {/* Green courtyard */}
-              <div className="absolute left-1/2 bottom-5 w-24 h-16 bg-[#fed65b]/5 border-2 border-[#fed65b]/20 rounded-xl"></div> {/* College Complex */}
-
-              {/* Grid markers representing CAMPUS_ZONES */}
-              {CAMPUS_ZONES.map((zone) => (
-                <button
-                  key={zone.id}
-                  onClick={() => setActiveZone(zone)}
-                  style={{ left: zone.x, top: zone.y }}
-                  className={`absolute -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full ${zone.color} text-white font-bold flex items-center justify-center text-xs shadow-md transition-transform duration-200 focus:scale-125 ${activeZone.id === zone.id ? 'ring-4 ring-white scale-125 shadow-lg' : 'opacity-85 hover:opacity-100'
-                    }`}
-                >
-                  {zone.label}
-                </button>
-              ))}
-
-              <span className="absolute bottom-2.5 right-3 text-[9px] text-slate-400 font-mono tracking-widest uppercase">Georgian Campus Layout Grid</span>
-            </div>
-
-            {/* Active select Zone explanations details */}
-            <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-xl space-y-1.5 transition-all">
-              <div className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${activeZone.color}`}></span>
-                <p className="font-serif text-sm font-bold text-[#000a1e]">{activeZone.name}</p>
+              <div className="flex items-center justify-between">
+                <h3 className="font-serif text-lg font-bold text-[#000a1e] flex items-center gap-1.5">
+                  <Compass className="w-5 h-5 text-[#735c00]" />
+                  Interactive Campus Map
+                </h3>
+                <a href="/campus_map.png" download="Georgian_College_Campus_Map.png" className="text-xs font-semibold text-[#735c00] hover:text-[#000a1e] flex items-center gap-1.5 transition-colors px-3 py-1.5 bg-amber-50 hover:bg-amber-100 rounded-lg">
+                  <Download className="w-3.5 h-3.5" />
+                  Download Map
+                </a>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed italic">
-                "{activeZone.note}"
-              </p>
+              <p className="text-xs text-slate-500">Click the map to open it in full-screen view.</p>
             </div>
+
+            {/* High-quality Georgian College Campus Map from PDF */}
+            <div 
+              className="relative w-full rounded-2xl border border-slate-200 overflow-hidden shadow-sm bg-slate-50 flex items-center justify-center p-2 cursor-pointer group"
+              onClick={() => setIsLightboxOpen(true)}
+            >
+              <img 
+                src="/campus_map.png" 
+                alt="Georgian College Campus Map" 
+                className="w-full h-auto object-contain rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div className="bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg text-slate-700 transform translate-y-4 group-hover:translate-y-0 transition-all">
+                  <Maximize2 className="w-6 h-6" />
+                </div>
+              </div>
+              <span className="absolute bottom-3 right-4 text-[10px] bg-white/90 px-2 py-1 rounded shadow-sm text-slate-500 font-mono tracking-widest uppercase backdrop-blur-sm border border-slate-200/50 pointer-events-none">Official Campus Map</span>
+            </div>
+
+            {/* Lightbox Overlay */}
+            {isLightboxOpen && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-8" onClick={() => setIsLightboxOpen(false)}>
+                <button 
+                  className="absolute top-4 right-4 md:top-8 md:right-8 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+                  onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <img 
+                  src="/campus_map.png" 
+                  alt="Campus Map Fullscreen" 
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-auto"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            )}
+
           </div>
         </div>
       </div>
