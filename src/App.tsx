@@ -5,7 +5,6 @@ import {
   Music,
   Map,
   Menu,
-  Bell,
   X,
   Church,
   ArrowRight,
@@ -30,7 +29,6 @@ export default function App() {
   // Navigation active tab State ('home', 'schedule', 'songs', 'map', 'registration', 'speakers', 'meetings', 'connect')
   const [activeTab, setActiveTab] = useState<string>('home');
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   // Dynamic Countdown states to July 2, 2026
   const [countdown, setCountdown] = useState({
@@ -40,17 +38,10 @@ export default function App() {
     seconds: 0
   });
 
-  // Pre-seed mock notifications
-  const [unreadCount, setUnreadCount] = useState(2);
-  const [notifications] = useState([
-    { id: 1, title: 'Conference Chants released!', text: 'Click on the Songs tab to practice the Malayalam and English harmonies.', read: false, time: '30m ago' },
-    { id: 2, title: 'Dorm numbers published', text: 'Georgian College residence maps have been loaded into the Campuses locator.', read: false, time: '2 hrs ago' },
-    { id: 3, title: 'Welcome Delegates!', text: 'The standard parking guidelines for Day 1 physical checking have been verified.', read: true, time: '1 day ago' }
-  ]);
 
   // Calculate countdown dynamically
   useEffect(() => {
-    const targetDate = new Date('2026-07-02T14:00:00').getTime();
+    const targetDate = new Date('2026-07-02T15:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -80,9 +71,6 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const markNotificationsRead = () => {
-    setUnreadCount(0);
-  };
 
   return (
     <div className="bg-[#f8f9fa] text-[#191c1d] min-h-screen font-sans flex flex-col justify-between pb-24 md:pb-0">
@@ -137,59 +125,7 @@ export default function App() {
             })}
           </nav>
 
-          {/* Notifications Trigger */}
-          <button
-            onClick={() => {
-              setNotificationsOpen(!notificationsOpen);
-              if (unreadCount > 0) markNotificationsRead();
-            }}
-            className="p-2 hover:bg-white/10 rounded-xl transition-all relative cursor-pointer"
-            aria-label="View updates notifications"
-          >
-            <Bell className="w-5.5 h-5.5 text-slate-200" />
-            {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-[#ba1a1a] text-white text-[9px] font-bold font-mono rounded-full flex items-center justify-center border border-[#000a1e] animate-pulse">
-                {unreadCount}
-              </span>
-            )}
-          </button>
 
-          {/* ================= NOTIFICATIONS POPUP DRAWER ================= */}
-          {notificationsOpen && (
-            <div className="absolute right-0 top-12 w-80 bg-white text-slate-900 border border-slate-200 rounded-2xl shadow-xl z-[60] overflow-hidden">
-              <div className="p-4 bg-[#000a1e] text-white flex justify-between items-center">
-                <span className="font-serif text-sm font-semibold tracking-wider text-secondary-fixed">Diocesan Alerts</span>
-                <button
-                  onClick={() => setNotificationsOpen(false)}
-                  className="p-1 hover:bg-white/10 rounded-full text-slate-300 hover:text-white"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="divide-y divide-slate-100 max-h-80 overflow-y-auto">
-                {notifications.map((notif) => (
-                  <div key={notif.id} className="p-3.5 hover:bg-slate-50 transition-colors space-y-1">
-                    <div className="flex justify-between items-center">
-                      <p className="text-xs font-bold text-primary-container leading-tight">{notif.title}</p>
-                      <span className="text-[9px] font-mono text-slate-400">{notif.time}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-600 leading-normal">{notif.text}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="p-2 bg-slate-50 border-t border-slate-100 text-center">
-                <button
-                  onClick={() => {
-                    setNotificationsOpen(false);
-                    handleTabChange('schedule');
-                  }}
-                  className="text-[10px] text-[#735c00] font-semibold uppercase tracking-wider hover:underline"
-                >
-                  Study Liturgical Timing
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </header>
 

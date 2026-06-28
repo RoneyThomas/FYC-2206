@@ -1,12 +1,14 @@
 import { Speaker, Session, Song } from './types';
-
+import vicar1 from './assets/vicar-1.webp';
+import vicar2 from './assets/vicar-2.webp';
+import vicar3 from './assets/vicar-3.webp';
 export const SPEAKERS: Speaker[] = [
   {
     id: 'sp-timothy',
     name: 'Rev. Fr. Dr. Timothy Thomas',
     role: 'Director of Sunday School Ministry',
     diocese: 'Northeast American Diocese',
-    imageUrl: 'src/assets/vicar-1.webp',
+    imageUrl: vicar1,
     bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Director of the Sunday School Ministry for the Northeast American Diocese. He is a prominent scholar in pastoral theology and ecclesiastical youth ministry, dedicating his service to fostering spiritual literacy, traditional Orthodox liturgical music, and dynamic youth engagement schemas.'
   },
   {
@@ -14,7 +16,7 @@ export const SPEAKERS: Speaker[] = [
     name: 'Very. Rev. Dr. Johns Abraham',
     role: 'Reesh Cor Episcopa',
     diocese: 'Malankara Malpan',
-    imageUrl: 'src/assets/vicar-2.webp',
+    imageUrl: vicar2,
     bio: 'Very Rev. Dr. Johns Abraham is a highly distinguished scholar, designated Reesh Cor Episcopa and Malankara Malpan (Teacher of the Church). Widely celebrated for his profound understanding of Syriac Theology, Patristics, and the liturgical heritage of the Malankara Orthodox Syrian Church. He provides apostolic guidance to clergy and laypeople alike.'
   },
   {
@@ -22,7 +24,7 @@ export const SPEAKERS: Speaker[] = [
     name: 'Rev. Fr. Dr. Abraham George',
     role: 'Vicar, St. Thomas Orthodox Church',
     diocese: 'Long Island',
-    imageUrl: 'src/assets/vicar-3.webp',
+    imageUrl: vicar3,
     bio: 'Rev. Fr. Dr. Abraham George is the Vicar of St. Thomas Orthodox Church in Long Island. A modern theological intellectual, he focuses heavily on equipping young families and modern youth with strategies to understand "Timeless Truths" within a highly visual, distracting, digitalized world. His pastoral counsels are deeply treasured.'
   }
 ];
