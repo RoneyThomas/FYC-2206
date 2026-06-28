@@ -530,26 +530,26 @@ Aamennum nithyamen nithyam-anuvaaadiyaye.`,
 ];
 
 export const GEORGIAN_COLLEGE_PLACES = [
+  // {
+  //   name: 'Georgian Residence (Barrie Campus)',
+  //   type: 'Accommodation',
+  //   desc: 'Main housing for registered delegates. Flat-style multi-bedroom suites with modern amenities, study desks, and Wi-Fi.',
+  //   distance: 'On Campus (2-min walk to Plenary)',
+  //   phone: '+1 (705) 722-1523'
+  // },
+  // {
+  //   name: 'The Last Class Restaurant',
+  //   type: 'Dining',
+  //   desc: 'Local student-centered restaurant serving hearty burgers, dynamic wraps, healthy visual salads, and cold beverages.',
+  //   distance: 'On Campus (Building K)',
+  //   phone: '+1 (705) 728-1968 ext. 1530'
+  // },
   {
-    name: 'Georgian Residence (Barrie Campus)',
-    type: 'Accommodation',
-    desc: 'Main housing for registered delegates. Flat-style multi-bedroom suites with modern amenities, study desks, and Wi-Fi.',
-    distance: 'On Campus (2-min walk to Plenary)',
-    phone: '+1 (705) 722-1523'
-  },
-  {
-    name: 'The Last Class Restaurant',
-    type: 'Dining',
-    desc: 'Local student-centered restaurant serving hearty burgers, dynamic wraps, healthy visual salads, and cold beverages.',
-    distance: 'On Campus (Building K)',
-    phone: '+1 (705) 728-1968 ext. 1530'
-  },
-  {
-    name: 'Tim Hortons (Georgian College)',
+    name: 'Tim Hortons',
     type: 'Café',
-    desc: 'Popular Canadian coffee, breakfast wraps, and fresh donuts. Perfect for early morning clergy checkins.',
-    distance: 'On Campus (Building C)',
-    phone: 'On-campus hours apply'
+    desc: 'Popular Canadian coffee, breakfast wraps, and fresh donuts.',
+    distance: '1.4 km from college (5 min drive)',
+    address: '657 Cundles Rd E, Barrie, ON L4M 0K4'
   },
   {
     name: 'Barrie Lakeview Park & Marina',

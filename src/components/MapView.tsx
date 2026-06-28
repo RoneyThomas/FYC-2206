@@ -28,55 +28,16 @@ const BUILDINGS: Building[] = [
     desc: 'Keynote addresses, plenary sessions, Q&A panels, group discussions, and spiritual organization meetings. Classrooms K217 & K224 are also here.',
   },
   {
-    id: 'M', name: 'Sadlon Centre', fullName: 'Sadlon Centre (Building M)',
-    x: 17, y: 33, isVenue: false,
-    desc: 'Sadlon Centre for Health, Wellness and Sport. Peter B. Moore Advanced Technology Centre.',
-  },
-  {
-    id: 'H', name: 'Hospitality Centre', fullName: 'Centre for Hospitality, Tourism & Trades (Building H)',
-    x: 49.5, y: 27, isVenue: false,
-    desc: 'Centre for Hospitality, Tourism & Trades programs.',
-  },
-  {
-    id: 'E', name: 'Entrepreneurship Centre', fullName: 'Henry Bernick Entrepreneurship Centre (Building E)',
-    x: 45, y: 35, isVenue: false,
-    desc: 'Henry Bernick Entrepreneurship Centre.',
-  },
-  {
-    id: 'D', name: 'Media Services', fullName: 'Media Services (Building D)',
-    x: 53, y: 30, isVenue: false,
-    desc: 'Media Services and Parking Office.',
-  },
-  {
-    id: 'C', name: 'Student Services', fullName: 'Student Services (Building C)',
-    x: 28, y: 41, isVenue: false,
-    desc: 'Student Services, GCSA Office. Tim Hortons is located here.',
-  },
-  {
-    id: 'J', name: 'International Centre', fullName: 'International Centre (Building J)',
-    x: 43.5, y: 45, isVenue: false,
-    desc: 'International Student Centre and Student Success.',
-  },
-  {
-    id: 'A', name: 'Athletics Centre', fullName: 'Athletics & Fitness Centre (Building A)',
-    x: 42.5, y: 50, isVenue: false,
-    desc: 'Athletics and Fitness Centre.',
-  },
-  {
-    id: 'B', name: 'Student Store', fullName: 'Founders Building (Building B)',
-    x: 28, y: 53, isVenue: false,
-    desc: 'Student Store (Book Essentials Bookstore) and Founders building.',
-  },
-  {
-    id: 'F', name: 'Automotive Centre', fullName: 'Automotive Technology Centre (Building F)',
-    x: 63, y: 45, isVenue: false,
-    desc: 'Automotive Technology Centre. Skilled Trades programs.',
-  },
+    id: 'B', name: 'Student Residence (RCC)', fullName: 'Student Residence (RCC)',
+    x: 70, y: 25, isVenue: false,
+    desc: 'Accommodation for conference delegates',
+  }
 ];
 
 const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
   N: ['Building N', 'ABSC'],
   K: ['Building K', 'Alumni Hall', 'K217', 'K224'],
+  B: ['Student Residence (RCC)'],
 };
 
 const DAY_LABELS: Record<number, string> = { 1: 'Thu · Jul 2', 2: 'Fri · Jul 3', 3: 'Sat · Jul 4' };
@@ -180,13 +141,13 @@ export default function MapView() {
             <strong>1 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
           </p>
         </div>
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+        {/* <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Security Contact</p>
           <p className="text-xs font-semibold text-[#000a1e] flex items-center gap-1.5">
             <Phone className="w-3.5 h-3.5 text-[#735c00]" /> +1 (705) 728-1968
           </p>
           <span className="text-[10px] text-slate-400 block">Available 24/7 for safe walking escorts.</span>
-        </div>
+        </div> */}
       </div>
 
       {/* ── Map + Panel ─────────────────────────────────── */}
@@ -408,15 +369,13 @@ export default function MapView() {
               <button
                 key={b.id}
                 onClick={() => setSelectedBuilding(b)}
-                className={`w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 cursor-pointer ${
-                  selectedBuilding?.id === b.id
-                    ? 'bg-[#ffe088]/15 border-[#fed65b] text-[#735c00]'
-                    : 'bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50'
-                }`}
+                className={`w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 cursor-pointer ${selectedBuilding?.id === b.id
+                  ? 'bg-[#ffe088]/15 border-[#fed65b] text-[#735c00]'
+                  : 'bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50'
+                  }`}
               >
-                <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
-                  selectedBuilding?.id === b.id ? 'bg-[#fed65b] text-[#735c00]' : 'bg-[#000a1e] text-[#ffe088]'
-                }`}>
+                <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${selectedBuilding?.id === b.id ? 'bg-[#fed65b] text-[#735c00]' : 'bg-[#000a1e] text-[#ffe088]'
+                  }`}>
                   {b.id}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -457,9 +416,9 @@ export default function MapView() {
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
                     <MapPin className="w-2.5 h-2.5" /> {place.distance}
                   </span>
-                  {place.phone && (
+                  {place.address && (
                     <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                      <Phone className="w-2.5 h-2.5" /> {place.phone}
+                      <MapPin className="w-2.5 h-2.5" /> {place.address}
                     </span>
                   )}
                 </div>
