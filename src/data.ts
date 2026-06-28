@@ -6,7 +6,7 @@ export const SPEAKERS: Speaker[] = [
     name: 'Rev. Fr. Dr. Timothy Thomas',
     role: 'Director of Sunday School Ministry',
     diocese: 'Northeast American Diocese',
-    imageUrl: 'https://lh3.googleusercontent.com/aida/AP1WRLu0VF-Ga0iwFnG77rKeWIOReyWYHv7bHIVnz3mql0GMKGIozfCZkGpkQjA8juzz3MMHFw8BebBywfX5D0aU4sDxaoWdImTSS0LWfRiMgSBRY_GrXJuX7atIe2lwiLs05qPG69Te-d_KMYknU32cfSmrZfHYlo6qZc3zRieOBp3WUdxsvWyJGm7zKK5tVjPbxeZTN5AMK2LZ0y6Qo2SmcRElKXqXU7XYvCHAjuCXo2JFeGVFGWPA16rvnNs',
+    imageUrl: 'src/assets/vicar-1.webp',
     bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Director of the Sunday School Ministry for the Northeast American Diocese. He is a prominent scholar in pastoral theology and ecclesiastical youth ministry, dedicating his service to fostering spiritual literacy, traditional Orthodox liturgical music, and dynamic youth engagement schemas.'
   },
   {
@@ -14,7 +14,7 @@ export const SPEAKERS: Speaker[] = [
     name: 'Very. Rev. Dr. Johns Abraham',
     role: 'Reesh Cor Episcopa',
     diocese: 'Malankara Malpan',
-    imageUrl: 'https://lh3.googleusercontent.com/aida/AP1WRLQ4K20_FDNT77D8aLHQfSPlG-pM8lpHmwD8Q_8HaZjHBrlo3fCmRLnAipxK1zSEqXalsRrcdsEEJ5LG1y4NPxdJv_7d9bR8Ko8Ypa0b2rBBG3S5-0lXm7PmRFWI_NeZQLcLca6qUaZaLfvcO1Zdke3HwfY8nUxbb31Q6wMxEG-a2WF4dLxoUDxNiBxAo3lClmsvzKZBxL_yZIMgKxJJLx0-xlIVRH0w1tJRpC2DTCel9ULgQWn7nbADTE',
+    imageUrl: 'src/assets/vicar-2.webp',
     bio: 'Very Rev. Dr. Johns Abraham is a highly distinguished scholar, designated Reesh Cor Episcopa and Malankara Malpan (Teacher of the Church). Widely celebrated for his profound understanding of Syriac Theology, Patristics, and the liturgical heritage of the Malankara Orthodox Syrian Church. He provides apostolic guidance to clergy and laypeople alike.'
   },
   {
@@ -22,7 +22,7 @@ export const SPEAKERS: Speaker[] = [
     name: 'Rev. Fr. Dr. Abraham George',
     role: 'Vicar, St. Thomas Orthodox Church',
     diocese: 'Long Island',
-    imageUrl: 'https://lh3.googleusercontent.com/aida/AP1WRLsfbaXSHX9WTLv36mJwWaznP-fd0zsEkvspf-Km8B3tw6mHUyk9iMekRS7c7XQy8EIEffCw9-wLhVUGE-kobJ06Ufce3AC5_vV0pnSB4LwlfUH7f2Bm-snaxaZO5NMqUGK7egySdqRuAuKcqfs2_9Yin3kLc1HTmVWhe_G3trKaanPP7umqTlrKCM3YLyXP49dExxILyYNhGq_PFya3q6Hc_X5IY--oBjVXc7mAKwfPI9ZrNrZ3SD4w0Jk',
+    imageUrl: 'src/assets/vicar-3.webp',
     bio: 'Rev. Fr. Dr. Abraham George is the Vicar of St. Thomas Orthodox Church in Long Island. A modern theological intellectual, he focuses heavily on equipping young families and modern youth with strategies to understand "Timeless Truths" within a highly visual, distracting, digitalized world. His pastoral counsels are deeply treasured.'
   }
 ];

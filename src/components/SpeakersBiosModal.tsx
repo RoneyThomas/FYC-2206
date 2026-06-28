@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SPEAKERS } from '../data';
 import { Speaker } from '../types';
-import { Mail, MessageSquare, Check, X, Award, MapPin } from 'lucide-react';
+import { X, Award, MapPin } from 'lucide-react';
 
 interface SpeakersBiosModalProps {
   onClose?: () => void;
@@ -10,22 +10,7 @@ interface SpeakersBiosModalProps {
 
 export default function SpeakersBiosModal({ onClose, isOpenInline = false }: SpeakersBiosModalProps) {
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(SPEAKERS[0]);
-  const [question, setQuestion] = useState('');
-  const [senderName, setSenderName] = useState('');
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmitQuestion = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!question || !senderName) return;
-    
-    // Simulate question dispatch
-    setSubmitSuccess(true);
-    setTimeout(() => {
-      setQuestion('');
-      setSenderName('');
-      setSubmitSuccess(false);
-    }, 4000);
-  };
 
   return (
     <div className={`w-full ${isOpenInline ? 'py-2' : 'bg-white rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto'}`}>
@@ -49,7 +34,6 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                 key={s.id}
                 onClick={() => {
                   setSelectedSpeaker(s);
-                  setSubmitSuccess(false);
                 }}
                 className={`w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 border ${
                   selectedSpeaker?.id === s.id
@@ -112,70 +96,7 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                 </p>
               </div>
 
-              {/* Interaction box: Send a question */}
-              <div className="border-t border-slate-100 pt-6">
-                <h4 className="text-sm font-serif font-semibold text-[#000a1e] flex items-center gap-2 mb-3">
-                  <MessageSquare className="w-4 h-4 text-[#735c00]" />
-                  Submit a Question for the Q&A Panel
-                </h4>
-                <p className="text-xs text-slate-500 mb-4 leading-relaxed">
-                  Have a specific question on "Timeless Truths for a Changing World" related to this speaker's keynote? Write it here. Selected questions will be answered live during the Panel sessions.
-                </p>
 
-                {submitSuccess ? (
-                  <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-start gap-3 animated text-sm">
-                    <div className="p-1 bg-emerald-500 text-white rounded-full">
-                      <Check className="w-3 h-3" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Question Received!</p>
-                      <p className="text-xs text-emerald-600 mt-0.5">Thank you, {senderName}. Your submission has been securely queued and forwarded to the Diocese panel moderators.</p>
-                    </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmitQuestion} className="space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Your Name *</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Deacon Matthew"
-                          value={senderName}
-                          onChange={(e) => setSenderName(e.target.value)}
-                          className="w-full text-xs p-2 bg-slate-50 border border-slate-200 focus:border-[#735c00] outline-none rounded-lg transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Your Parish/City</label>
-                        <input
-                          type="text"
-                          placeholder="e.g. St. Marys, Toronto"
-                          className="w-full text-xs p-2 bg-slate-50 border border-slate-200 focus:border-[#735c00] outline-none rounded-lg transition-colors"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-600 mb-1">Your Theological / Practical Question *</label>
-                      <textarea
-                        required
-                        rows={3}
-                        placeholder={`Ask ${selectedSpeaker.name.split(' ').slice(-2).join(' ')} about his session theme...`}
-                        value={question}
-                        onChange={(e) => setQuestion(e.target.value)}
-                        className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 focus:border-[#735c00] outline-none rounded-lg transition-colors resize-none"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full sm:w-auto px-5 py-2 bg-[#000a1e] hover:bg-[#002147] text-white text-xs font-semibold rounded-lg transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <Mail className="w-3.5 h-3.5 text-[#ffe088]" />
-                      Deliver to Speaker Box
-                    </button>
-                  </form>
-                )}
-              </div>
             </>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-slate-400">

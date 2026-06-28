@@ -1,166 +1,510 @@
-import React, { useState } from 'react';
-import { GEORGIAN_COLLEGE_PLACES } from '../data';
-import { MapPin, Navigation, Car, Landmark, Coffee, Compass, Check, AlertTriangle, Phone, X, Download, Maximize2 } from 'lucide-react';
+import React, { useState, useRef, useCallback } from 'react';
+import { SESSIONS, GEORGIAN_COLLEGE_PLACES } from '../data';
+import {
+  Compass, Phone, X, Download, Maximize2,
+  ZoomIn, ZoomOut, RotateCcw, Calendar, MapPin,
+  ChevronRight, Clock, Info,
+} from 'lucide-react';
 
-const PRE_DEFINED_DIRECTIONS = [
+type Building = {
+  id: string;
+  name: string;
+  fullName: string;
+  x: number; // % from left of image
+  y: number; // % from top of image
+  isVenue: boolean;
+  desc: string;
+};
+
+const BUILDINGS: Building[] = [
   {
-    city: 'Toronto',
-    distance: '105 km',
-    time: '1 hr 15 mins',
-    steps: [
-      'Depart Toronto taking ON-400 North toward Barrie.',
-      'Continue North for approximately 90 km.',
-      'Take Exit 94 toward Duckworth St / Cundles Rd.',
-      'Merge onto Duckworth St, turning right into the Georgian College main entryway.'
-    ],
-    parking: 'Park at Campus Lot 6 or Lot 7. Parking tokens can be validated at the front welcome desk.'
+    id: 'N', name: 'ABSC Event Space', fullName: 'Peter B. Moore Centre (Building N)',
+    x: 56, y: 18, isVenue: true,
+    desc: 'Main conference hall. Hosts the inaugural ceremony, all meals (breakfast, lunch, dinner), evening prayers, cultural programs, devotional addresses, and Holy Qurbana.',
   },
   {
-    city: 'Ottawa',
-    distance: '390 km',
-    time: '4 hrs 15 mins',
-    steps: [
-      'Take Trans-Canada Hwy / ON-417 West.',
-      'Merge onto ON-17 West, then steer onto ON-60 West through Algonquin Provincial Park.',
-      'Proceed on ON-11 South toward Orillia.',
-      'Take ON-11/ON-12 South to Duckworth St exit inside Barrie.'
-    ],
-    parking: 'Complimentary pass provided behind building C if driving hybrid vehicles.'
+    id: 'K', name: 'Alumni Hall', fullName: 'University Partnership Centre (Building K)',
+    x: 34, y: 41, isVenue: true,
+    desc: 'Keynote addresses, plenary sessions, Q&A panels, group discussions, and spiritual organization meetings. Classrooms K217 & K224 are also here.',
   },
   {
-    city: 'Montreal',
-    distance: '590 km',
-    time: '5 hrs 45 mins',
-    steps: [
-      'Take Autoroute 20 West entering Ontario onto Highway 401 West.',
-      'Proceed past Kingston on Hwy 401 for approximately 350 km.',
-      'Merge onto ON-407 Express Toll Route West (or bypass via Hwy 401 West to Toronto).',
-      'Steer onto ON-400 North to Duckworth St inside Barrie.'
-    ],
-    parking: 'Free weekend parking operates on Georgian Campus parking stalls from Friday 5 PM onwards.'
-  }
+    id: 'M', name: 'Sadlon Centre', fullName: 'Sadlon Centre (Building M)',
+    x: 17, y: 33, isVenue: false,
+    desc: 'Sadlon Centre for Health, Wellness and Sport. Peter B. Moore Advanced Technology Centre.',
+  },
+  {
+    id: 'H', name: 'Hospitality Centre', fullName: 'Centre for Hospitality, Tourism & Trades (Building H)',
+    x: 49.5, y: 27, isVenue: false,
+    desc: 'Centre for Hospitality, Tourism & Trades programs.',
+  },
+  {
+    id: 'E', name: 'Entrepreneurship Centre', fullName: 'Henry Bernick Entrepreneurship Centre (Building E)',
+    x: 45, y: 35, isVenue: false,
+    desc: 'Henry Bernick Entrepreneurship Centre.',
+  },
+  {
+    id: 'D', name: 'Media Services', fullName: 'Media Services (Building D)',
+    x: 53, y: 30, isVenue: false,
+    desc: 'Media Services and Parking Office.',
+  },
+  {
+    id: 'C', name: 'Student Services', fullName: 'Student Services (Building C)',
+    x: 28, y: 41, isVenue: false,
+    desc: 'Student Services, GCSA Office. Tim Hortons is located here.',
+  },
+  {
+    id: 'J', name: 'International Centre', fullName: 'International Centre (Building J)',
+    x: 43.5, y: 45, isVenue: false,
+    desc: 'International Student Centre and Student Success.',
+  },
+  {
+    id: 'A', name: 'Athletics Centre', fullName: 'Athletics & Fitness Centre (Building A)',
+    x: 42.5, y: 50, isVenue: false,
+    desc: 'Athletics and Fitness Centre.',
+  },
+  {
+    id: 'B', name: 'Student Store', fullName: 'Founders Building (Building B)',
+    x: 28, y: 53, isVenue: false,
+    desc: 'Student Store (Book Essentials Bookstore) and Founders building.',
+  },
+  {
+    id: 'F', name: 'Automotive Centre', fullName: 'Automotive Technology Centre (Building F)',
+    x: 63, y: 45, isVenue: false,
+    desc: 'Automotive Technology Centre. Skilled Trades programs.',
+  },
 ];
 
-const CAMPUS_ZONES = [
-  { id: 'zone-res', name: 'Georgian Residence Suite', label: 'R', color: 'bg-teal-500', note: 'Main delegate housing. Check-in here on arrival for physical keycards.', x: '25%', y: '30%' },
-  { id: 'zone-aud', name: 'Plenary Auditorium (Hall C)', label: 'A', color: 'bg-amber-500', note: 'Holds all Keynotes talks, scholarly debates, panel discussions, and official inaugural openings.', x: '55%', y: '45%' },
-  { id: 'zone-chp', name: 'Sacred Liturgical Chapel', label: 'C', color: 'bg-blue-600', note: 'Liturgical evening Sandhya Namaskar and Holy Eucharist Qurbana services.', x: '75%', y: '65%' },
-  { id: 'zone-din', name: 'Dining & Refectory Hall', label: 'D', color: 'bg-rose-500', note: 'Breakfast buffet, hot lunches, and celebratory evening dinners.', x: '40%', y: '75%' }
-];
+const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
+  N: ['Building N', 'ABSC'],
+  K: ['Building K', 'Alumni Hall', 'K217', 'K224'],
+};
+
+const DAY_LABELS: Record<number, string> = { 1: 'Thu · Jul 2', 2: 'Fri · Jul 3', 3: 'Sat · Jul 4' };
+
+const CATEGORY_COLORS: Record<string, string> = {
+  Liturgy: 'bg-blue-100 text-blue-700 border-blue-200',
+  General: 'bg-slate-100 text-slate-600 border-slate-200',
+  Social: 'bg-amber-100 text-amber-700 border-amber-200',
+  Youth: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  Workshop: 'bg-purple-100 text-purple-700 border-purple-200',
+};
 
 export default function MapView() {
-  const [selectedDirection, setSelectedDirection] = useState(PRE_DEFINED_DIRECTIONS[0]);
-  const [customCity, setCustomCity] = useState('');
-  const [customCalculated, setCustomCalculated] = useState<any | null>(null);
-  const [activeZone, setActiveZone] = useState<any>(CAMPUS_ZONES[0]);
-  const [activeDirectoryCategory, setActiveDirectoryCategory] = useState('All');
+  const [selectedBuilding, setSelectedBuilding] = useState<Building>(BUILDINGS[0]);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragOrigin = useRef({ mouseX: 0, mouseY: 0, panX: 0, panY: 0 });
+  const lastTouchDist = useRef(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  const handleCustomDirectionSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!customCity.trim()) return;
+  const clampPan = useCallback((px: number, py: number, z: number) => {
+    const maxX = (z - 1) * 50;
+    const maxY = (z - 1) * 50;
+    return {
+      x: Math.max(-maxX, Math.min(maxX, px)),
+      y: Math.max(-maxY, Math.min(maxY, py)),
+    };
+  }, []);
 
-    // Dynamically fabricate a plausible, interactive route recommendation for any custom user input!
-    setCustomCalculated({
-      city: customCity.trim(),
-      distance: `${Math.floor(80 + Math.random() * 300)} km`,
-      time: `${Math.floor(2 + Math.random() * 4)} hrs ${Math.random() > 0.5 ? '15' : '40'} mins`,
-      steps: [
-        `Identify local bypass paths onto Highway 11 or Highway 400 North.`,
-        `Proceed toward regional Barrie access highways following the "Georgian College" road signs.`,
-        `Approach Duckworth St exit and decelerate on the exit ramp.`,
-        `Pass Duckworth St lights and make a right turn into Georgian College gate.`
-      ],
-      parking: 'Complimentary weekend parking applies in Lot 1 during visual sessions.'
-    });
+  const handleZoomIn = () => {
+    const z = Math.min(zoom + 0.5, 4);
+    setZoom(z);
+    setPan(p => clampPan(p.x, p.y, z));
+  };
+  const handleZoomOut = () => {
+    const z = Math.max(zoom - 0.5, 1);
+    setZoom(z);
+    if (z === 1) setPan({ x: 0, y: 0 });
+    else setPan(p => clampPan(p.x, p.y, z));
+  };
+  const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('[data-marker]')) return;
+    setIsDragging(true);
+    dragOrigin.current = { mouseX: e.clientX, mouseY: e.clientY, panX: pan.x, panY: pan.y };
+  };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragOrigin.current.mouseX;
+    const dy = e.clientY - dragOrigin.current.mouseY;
+    setPan(clampPan(dragOrigin.current.panX + dx, dragOrigin.current.panY + dy, zoom));
+  };
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const z = Math.max(1, Math.min(4, zoom + (e.deltaY > 0 ? -0.25 : 0.25)));
+    setZoom(z);
+    if (z === 1) setPan({ x: 0, y: 0 });
+    else setPan(p => clampPan(p.x, p.y, z));
   };
 
-  const currentDisplayDirection = customCalculated || selectedDirection;
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      lastTouchDist.current = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY,
+      );
+    }
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length !== 2) return;
+    e.preventDefault();
+    const d = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY,
+    );
+    const z = Math.max(1, Math.min(4, zoom + (d - lastTouchDist.current) * 0.008));
+    setZoom(z);
+    lastTouchDist.current = d;
+  };
 
-  const directoryPlaces = activeDirectoryCategory === 'All'
-    ? GEORGIAN_COLLEGE_PLACES
-    : GEORGIAN_COLLEGE_PLACES.filter(place => place.type === activeDirectoryCategory);
+  const getSessionsForBuilding = (buildingId: string) => {
+    const keywords = VENUE_SESSION_KEYWORDS[buildingId] ?? [];
+    return SESSIONS.filter(s => keywords.some(kw => s.location.includes(kw)));
+  };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
 
-      {/* Top Hero Map Detail Bar */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+      {/* ── Header ─────────────────────────────────────── */}
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
         <div className="md:col-span-2 space-y-1.5">
           <span className="bg-amber-100 text-[#735c00] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">
             Barrie, Ontario
           </span>
           <h2 className="font-serif text-2xl font-bold text-[#000a1e]">Georgian College Campus</h2>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Located at <strong>1 Georgian Dr, Barrie, ON L4M 3X9</strong>. All residential quarters, plenary lecture chambers, and liturgical prayer chapels have been consolidated on campus for immediate family accessibility.
+            <strong>1 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
           </p>
         </div>
-
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/50 space-y-2">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Security Contact</p>
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Security Contact</p>
           <p className="text-xs font-semibold text-[#000a1e] flex items-center gap-1.5">
             <Phone className="w-3.5 h-3.5 text-[#735c00]" /> +1 (705) 728-1968
           </p>
-          <span className="text-[10px] text-slate-400 block">Available 24/7 for safe walking escorts on campus grounds.</span>
+          <span className="text-[10px] text-slate-400 block">Available 24/7 for safe walking escorts.</span>
         </div>
       </div>
 
-      <div className="w-full">
-        <div className="space-y-6">
-          <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm space-y-4">
-            <div className="space-y-0.5">
-              <div className="flex items-center justify-between">
-                <h3 className="font-serif text-lg font-bold text-[#000a1e] flex items-center gap-1.5">
-                  <Compass className="w-5 h-5 text-[#735c00]" />
-                  Interactive Campus Map
-                </h3>
-                <a href="/campus_map.png" download="Georgian_College_Campus_Map.png" className="text-xs font-semibold text-[#735c00] hover:text-[#000a1e] flex items-center gap-1.5 transition-colors px-3 py-1.5 bg-amber-50 hover:bg-amber-100 rounded-lg">
-                  <Download className="w-3.5 h-3.5" />
-                  Download Map
-                </a>
-              </div>
-              <p className="text-xs text-slate-500">Click the map to open it in full-screen view.</p>
-            </div>
+      {/* ── Map + Panel ─────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-start">
 
-            {/* High-quality Georgian College Campus Map from PDF */}
-            <div 
-              className="relative w-full rounded-2xl border border-slate-200 overflow-hidden shadow-sm bg-slate-50 flex items-center justify-center p-2 cursor-pointer group"
-              onClick={() => setIsLightboxOpen(true)}
+        {/* Map */}
+        <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+          {/* Toolbar */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-white">
+            <h3 className="font-serif text-sm font-bold text-[#000a1e] flex items-center gap-1.5">
+              <Compass className="w-4 h-4 text-[#735c00]" /> Interactive Campus Map
+            </h3>
+            <div className="flex items-center gap-1.5">
+              <button onClick={handleZoomOut} title="Zoom out" className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer">
+                <ZoomOut className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={handleZoomIn} title="Zoom in" className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer">
+                <ZoomIn className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={handleReset} title="Reset view" className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer">
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+              <a
+                href="/campus_map.png"
+                download="Georgian_College_Campus_Map.png"
+                title="Download map"
+                className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#735c00] transition-colors"
+              >
+                <Download className="w-3.5 h-3.5" />
+              </a>
+              <button onClick={() => setIsLightboxOpen(true)} title="Full screen" className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#735c00] transition-colors cursor-pointer">
+                <Maximize2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Zoomable map stage */}
+          <div
+            className={`relative overflow-hidden bg-slate-100 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            style={{ height: 380, touchAction: 'none' }}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onWheel={handleWheel}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          >
+            <div
+              style={{
+                transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                transformOrigin: 'center center',
+                transition: isDragging ? 'none' : 'transform 0.18s ease-out',
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
-              <img 
-                src="/campus_map.png" 
-                alt="Georgian College Campus Map" 
-                className="w-full h-auto object-contain rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg text-slate-700 transform translate-y-4 group-hover:translate-y-0 transition-all">
-                  <Maximize2 className="w-6 h-6" />
+              {/* Base image fills the stage */}
+              <div className="relative w-full h-full flex items-center justify-center">
+                <img
+                  src="/campus_map.png"
+                  alt="Georgian College Campus Map"
+                  draggable={false}
+                  className="max-w-full max-h-full object-contain pointer-events-none"
+                />
+
+                {/* Building markers — positioned absolutely over the image using padding trick */}
+                {/* We use a 100% × 100% overlay div matched to the rendered image area */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  {/* Inner wrapper that matches the natural aspect ratio of the PNG (431:556 ≈ 77.5:100) */}
+                  <div
+                    className="relative"
+                    style={{
+                      // Fill height, constrain width to keep aspect ratio
+                      height: '100%',
+                      aspectRatio: '431 / 556',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    {BUILDINGS.map(building => {
+                      const isSelected = selectedBuilding?.id === building.id;
+                      return (
+                        <button
+                          key={building.id}
+                          data-marker="true"
+                          onClick={(e) => { e.stopPropagation(); setSelectedBuilding(building); }}
+                          title={building.name}
+                          style={{
+                            position: 'absolute',
+                            left: `${building.x}%`,
+                            top: `${building.y}%`,
+                            transform: 'translate(-50%, -50%)',
+                            pointerEvents: 'all',
+                            zIndex: isSelected ? 20 : building.isVenue ? 10 : 5,
+                          }}
+                          className="group focus:outline-none"
+                        >
+                          {/* Pulse ring for venue buildings */}
+                          {building.isVenue && (
+                            <span
+                              className="absolute inset-0 rounded-full animate-ping"
+                              style={{
+                                backgroundColor: '#fed65b',
+                                opacity: 0.45,
+                                animationDuration: '2s',
+                                transform: 'scale(1.8)',
+                              }}
+                            />
+                          )}
+                          <span
+                            className={`relative flex items-center justify-center rounded-full text-[10px] font-extrabold shadow-md border-2 transition-all duration-150
+                              ${isSelected
+                                ? 'w-7 h-7 bg-[#000a1e] border-[#fed65b] text-[#ffe088] scale-125'
+                                : building.isVenue
+                                  ? 'w-6 h-6 bg-[#fed65b] border-white text-[#735c00] group-hover:scale-110'
+                                  : 'w-5 h-5 bg-slate-500 border-white text-white group-hover:bg-slate-700 group-hover:scale-110'
+                              }`}
+                          >
+                            {building.id}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-              <span className="absolute bottom-3 right-4 text-[10px] bg-white/90 px-2 py-1 rounded shadow-sm text-slate-500 font-mono tracking-widest uppercase backdrop-blur-sm border border-slate-200/50 pointer-events-none">Official Campus Map</span>
             </div>
+          </div>
 
-            {/* Lightbox Overlay */}
-            {isLightboxOpen && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-8" onClick={() => setIsLightboxOpen(false)}>
-                <button 
-                  className="absolute top-4 right-4 md:top-8 md:right-8 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                  onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
-                >
-                  <X className="w-6 h-6" />
-                </button>
-                <img 
-                  src="/campus_map.png" 
-                  alt="Campus Map Fullscreen" 
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-auto"
-                  onClick={(e) => e.stopPropagation()}
-                />
+          {/* Legend */}
+          <div className="px-4 py-2.5 border-t border-slate-100 flex items-center gap-4 text-[10px] text-slate-500 bg-white">
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-[#fed65b] border-2 border-white shadow inline-block" />
+              Conference Venue
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-slate-400 border-2 border-white shadow inline-block" />
+              Campus Building
+            </span>
+            <span className="ml-auto text-[9px] text-slate-300 font-mono hidden sm:block">Scroll · zoom · drag · pan</span>
+          </div>
+        </div>
+
+        {/* ── Right Info Panel ────────────────────────── */}
+        <div className="lg:col-span-2 space-y-3">
+
+          {/* Selected building card */}
+          {selectedBuilding && (
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+              <div className={`px-4 py-4 ${selectedBuilding.isVenue ? 'bg-[#000a1e]' : 'bg-slate-700'}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="space-y-1 min-w-0">
+                    <span className={`text-[10px] font-bold uppercase tracking-widest ${selectedBuilding.isVenue ? 'text-[#ffe088]' : 'text-slate-300'}`}>
+                      {selectedBuilding.isVenue ? 'Conference Venue' : 'Campus Building'}
+                    </span>
+                    <h4 className="font-serif text-sm font-bold text-white leading-tight">{selectedBuilding.name}</h4>
+                    <p className="text-[10px] text-slate-400 leading-tight">{selectedBuilding.fullName}</p>
+                  </div>
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-extrabold shrink-0 border
+                    ${selectedBuilding.isVenue ? 'bg-[#fed65b] text-[#735c00] border-[#fed65b]' : 'bg-slate-600 text-white border-slate-500'}`}>
+                    {selectedBuilding.id}
+                  </div>
+                </div>
               </div>
-            )}
 
+              <div className="p-4 space-y-4 max-h-72 overflow-y-auto">
+                <p className="text-xs text-slate-600 leading-relaxed">{selectedBuilding.desc}</p>
+
+                {/* Sessions for venue buildings */}
+                {selectedBuilding.isVenue && (() => {
+                  const sessions = getSessionsForBuilding(selectedBuilding.id);
+                  if (!sessions.length) return null;
+                  const grouped = sessions.reduce<Record<number, typeof sessions>>((acc, s) => {
+                    (acc[s.day] ??= []).push(s);
+                    return acc;
+                  }, {});
+
+                  return (
+                    <div className="space-y-3">
+                      <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 pt-1 border-t border-slate-100">
+                        <Calendar className="w-3 h-3" />
+                        Sessions Here ({sessions.length})
+                      </h5>
+                      {Object.entries(grouped).map(([day, daySessions]) => (
+                        <div key={day} className="space-y-1.5">
+                          <p className="text-[10px] font-bold text-[#735c00] uppercase tracking-wider">
+                            {DAY_LABELS[parseInt(day)]}
+                          </p>
+                          {daySessions.map(s => (
+                            <div key={s.id} className="flex items-start gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
+                              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${CATEGORY_COLORS[s.category] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                                {s.category}
+                              </span>
+                              <div className="min-w-0">
+                                <p className="text-[11px] font-semibold text-slate-800 leading-tight">{s.title}</p>
+                                <p className="text-[9px] text-slate-400 mt-0.5 flex items-center gap-1">
+                                  <Clock className="w-2.5 h-2.5 shrink-0" /> {s.time}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          )}
+
+          {/* Venue quick-select chips */}
+          <div className="space-y-2">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Conference Venues</p>
+            {BUILDINGS.filter(b => b.isVenue).map(b => (
+              <button
+                key={b.id}
+                onClick={() => setSelectedBuilding(b)}
+                className={`w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 cursor-pointer ${
+                  selectedBuilding?.id === b.id
+                    ? 'bg-[#ffe088]/15 border-[#fed65b] text-[#735c00]'
+                    : 'bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50'
+                }`}
+              >
+                <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
+                  selectedBuilding?.id === b.id ? 'bg-[#fed65b] text-[#735c00]' : 'bg-[#000a1e] text-[#ffe088]'
+                }`}>
+                  {b.id}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold leading-tight">{b.name}</p>
+                  <p className="text-[10px] text-slate-400 truncate">{b.fullName}</p>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-40" />
+              </button>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* ── Nearby Spots ──────────────────────────────── */}
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-[#735c00]" />
+          <h3 className="font-serif text-sm font-bold text-[#000a1e]">Nearby Spots</h3>
+        </div>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {GEORGIAN_COLLEGE_PLACES.map((place, i) => {
+            const typeColors: Record<string, string> = {
+              Accommodation: 'bg-teal-100 text-teal-700 border-teal-200',
+              Dining: 'bg-orange-100 text-orange-700 border-orange-200',
+              Café: 'bg-amber-100 text-amber-700 border-amber-200',
+              Sightseeing: 'bg-blue-100 text-blue-700 border-blue-200',
+            };
+            return (
+              <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 hover:border-[#fed65b]/50 transition-colors">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-xs font-bold text-[#000a1e] leading-tight">{place.name}</p>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${typeColors[place.type] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                    {place.type}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">{place.desc}</p>
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                    <MapPin className="w-2.5 h-2.5" /> {place.distance}
+                  </span>
+                  {place.phone && (
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                      <Phone className="w-2.5 h-2.5" /> {place.phone}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── RCC Residence note ────────────────────────── */}
+      <div className="bg-[#000a1e] text-white rounded-2xl p-5 flex items-start gap-4 border border-[#fed65b]/20">
+        <div className="p-2.5 bg-[#fed65b]/15 text-[#ffe088] rounded-xl shrink-0">
+          <Info className="w-5 h-5" />
+        </div>
+        <div className="space-y-1">
+          <h4 className="font-serif text-sm font-bold text-[#ffe088]">Residence & Conference Centre (RCC)</h4>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Delegate housing is at the <strong className="text-white">Georgian College Residence & Conference Centre (RCC)</strong> on campus. Check in at the RCC lobby on arrival (Jul 2, 3:00–5:00 PM) to collect physical keycards. Morning and night prayers are held in the RCC Lounges.
+          </p>
+          <p className="text-[10px] text-slate-400 mt-1">
+            Check-out by <strong className="text-slate-300">Sat Jul 4 · 12:00 PM</strong>. Store luggage in your car or the RCC lounge until after the closing lunch.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Fullscreen lightbox ───────────────────────── */}
+      {isLightboxOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/92 backdrop-blur-sm p-4 md:p-8"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          <button
+            className="absolute top-4 right-4 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors cursor-pointer"
+            onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <img
+            src="/campus_map.png"
+            alt="Campus Map Fullscreen"
+            className="max-w-full max-h-full object-contain rounded-xl shadow-2xl cursor-auto"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
