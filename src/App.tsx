@@ -41,7 +41,7 @@ export default function App() {
 
   // Calculate countdown dynamically
   useEffect(() => {
-    const targetDate = new Date('2026-07-02T15:00:00').getTime();
+    const targetDate = new Date('2026-07-02T18:30:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -151,7 +151,7 @@ export default function App() {
             </button>
 
             <div className="space-y-4 pt-1.5">
-              <div className="w-14 h-14 bg-white rounded-full border-2 border-[#fff0aa] flex items-center justify-center p-1.5 shadow-sm overflow-hidden">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center overflow-hidden">
                 <img
                   src={logoImage}
                   alt="Diocese of Canada Logo"
@@ -171,10 +171,10 @@ export default function App() {
             {[
               { id: 'home', label: 'Welcome Home Screen', icon: Home, subtitle: 'Conference index & overview' },
               { id: 'schedule', label: 'Liturgical & Plenary Schedule', icon: Calendar, subtitle: 'Time schedules and reflections' },
-              { id: 'songs', label: 'Sacred Songs & Hymnals', icon: Music, subtitle: 'Lyrics library & chiming pitch' },
+              { id: 'songs', label: 'Song Library', icon: Music, subtitle: 'Lyrics library & chiming pitch' },
               // { id: 'registration', label: 'Delegate Ticket Pass', icon: UserCheck, subtitle: 'Secure check-in pass or amend' },
               { id: 'speakers', label: 'Keynote Speaker Ensembles', icon: Award, subtitle: 'Read academic profiles' },
-              { id: 'meetings', label: 'Ministry Core Assemblies', icon: Church, subtitle: 'Sunday School & Youth committees' },
+              // { id: 'meetings', label: 'Ministry Core Assemblies', icon: Church, subtitle: 'Sunday School & Youth committees' },
               // { id: 'connect', label: 'Youth Connect Wall', icon: Users, subtitle: 'Greeting post encourages' },
               { id: 'map', label: 'Georgian College Directions', icon: Map, subtitle: 'Driving path, places & dining' }
             ].map((link) => {
@@ -225,12 +225,12 @@ export default function App() {
                   <h2 className="font-serif text-lg font-bold text-slate-300">Diocese of Canada</h2>
 
                   {/* Highly structured central emblem */}
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-lg flex items-center justify-center p-2.5 border-4 border-[#fed65b]">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-lg flex items-center justify-center overflow-hidden">
                     <img
                       src={logoImage}
                       alt="Diocese of Canada Logo"
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-contain rounded-4xl"
+                      className="w-full h-full object-cover rounded-full"
                     />
                   </div>
 
@@ -243,6 +243,15 @@ export default function App() {
 
                   <div className="bg-[#ffe088]/10 border border-[#fed65b]/30 backdrop-blur-md rounded-xl py-3 px-6 mt-2 shadow-sm">
                     <p className="font-serif text-[#ffe088] text-base sm:text-lg italic font-medium">"Timeless Truth for a Changing World"</p>
+                  </div>
+
+                  <div className="text-center mt-2">
+                    <p className="font-serif italic text-[#fed65b] text-sm sm:text-base leading-relaxed">
+                      "Jesus Christ is the same yesterday and today and forever."
+                    </p>
+                    <p className="text-[#ffe088] text-[10px] font-bold uppercase tracking-wider mt-1">
+                      - Hebrews 13:8
+                    </p>
                   </div>
                 </div>
               </section>
@@ -310,7 +319,7 @@ export default function App() {
                     <Music className="w-6 h-6 text-[#ffe088]" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-serif text-base font-bold text-white">Chant Song Library</h4>
+                    <h4 className="font-serif text-base font-bold text-white">Song Library</h4>
                     <p className="text-xs text-slate-300">Access Malayalam transliterated lyrics and pitch helpers.</p>
                   </div>
                   <span className="absolute bottom-6 right-6 p-1.5 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -364,22 +373,23 @@ export default function App() {
 
               {/* Main Split Layout */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                
+
                 {/* Left side: Major Highlight Callout */}
                 <div className="lg:col-span-5 bg-[#000a1e] text-white p-8 rounded-2xl border border-[#fed65b]/30 shadow-md flex flex-col justify-between relative overflow-hidden group hover:border-[#fed65b] transition-all">
                   {/* Backdrop subtle glow */}
                   <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#fed65b]/5 rounded-full blur-3xl pointer-events-none"></div>
-                  
+
                   <div className="space-y-6 relative z-10">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fed65b]/15 border border-[#fed65b]/30 text-[#ffe088] text-[10px] uppercase font-bold tracking-wider font-sans">
                       <Church className="w-3.5 h-3.5" />
                       <span>Historic Milestone</span>
                     </div>
-                    
+
                     <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#ffe088] leading-tight">
                       A New Era of Orthodox Life in Canada
                     </h4>
-                    
+
+
                     <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
                       The Diocese of Canada of the Malankara Orthodox Syrian Church prayerfully announces the first annual Family &amp; Youth Conference (FYC 2026), to be held from Thursday, July 2 to Saturday, July 4, 2026, at Georgian College, Barrie, Ontario.
                     </p>
@@ -417,7 +427,7 @@ export default function App() {
                       <Heart className="w-5.5 h-5.5" />
                     </div>
                     <div className="space-y-1">
-                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Timeless Truths</h5>
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Timeless Truth</h5>
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
                         Rooted in this theme, the conference seeks to reflect on the unchanging truth of Christ in a rapidly changing world. FYC 2026 aims to strengthen Orthodox identity, nurture strong Christian families, guide youth in faith, and deepen communion within the Church community.
                       </p>
@@ -486,7 +496,7 @@ export default function App() {
                       onClick={() => handleTabChange('speakers')}
                       className="px-3 py-1 bg-slate-100 hover:bg-[#ffe088]/30 hover:text-[#735c00] border border-slate-200 text-slate-600 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all"
                     >
-                      Read full Bio &amp; Q&amp;A
+                      Read full Bio
                     </button>
                   </div>
                 ))}
@@ -531,10 +541,10 @@ export default function App() {
                 {/* Right Side: Committee Grid */}
                 <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
-                    { name: 'Rev. Fr. Dr. Thomas George', role: 'General Convenor', initials: 'TG' },
-                    { name: 'Rev. Fr. Sam Thankachan', role: 'Conference Coordinator', initials: 'ST' },
-                    { name: 'Mr. Manu Abraham', role: 'Secretary', initials: 'MA' },
-                    { name: 'Mr. Vivin Vettiyil', role: 'Joint Secretary', initials: 'VV' }
+                    { name: 'Rev. Fr. Dr. Thomas George', role: 'General Convenor', initials: 'TG', phone: '+1 (647) 449-0590' },
+                    { name: 'Rev. Fr. Sam Thankachan', role: 'Conference Coordinator', initials: 'ST', phone: '+1 (647) 515-7231' },
+                    { name: 'Mr. Manu Abraham', role: 'Secretary', initials: 'MA', phone: '+1 (416) 953-9686' },
+                    { name: 'Mr. Vivin Vettiyil', role: 'Joint Secretary', initials: 'VV', phone: '+1 (437) 871-2323' }
                   ].map((member, idx) => (
                     <div
                       key={idx}
@@ -546,6 +556,7 @@ export default function App() {
                       <div className="space-y-0.5 min-w-0">
                         <p className="font-serif text-xs sm:text-sm font-extrabold text-[#000a1e] truncate">{member.name}</p>
                         <p className="text-[10px] text-slate-500 font-sans tracking-wide uppercase font-semibold">{member.role}</p>
+                        <p className="text-[14px] text-[#735c00] font-sans tracking-wide uppercase font-semibold"><a href={`tel:${member.phone}`} className="hover:underline">{member.phone}</a></p>
                       </div>
                     </div>
                   ))}
@@ -554,14 +565,14 @@ export default function App() {
             </section>
 
             {/* 6. Scripture quote and citations footer */}
-            <div className="bg-[#000a1e] text-[#ffe088] px-6 py-8 text-center border-t border-white/10 space-y-2 font-serif shadow-inner">
+            {/* <div className="bg-[#000a1e] text-[#ffe088] px-6 py-8 text-center border-t border-white/10 space-y-2 font-serif shadow-inner">
               <p className="text-base sm:text-lg italic max-w-2xl mx-auto opacity-95">
                 "Jesus Christ is the same yesterday and today and forever."
               </p>
               <span className="block text-slate-300 tracking-wider font-sans uppercase font-bold text-[10px] mt-1">
                 - Hebrews 13:8
               </span>
-            </div>
+            </div> */}
 
           </div>
         )}
@@ -574,7 +585,7 @@ export default function App() {
         {/* {activeTab === 'connect' && <YouthConnectView />} */}
 
         {/* Core assemblies / Association Details */}
-        {activeTab === 'meetings' && (
+        {/* {activeTab === 'meetings' && (
           <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
             <div className="bg-white border p-6 rounded-2xl shadow-sm space-y-1.5">
               <h2 className="font-serif text-2xl font-bold text-primary-container">Ministry Core Meetings</h2>
@@ -600,7 +611,7 @@ export default function App() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
       </main>
 

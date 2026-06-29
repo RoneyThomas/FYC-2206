@@ -3,7 +3,7 @@ import { SESSIONS, GEORGIAN_COLLEGE_PLACES } from '../data';
 import {
   Compass, Phone, X, Download, Maximize2,
   ZoomIn, ZoomOut, RotateCcw, Calendar, MapPin,
-  ChevronRight, Clock, Info,
+  ChevronRight, Clock, Info, ExternalLink,
 } from 'lucide-react';
 
 type Building = {
@@ -14,6 +14,8 @@ type Building = {
   y: number; // % from top of image
   isVenue: boolean;
   desc: string;
+  maplink: string;
+  address: string;
 };
 
 const BUILDINGS: Building[] = [
@@ -21,23 +23,36 @@ const BUILDINGS: Building[] = [
     id: 'N', name: 'ABSC Event Space', fullName: 'Peter B. Moore Centre (Building N)',
     x: 56, y: 18, isVenue: true,
     desc: 'Main conference hall. Hosts the inaugural ceremony, all meals (breakfast, lunch, dinner), evening prayers, cultural programs, devotional addresses, and Holy Qurbana.',
+    maplink: 'https://maps.app.goo.gl/76Xk9GQkyHKGknBJ6',
+    address: 'Building N, 3rd Floor, Room N302B'
   },
   {
     id: 'K', name: 'Alumni Hall', fullName: 'University Partnership Centre (Building K)',
     x: 34, y: 41, isVenue: true,
     desc: 'Keynote addresses, plenary sessions, Q&A panels, group discussions, and spiritual organization meetings. Classrooms K217 & K224 are also here.',
+    maplink: 'https://maps.app.goo.gl/XD6wmxzKyY4EHiNX9',
+    address: 'Building K, Alumni Hall'
   },
   {
-    id: 'B', name: 'Student Residence (RCC)', fullName: 'Student Residence (RCC)',
-    x: 70, y: 25, isVenue: false,
+    id: 'B', name: 'Residence & Conference Center (RCC)', fullName: 'Student Residence (RCC)',
+    x: 68, y: 26, isVenue: true,
     desc: 'Accommodation for conference delegates',
+    maplink: 'https://maps.app.goo.gl/BUbEF9oXbdJRj2c98',
+    address: '101 Georgian Dr, Barrie, ON'
+  },
+  {
+    id: 'P', name: 'Parking', fullName: 'Student Residence Parking',
+    x: 70, y: 22, isVenue: true,
+    desc: 'Lot adjacent to RCC',
+    maplink: 'https://maps.app.goo.gl/hUS8n5g1CueM25Bv9',
+    address: 'Lot adjacent to RCC'
   }
 ];
 
 const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
   N: ['Building N', 'ABSC'],
   K: ['Building K', 'Alumni Hall', 'K217', 'K224'],
-  B: ['Student Residence (RCC)'],
+  B: ['Student Residence (RCC)', 'Residence & Conference Center (RCC)'],
 };
 
 const DAY_LABELS: Record<number, string> = { 1: 'Thu · Jul 2', 2: 'Fri · Jul 3', 3: 'Sat · Jul 4' };
@@ -60,12 +75,8 @@ export default function MapView() {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const clampPan = useCallback((px: number, py: number, z: number) => {
-    const maxX = (z - 1) * 50;
-    const maxY = (z - 1) * 50;
-    return {
-      x: Math.max(-maxX, Math.min(maxX, px)),
-      y: Math.max(-maxY, Math.min(maxY, py)),
-    };
+    // Unbounded free panning, but we keep the signature for consistency
+    return { x: px, y: py };
   }, []);
 
   const handleZoomIn = () => {
@@ -76,8 +87,7 @@ export default function MapView() {
   const handleZoomOut = () => {
     const z = Math.max(zoom - 0.5, 1);
     setZoom(z);
-    if (z === 1) setPan({ x: 0, y: 0 });
-    else setPan(p => clampPan(p.x, p.y, z));
+    setPan(p => clampPan(p.x, p.y, z));
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
 
@@ -98,8 +108,7 @@ export default function MapView() {
     e.preventDefault();
     const z = Math.max(1, Math.min(4, zoom + (e.deltaY > 0 ? -0.25 : 0.25)));
     setZoom(z);
-    if (z === 1) setPan({ x: 0, y: 0 });
-    else setPan(p => clampPan(p.x, p.y, z));
+    setPan(p => clampPan(p.x, p.y, z));
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -138,7 +147,7 @@ export default function MapView() {
           </span>
           <h2 className="font-serif text-2xl font-bold text-[#000a1e]">Georgian College Campus</h2>
           <p className="text-xs text-slate-500 leading-relaxed">
-            <strong>1 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
+            <strong>101 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
           </p>
         </div>
         {/* <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
@@ -243,7 +252,7 @@ export default function MapView() {
                             position: 'absolute',
                             left: `${building.x}%`,
                             top: `${building.y}%`,
-                            transform: 'translate(-50%, -50%)',
+                            transform: `translate(-50%, -50%) scale(${1 / zoom})`,
                             pointerEvents: 'all',
                             zIndex: isSelected ? 20 : building.isVenue ? 10 : 5,
                           }}
@@ -319,6 +328,15 @@ export default function MapView() {
 
               <div className="p-4 space-y-4 max-h-72 overflow-y-auto">
                 <p className="text-xs text-slate-600 leading-relaxed">{selectedBuilding.desc}</p>
+                {selectedBuilding.maplink && (
+                  <div>
+                    <a href={selectedBuilding.maplink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs text-blue-700 font-semibold hover:text-blue-900 transition-colors group">
+                      <MapPin className="w-3.5 h-3.5 text-blue-600/70 group-hover:text-blue-900" />
+                      Open in Google Maps
+                      <ExternalLink className="w-3 h-3 text-blue-600/70 group-hover:text-blue-900" />
+                    </a>
+                  </div>
+                )}
 
                 {/* Sessions for venue buildings */}
                 {selectedBuilding.isVenue && (() => {
@@ -389,6 +407,29 @@ export default function MapView() {
         </div>
       </div>
 
+      {/* ── Conference Venues ──────────────────────────
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden mt-8 mb-8">
+        <div className="px-4 py-3 border-b border-slate-100 flex flex-wrap items-center gap-2 justify-between">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#735c00]" />
+            <h3 className="font-serif text-sm font-bold text-[#000a1e]">Conference Venues</h3>
+          </div>
+          <span className="text-[10px] text-slate-400 hidden sm:block">Tap to open driving directions</span>
+        </div>
+
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {BUILDINGS.map((building) => (
+            <a key={building.id} href={building.maplink} target="_blank" rel="noreferrer" className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 flex items-center justify-between hover:border-[#fed65b]/50 hover:bg-[#fed65b]/5 transition-colors group">
+              <div className="space-y-1.5">
+                <p className="text-xs font-bold text-[#000a1e] leading-tight group-hover:text-[#735c00] transition-colors">{building.name}</p>
+                <p className="text-[11px] text-slate-500 leading-relaxed">{building.address}</p>
+              </div>
+              <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#735c00] shrink-0 transition-colors" />
+            </a>
+          ))}
+        </div>
+      </div> */}
+
       {/* ── Nearby Spots ──────────────────────────────── */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
@@ -404,9 +445,12 @@ export default function MapView() {
               Sightseeing: 'bg-blue-100 text-blue-700 border-blue-200',
             };
             return (
-              <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 hover:border-[#fed65b]/50 transition-colors">
+              <a key={i} href={(place as any).maplink} target="_blank" rel="noreferrer" className="block bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 hover:border-[#fed65b]/50 hover:bg-[#fed65b]/5 transition-colors group">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-xs font-bold text-[#000a1e] leading-tight">{place.name}</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-[#000a1e] leading-tight group-hover:text-[#735c00] transition-colors">{place.name}</p>
+                    <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-[#735c00] transition-colors" />
+                  </div>
                   <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${typeColors[place.type] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
                     {place.type}
                   </span>
@@ -417,19 +461,19 @@ export default function MapView() {
                     <MapPin className="w-2.5 h-2.5" /> {place.distance}
                   </span>
                   {place.address && (
-                    <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                      <MapPin className="w-2.5 h-2.5" /> {place.address}
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1 truncate max-w-[120px]" title={place.address}>
+                      {place.address}
                     </span>
                   )}
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>
       </div>
 
       {/* ── RCC Residence note ────────────────────────── */}
-      <div className="bg-[#000a1e] text-white rounded-2xl p-5 flex items-start gap-4 border border-[#fed65b]/20">
+      {/* <div className="bg-[#000a1e] text-white rounded-2xl p-5 flex items-start gap-4 border border-[#fed65b]/20">
         <div className="p-2.5 bg-[#fed65b]/15 text-[#ffe088] rounded-xl shrink-0">
           <Info className="w-5 h-5" />
         </div>
@@ -442,7 +486,7 @@ export default function MapView() {
             Check-out by <strong className="text-slate-300">Sat Jul 4 · 12:00 PM</strong>. Store luggage in your car or the RCC lounge until after the closing lunch.
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* ── Fullscreen lightbox ───────────────────────── */}
       {isLightboxOpen && (

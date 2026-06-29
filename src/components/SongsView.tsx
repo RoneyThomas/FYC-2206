@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { SONGS } from '../data';
 import { Song } from '../types';
-import { Search, Music, Sparkles, BookOpen, Volume2, Type, ToggleLeft, ToggleRight, Info } from 'lucide-react';
+import { Search, Music, Sparkles, BookOpen, Volume2, Type, ToggleLeft, ToggleRight, Info, Sun, Moon, Maximize2, Minimize2 } from 'lucide-react';
 
 export default function SongsView() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedSong, setSelectedSong] = useState<Song>(SONGS[0]);
   const [isTransliterated, setIsTransliterated] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [fontSizeClass, setFontSizeClass] = useState<number>(14); // in pixels
 
   // Audio playback indicator
@@ -145,7 +147,7 @@ export default function SongsView() {
             {/* Category selection list */}
             <div className="space-y-1 pt-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">Category Filter</label>
-              {['All', 'Hymns of Saint Mary', 'Liturgical Chants', 'Communion Hymns'].map((category) => (
+              {['All'].map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
@@ -192,7 +194,10 @@ export default function SongsView() {
 
         {/* Right column: Interactive Lyric Screen and Controls */}
         <div className="md:col-span-2 space-y-4">
-          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col min-h-[480px]">
+          <div className={isFullScreen 
+            ? `fixed inset-0 z-[200] flex flex-col h-[100dvh] overflow-hidden ${isDarkMode ? 'bg-[#000a1e]' : 'bg-white'}` 
+            : "bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col min-h-[480px]"
+          }>
             {/* Lyrics Header (Visual and controls) */}
             <div className="p-5 bg-slate-50 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="space-y-1">
@@ -221,6 +226,32 @@ export default function SongsView() {
                   <span className="text-[11px]">{isPlayingMelody ? 'Playing...' : 'Tune Pitch'}</span>
                 </button> */}
 
+                {/* Full Screen Toggle */}
+                <button
+                  onClick={() => setIsFullScreen(!isFullScreen)}
+                  className={`p-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer md:hidden ${
+                    isDarkMode
+                      ? 'bg-slate-800 text-slate-300 hover:text-white border border-slate-700'
+                      : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                  }`}
+                  title="Toggle full screen lyrics"
+                >
+                  {isFullScreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                </button>
+
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className={`p-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                    isDarkMode
+                      ? 'bg-slate-800 text-amber-300 shadow-sm border border-slate-700'
+                      : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                  }`}
+                  title="Toggle dark mode for lyrics"
+                >
+                  {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                </button>
+
                 {/* Font Size controls */}
                 <div className="flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden">
                   <button
@@ -242,36 +273,36 @@ export default function SongsView() {
               </div>
             </div>
 
-            {/* Tab switch bar (Malayalam Transliterated vs English translation) */}
-            <div className="flex border-b border-slate-100">
+            {/* Tab switch bar */}
+            <div className={`flex border-b ${isDarkMode ? 'border-slate-800 bg-slate-900' : 'border-slate-100 bg-white'}`}>
               <button
                 onClick={() => setIsTransliterated(false)}
-                className={`flex-1 text-center py-2.5 text-xs font-semibold border-b-2 cursor-pointer ${!isTransliterated
-                  ? 'border-[#735c00] text-[#735c00] bg-[#ffe088]/5 font-bold'
-                  : 'border-transparent text-slate-500 hover:text-[#000a1e]'
+                className={`flex-1 text-center py-2.5 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${!isTransliterated
+                  ? (isDarkMode ? 'border-amber-400 text-amber-400 bg-amber-400/10' : 'border-[#735c00] text-[#735c00] bg-[#ffe088]/5')
+                  : (isDarkMode ? 'border-transparent text-slate-400 hover:text-slate-200' : 'border-transparent text-slate-500 hover:text-[#000a1e]')
                   }`}
               >
-                English Translation
+                English (Manglish)
               </button>
               <button
                 onClick={() => setIsTransliterated(true)}
-                className={`flex-1 text-center py-2.5 text-xs font-semibold border-b-2 cursor-pointer ${isTransliterated
-                  ? 'border-[#735c00] text-[#735c00] bg-[#ffe088]/5 font-bold'
-                  : 'border-transparent text-slate-500 hover:text-[#000a1e]'
+                className={`flex-1 text-center py-2.5 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${isTransliterated
+                  ? (isDarkMode ? 'border-amber-400 text-amber-400 bg-amber-400/10' : 'border-[#735c00] text-[#735c00] bg-[#ffe088]/5')
+                  : (isDarkMode ? 'border-transparent text-slate-400 hover:text-slate-200' : 'border-transparent text-slate-500 hover:text-[#000a1e]')
                   }`}
               >
-                Malayalam Transliteration
+                Malayalam (മലയാളം)
               </button>
             </div>
 
             {/* Lyrics Content */}
-            <div className="p-6 flex-1 bg-white flex flex-col justify-between">
+            <div className={`p-6 flex-1 flex flex-col justify-between overflow-y-auto transition-colors ${isDarkMode ? 'bg-[#000a1e]' : 'bg-white'}`}>
               <div className="space-y-6">
                 <p
-                  className="whitespace-pre-line text-slate-700 leading-relaxed font-serif text-center italic"
+                  className={`whitespace-pre-line leading-relaxed font-serif text-center transition-colors ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}
                   style={{ fontSize: `${fontSizeClass}px` }}
                 >
-                  {isTransliterated ? selectedSong.lyricsTransliterated : selectedSong.lyricsEnglish}
+                  {isTransliterated ? (selectedSong.lyricsMalayalam || selectedSong.lyricsTransliterated) : selectedSong.lyricsTransliterated}
                 </p>
               </div>
 

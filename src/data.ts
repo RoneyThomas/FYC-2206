@@ -431,131 +431,355 @@ export const SESSIONS: Session[] = [
 export const SONGS: Song[] = [
   {
     id: 'song-1',
-    title: 'Kukiliyon of Saint Mary (Kanyaka Mariam)',
-    category: 'Hymns of Saint Mary',
-    englishTitle: 'Intercession Hymn of the Virgin Mary',
-    lyricsEnglish: `Let us honor Mary, the mother of our Lord,
-A fertile harbor and beautiful ship of our faith,
-Who carried the Savior who bears the universe.
+    title: 'Lokathin Sainyam',
+    category: 'General worship',
+    englishTitle: 'Lokathin Sainyam',
+    lyricsEnglish: `Lokathin sainyam paalayamirangum
+Njaan bhayappedilla bhayappedilla (2)
+Chenkadal kadathiya Daivamenne
+Ee Yorddaan kadathidum nishchayamaay (2)
 
-All generations shall call her blessed,
-As she prayed with devotion,
-"May your mercy fall upon this creation of yours."
-O Lord, by her prayers, save our souls!`,
-    lyricsTransliterated: `Mariyaam parayunnu: en nalloru vaalilaaye,
-Srishtaave! nin srishtikalil kripayundu aakaname.
-Bhagyam janaloke, ninne chonnidumennennekkum.
-Ninte thirunaamam kondaadine nannaye raajyam,
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)
 
-Kripa nalkuka naadha, ninnude kripayaal njangal,
-Vaazhthuka ninkripaye, ennum thirumunpil thunayaay,
-Devamaathaave, njangalkkayi nee thunayaaname...`,
-    keyNotes: 'Sung during liturgical incenses and Kukiliyons in ancient Tone 8 layout. Revering Saint Mary’s maternal custody.',
-    tempo: 'Solemn 80 BPM'
+Theneecha pole chuttivalanjaal
+Multhi poleavar kettupokum (2)
+Daivathin valamkai uyarnnirikkum
+Daivathin kai enne rakshichidum (2)
+
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)
+
+Raajaavin hridayam Daivathin kayyil
+Neerthodu kanakke irikkunnallo (2)
+Daivathin vachanam nilaninnidum
+Daivathin vachanam njaan aaswadikkum (2)
+
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)`,
+    lyricsTransliterated: `Lokathin sainyam paalayamirangum
+Njaan bhayappedilla bhayappedilla (2)
+Chenkadal kadathiya Daivamenne
+Ee Yorddaan kadathidum nishchayamaay (2)
+
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)
+
+Theneecha pole chuttivalanjaal
+Multhi poleavar kettupokum (2)
+Daivathin valamkai uyarnnirikkum
+Daivathin kai enne rakshichidum (2)
+
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)
+
+Raajaavin hridayam Daivathin kayyil
+Neerthodu kanakke irikkunnallo (2)
+Daivathin vachanam nilaninnidum
+Daivathin vachanam njaan aaswadikkum (2)
+
+Njaan patharukilla thalarukilla
+Swarggeeya Daivam koodeyundu (2)
+Bhayappedilla bhramikkayilla
+Swarggeeya Daivam koodeyundu (2)`,
+    lyricsMalayalam: `ലോകത്തിൻ സൈന്യം പാളയമിറങ്ങും
+ഞാൻ ഭയപ്പെടില്ല ഭയപ്പെടില്ല (2) 
+ചെങ്കടൽ കടത്തിയ ദൈവമെന്നെ
+ഈ യോർദ്ദാൻ കടത്തിടും നിശ്ചയമായ് (2) 
+
+ഞാൻ പതറുകില്ല തളരുകില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2) 
+ഭയപ്പെടില്ല, ഭ്രമിക്കയില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2)
+
+തേനീച്ച പോലെ ചുറ്റിവളഞ്ഞാൽ
+മുൾത്തീ പോലെവർ കെട്ടുപോകും (2) 
+ദൈവത്തിൻ വലംകൈ ഉയർന്നിരിക്കും
+ദൈവത്തിൻ കൈ എന്നെ രക്ഷിച്ചിടും (2) 
+
+ഞാൻ പതറുകില്ല തളരുകില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2) 
+ഭയപ്പെടില്ല, ഭ്രമിക്കയില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2)
+
+രാജാവിൻ ഹൃദയം ദൈവത്തിൻ കയ്യിൽ
+നീർത്തോടു കണക്കെ ഇരിക്കുന്നല്ലോ (2) 
+ദൈവത്തിൻ വചനം നിലനിന്നിടും
+ദൈവത്തിൻ വചനം ഞാൻ ആസ്വദിക്കും (2) 
+
+ഞാൻ പതറുകില്ല തളരുകില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2) 
+ഭയപ്പെടില്ല, ഭ്രമിക്കയില്ല
+സ്വർഗ്ഗീയ ദൈവം കൂടെയുണ്ട് (2)`
   },
   {
     id: 'song-2',
-    title: 'Yajamanan Varum Nerathu (The Alert Servants)',
-    category: 'Liturgical Chants',
-    englishTitle: 'Blessed Are Those Servants',
-    lyricsEnglish: `Blessed are those servants whom the Master,
-When He comes, shall find awake and alert!
-He will gird Himself, make them sit at meat,
-And serve them with eternal provisions.
+    title: 'Ente daivam karunayalenne',
+    category: 'General worship',
+    englishTitle: 'Ente daivam karunayalenne',
+    lyricsEnglish: `Ente daivam karunayalenne
+Oro nimishavum vazhinadathum (2)
+Ente daivam krupayalenne
+Ennannekkumayi vazhinadathum (2)
 
-The Father will bless, the Son will serve,
-The Holy Spirit will weave beautiful crowns for them.
-Hallelujah, yes, blessed are those faithful souls!`,
-    lyricsTransliterated: `Yajamanan varumnerath-unarnnirikkunnor-aam,
-Nalladasare dhaanathil kandaal bhagyametram!
-Aaranju thalaridathe nirayittu nirathee,
-Yajamanan thaan-avarude arikil poy paricharikkum.
+Israyelin velicham thelinjeedumpol
+Mullum parakkarayum dahicheedume (2)
+Enikku munbe nee poyeedumpol
+Durgadangalellam nirappakume (2)
 
-Pithavu avarude sreshtha thalaonnu thalodum,
-Puthran-avarkku pathram nalki kripaye thookum,
-Ruha dhivyamaan-avarkkaayi mudikal korukkum,
-Haleluyah, vaazhthuka njaan sreshtha manushyane!`,
-    keyNotes: 'A classic Vigil/Kaltha hymn from the ancient Syrian Antiochian Liturgical cycle representing spiritual wakefulness.',
-    tempo: 'Chanted, Free Tempo'
+Ardratha karunayale nokkeedumpol
+Ente hridayamennum anandhikkum (2)
+Puthu krubayalenney nirakkumpol
+En prananennum anandhikkum (2)`,
+    lyricsTransliterated: `Ente daivam karunayalenne
+Oro nimishavum vazhinadathum (2)
+Ente daivam krupayalenne
+Ennannekkumayi vazhinadathum (2)
+
+Israyelin velicham thelinjeedumpol
+Mullum parakkarayum dahicheedume (2)
+Enikku munbe nee poyeedumpol
+Durgadangalellam nirappakume (2)
+
+Ardratha karunayale nokkeedumpol
+Ente hridayamennum anandhikkum (2)
+Puthu krubayalenney nirakkumpol
+En prananennum anandhikkum (2)`,
+    lyricsMalayalam: `എന്റെ ദൈവം കരുണയാലെന്നെ
+ഓരോ നിമിഷവും വഴിനടത്തും (2)
+എന്റെ ദൈവം കൃപയാലെന്നെ
+എന്നെന്നേക്കുമായി വഴിനടത്തും (2)
+
+ഇസ്രായേലിൻ വെളിച്ചം തെളിഞ്ഞീടുമ്പോൾ
+മുള്ളും പറക്കാരയും ദഹിച്ചീടുമേ (2)
+എനിക്കു മുൻപേ നീ പോയീടുമ്പോൾ
+ദുർഘടങ്ങളെല്ലാം നിരപ്പാകുമേ (2)
+
+ആർദ്രത കരുണയാലെ നോക്കീടുമ്പോൾ
+എന്റെ ഹൃദയമെന്നും ആനന്ദിക്കും (2)
+പുതു കൃപയാലെന്നെ നിറയ്ക്കുമ്പോൾ
+എൻ പ്രാണനെന്നും ആനന്ദിക്കും (2)`
   },
   {
     id: 'song-3',
-    title: 'Anpudayone Nin Vaathil (Merciful Lord)',
-    category: 'Liturgical Chants',
-    englishTitle: 'O Merciful Lord, Open Thy Door of Mercy',
-    lyricsEnglish: `O Merciful Lord, open Your gate to us,
-Sinner souls who call upon Your great name!
-Through Your abundant grace, answer our sighs,
-Do not turn us away from your high throne.
+    title: 'Dhinam Thorum Enne',
+    category: 'General worship',
+    englishTitle: 'Dhinam Thorum Enne',
+    lyricsEnglish: `Dhinam thorum enne nadathunna krupaykkai
+Yaagamaai enne samarppikkunnu (2)
+Aathmaavil ennum niraykkunna krupaykkai
+Sthothramaam yaagangal arpichidunnu (2)
 
-Save us from spiritual failures and biological diseases,
-Pour Your peaceful oils upon our anxious hearts.
-Glorified be Your name, from ages to ages!`,
-    lyricsTransliterated: `Anpudayone nin vaathil-muttunnu njaan kripayaal,
-Ennilumulla ninte kripaye ennil nirayickename!
-Prarthana kelkkunnone, njaan thozhuthu choriyum kanneer,
-Kaikaikondu ente paapathe neekkiyidename.
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)
 
-Rogavum sankadavum anayunna njerukangalil,
-Sanketamaye ninnude valathukai kaattidename,
-Haleluyah - paadunnu njangal ennum thrukkayyil,
-Thunayaakaname naadha, nirantharamen jeevanil.`,
-    keyNotes: 'Commonly sung during evening prayers or canonical vigils. A powerful, deeply emotional cry for divine intervention.',
-    tempo: 'Emotional, slow 65 BPM'
+Puthranaam Yesuvin koodeyennum
+Vasikkuvaan krupayaruledaname (2)
+Vishudhiyodennum jeevikkuvaan
+Krupayarulename ennumennum (2)
+
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)
+
+Parishudhaathmaavinte bhalangalaale
+Niraykkunna naadhane sthuthichidum njaan (2)
+Jeevante naadhanaam Yesuvine
+Sthuthichidunnu njaan ennumennum (2)
+
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)`,
+    lyricsTransliterated: `Dhinam thorum enne nadathunna krupaykkai
+Yaagamaai enne samarppikkunnu (2)
+Aathmaavil ennum niraykkunna krupaykkai
+Sthothramaam yaagangal arpichidunnu (2)
+
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)
+
+Puthranaam Yesuvin koodeyennum
+Vasikkuvaan krupayaruledaname (2)
+Vishudhiyodennum jeevikkuvaan
+Krupayarulename ennumennum (2)
+
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)
+
+Parishudhaathmaavinte bhalangalaale
+Niraykkunna naadhane sthuthichidum njaan (2)
+Jeevante naadhanaam Yesuvine
+Sthuthichidunnu njaan ennumennum (2)
+
+Samarppikkunnu samarppikkunnu
+Poornamaai enne samarppikkunnu (2)`,
+    lyricsMalayalam: `ദിനംതോറും എന്നെ നടത്തുന്ന കൃപയ്ക്കായ്
+യാഗമായ് എന്നെ സമർപ്പിക്കുന്നു (2)
+ആത്മാവിൽ എന്നും നിറയ്ക്കുന്ന കൃപയ്ക്കായ്
+സ്തോത്രമാം യാഗങ്ങൾ അർപ്പിച്ചിടുന്നു (2)
+
+സമർപ്പിക്കുന്നു സമർപ്പിക്കുന്നു
+പൂർണ്ണമായ് എന്നെ സമർപ്പിക്കുന്നു (2)
+
+പുത്രനാം യേശുവിൻ കൂടെയെന്നും
+വസിക്കുവാൻ കൃപയരുളീടണമെ (2)
+വിശുദ്ധിയോടെന്നും ജീവിക്കുവാൻ
+കൃപയരുളേണമേ എന്നുമെന്നെന്നും (2)
+
+സമർപ്പിക്കുന്നു സമർപ്പിക്കുന്നു
+പൂർണ്ണമായ് എന്നെ സമർപ്പിക്കുന്നു (2)
+
+പരിശുദ്ധാത്മാവിന്റെ ഫലങ്ങളാലെ
+നിറയ്ക്കുന്ന നാഥനെ സ്തുതിച്ചിടും ഞാൻ (2)
+ജീവന്റെ നാഥനാം യേശുവിനെ
+സ്തുതിച്ചിടുന്നു ഞാൻ എന്നുമെന്നെന്നും (2)
+
+സമർപ്പിക്കുന്നു സമർപ്പിക്കുന്നു
+പൂർണ്ണമായ് എന്നെ സമർപ്പിക്കുന്നു (2)`
   },
   {
     id: 'song-4',
-    title: 'Mishiha Jeevadaathaave (Communion Anthem)',
-    category: 'Communion Hymns',
-    englishTitle: 'Christ the Life-Giver',
-    lyricsEnglish: `O Christ, the Giver of Life to all flesh,
-We partake in Your Holy Body and Blood
-With absolute awe, reverence, and gratitude.
+    title: 'Nanniyode Njan Sthuthi Paadidum',
+    category: 'General worship',
+    englishTitle: 'Nanniyode Njan Sthuthi Paadidum',
+    lyricsEnglish: `Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan (2)
 
-Cleanse our inner senses and thoughts,
-Let Your dynamic power flow in our veins,
-Granting us health of soul and dynamic focus.`,
-    lyricsTransliterated: `Mishiha jeevadaathaave, nin thiru-sarirangalum,
-Rudhiravum-nalki enikkaalpaathayekki nee.
-Vandicken njaan thirunaamathe dharayathil ennum,
-Nalkuka bhagyam-enikkee thirubhojanathilayi.
+Arhikkatha nanmakalum
+Enikkekidum daya nidhe
+Yaachikkatha nanmakal polumee
+Enikkekuvone Sthuthi
 
-Ente hridayathe nee dhivya-prabha-aakeename,
-Thirusabha-kannikalen pol vaazhthum ennum,
-Haleluyah, paadunnu srishti srishtaavinaay,
-Aamennum nithyamen nithyam-anuvaaadiyaye.`,
-    keyNotes: 'A sublime communion hymn celebrating the spiritual unity achieved in the Holy mysteries.',
-    tempo: 'Serene 72 BPM'
+Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan
+
+Satya daivathin eka puthranai
+Ninne viswasikkunnu njan
+Varum kaalamokkeyum nin kripa
+Varangal chorika ennil
+
+Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan (2)`,
+    lyricsTransliterated: `Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan (2)
+
+Arhikkatha nanmakalum
+Enikkekidum daya nidhe
+Yaachikkatha nanmakal polumee
+Enikkekuvone Sthuthi
+
+Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan
+
+Satya daivathin eka puthranai
+Ninne viswasikkunnu njan
+Varum kaalamokkeyum nin kripa
+Varangal chorika ennil
+
+Nanniyode njan Sthuthi Paadidum
+Ente Yeshu Naadha
+Enikkay nee Cheythoro nanmaykkum
+Innu nanni chollunnu njan (2)`,
+    lyricsMalayalam: `നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും
+എന്റെ യേശു നാഥാ
+എനിക്കായ് നീ ചെയ്തോരോ നന്മയ്ക്കും
+ഇന്നു നന്ദി ചൊല്ലുന്നു ഞാൻ (2)
+
+അർഹിക്കാത്ത നന്മകളും
+എനിക്കേകിടും ദയാനിധേ
+യാചിക്കാത്ത നന്മകൾ പോലുമീ
+എനിക്കേകുവോനേ സ്തുതി
+
+നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും
+എന്റെ യേശു നാഥാ
+എനിക്കായ് നീ ചെയ്തോരോ നന്മയ്ക്കും
+ഇന്നു നന്ദി ചൊല്ലുന്നു ഞാൻ
+
+സത്യ ദൈവത്തിൻ ഏകപുത്രനായി
+നിന്നെ വിശ്വസിക്കുന്നു ഞാൻ
+വരും കാലമൊക്കെയും നിൻ കൃപാ
+വരങ്ങൾ ചൊരിക എന്നിൽ
+
+നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും
+എന്റെ യേശു നാഥാ
+എനിക്കായ് നീ ചെയ്തോരോ നന്മയ്ക്കും
+ഇന്നു നന്ദി ചൊല്ലുന്നു ഞാൻ (2)`
   }
 ];
 
 export const GEORGIAN_COLLEGE_PLACES = [
-  // {
-  //   name: 'Georgian Residence (Barrie Campus)',
-  //   type: 'Accommodation',
-  //   desc: 'Main housing for registered delegates. Flat-style multi-bedroom suites with modern amenities, study desks, and Wi-Fi.',
-  //   distance: 'On Campus (2-min walk to Plenary)',
-  //   phone: '+1 (705) 722-1523'
-  // },
-  // {
-  //   name: 'The Last Class Restaurant',
-  //   type: 'Dining',
-  //   desc: 'Local student-centered restaurant serving hearty burgers, dynamic wraps, healthy visual salads, and cold beverages.',
-  //   distance: 'On Campus (Building K)',
-  //   phone: '+1 (705) 728-1968 ext. 1530'
-  // },
+  {
+    name: 'Subway',
+    type: 'Café',
+    desc: 'Subway is a casual counter-serve chain offering customizable sandwiches and salads, popular for quick and affordable lunches.',
+    distance: '1.3 km from college (4 min drive)',
+    address: '367 Cundles Rd E Unit H2, Barrie, ON L4M 0G9',
+    maplink: 'https://maps.app.goo.gl/vgwZUrmvDBhsCPVJ9'
+  },
   {
     name: 'Tim Hortons',
     type: 'Café',
     desc: 'Popular Canadian coffee, breakfast wraps, and fresh donuts.',
-    distance: '1.4 km from college (5 min drive)',
-    address: '657 Cundles Rd E, Barrie, ON L4M 0K4'
+    distance: '1.9 km from college (7 min drive)',
+    address: '657 Cundles Rd E, Barrie, ON L4M 0K4',
+    maplink: 'https://maps.app.goo.gl/sT1dBzvM6dZZAVtW6'
   },
   {
-    name: 'Barrie Lakeview Park & Marina',
+    name: 'McDonald\'s',
+    type: 'Fast Food',
+    desc: 'Classic fast-food burger chain.',
+    distance: '1.8 km from college (7 min drive)',
+    address: '637 Cundles Rd E Bldg R Bldg R, Barrie, ON L4M 0K4',
+    maplink: 'https://maps.app.goo.gl/KLETPmR45kHDuT956'
+  },
+  {
+    name: 'Starbucks',
+    type: 'Café',
+    desc: 'Premium coffee, espresso drinks, and pastries.',
+    distance: '1.7 km from college (5 min drive)',
+    address: '607 Cundles Rd E, Barrie, ON L4M 0J7',
+    maplink: 'https://maps.app.goo.gl/Xdj5PcM5v9irU9Nn8'
+  },
+  {
+    name: 'Osmow\'s Shawarma',
+    type: 'Restaurant',
+    desc: 'Modern Mediterranean cuisine specializing in shawarma.',
+    distance: '1.7 km from college (6 min drive)',
+    address: '547 Cundles Rd E, Barrie, ON L4M 0J7',
+    maplink: 'https://maps.app.goo.gl/AjpeuMQy4AUZvp2NA'
+  },
+  {
+    name: '705 Cravings',
+    type: 'Restaurant',
+    desc: 'A vibrant mix of Kerala classics and regional favorites',
+    distance: '1.3 km from college (5 min drive)',
+    address: '130 Bell Farm Rd Unit 12-B, Barrie, ON L4M 6J4',
+    maplink: 'https://maps.app.goo.gl/wQZf2C3VkUjFywtX8'
+  },
+  {
+    name: 'Centennial Park',
     type: 'Sightseeing',
-    desc: 'Gorgeously clean sandy beachfront on Kempenfelt Bay. Great for quiet family prayer walks or youth connect assemblies.',
-    distance: '3.5 km South (10-min drive)',
-    address: 'Lakeshore Dr, Barrie, ON'
+    desc: 'Sandy lakeside swimming beach with a boardwalk, boat ramps, shady picnic areas & trails.',
+    distance: '7.2 km South (15-min drive)',
+    address: 'Lakeshore Dr, Barrie, ON L4N 7Y9',
+    maplink: 'https://maps.app.goo.gl/bQmFvuQ1hcrKhbMt5'
   }
 ];

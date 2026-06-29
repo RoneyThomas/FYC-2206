@@ -16,13 +16,13 @@ export interface Session {
   location: string;
   speakerId?: string;
   description: string;
-  category: 'Liturgy' | 'General' | 'Workshop' | 'Social' | 'Youth';
+  category: 'Liturgy' | 'General' | 'Workshop' | 'Social' | 'Youth' | 'Kids' | 'Ladies' | 'Family';
 }
 
 export interface Song {
   id: string;
   title: string;
-  category: 'Hymns of Saint Mary' | 'Liturgical Chants' | 'Communion Hymns' | 'Youth Accents' | 'General worship';
+  category: 'General worship';
   englishTitle?: string;
   lyricsEnglish: string;
   lyricsTransliterated: string;

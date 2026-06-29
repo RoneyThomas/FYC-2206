@@ -35,19 +35,17 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                 onClick={() => {
                   setSelectedSpeaker(s);
                 }}
-                className={`w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 border ${
-                  selectedSpeaker?.id === s.id
+                className={`w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 border ${selectedSpeaker?.id === s.id
                     ? 'bg-white border-secondary-container shadow-sm text-primary font-medium'
                     : 'bg-transparent border-transparent text-slate-600 hover:bg-slate-100'
-                }`}
+                  }`}
               >
                 <img
                   src={s.imageUrl}
                   alt={s.name}
                   referrerPolicy="no-referrer"
-                  className={`w-10 h-10 rounded-full object-cover border-2 ${
-                    selectedSpeaker?.id === s.id ? 'border-[#735c00]' : 'border-transparent'
-                  }`}
+                  className={`w-10 h-10 rounded-full object-cover border-2 ${selectedSpeaker?.id === s.id ? 'border-[#735c00]' : 'border-transparent'
+                    }`}
                 />
                 <div className="min-w-0">
                   <p className="font-serif text-sm truncate leading-tight">{s.name.replace('Rev. Fr. Dr. ', '').replace('Very. Rev. Dr. ', '')}</p>
@@ -55,12 +53,6 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                 </div>
               </button>
             ))}
-          </div>
-          
-          <div className="p-3 bg-[#ffe088]/15 border border-[#fed65b]/40 rounded-xl mt-4">
-            <p className="text-xs text-[#735c00] leading-relaxed">
-              <strong>Plenary Forums:</strong> All our speakers hold doctorates in theological or pastoral disciplines, combining ancient Orthodox dogma with active community service.
-            </p>
           </div>
         </div>
 
