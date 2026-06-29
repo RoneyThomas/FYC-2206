@@ -20,6 +20,13 @@ type Building = {
 
 const BUILDINGS: Building[] = [
   {
+    id: 'P', name: 'Parking', fullName: 'Student Residence Parking',
+    x: 70, y: 22, isVenue: true,
+    desc: 'Lot adjacent to RCC',
+    maplink: 'https://maps.app.goo.gl/hUS8n5g1CueM25Bv9',
+    address: 'Lot adjacent to RCC'
+  },
+  {
     id: 'N', name: 'ABSC Event Space', fullName: 'Peter B. Moore Centre (Building N)',
     x: 56, y: 18, isVenue: true,
     desc: 'Main conference hall. Hosts the inaugural ceremony, all meals (breakfast, lunch, dinner), evening prayers, cultural programs, devotional addresses, and Holy Qurbana.',
@@ -40,13 +47,6 @@ const BUILDINGS: Building[] = [
     maplink: 'https://maps.app.goo.gl/BUbEF9oXbdJRj2c98',
     address: '101 Georgian Dr, Barrie, ON'
   },
-  {
-    id: 'P', name: 'Parking', fullName: 'Student Residence Parking',
-    x: 70, y: 22, isVenue: true,
-    desc: 'Lot adjacent to RCC',
-    maplink: 'https://maps.app.goo.gl/hUS8n5g1CueM25Bv9',
-    address: 'Lot adjacent to RCC'
-  }
 ];
 
 const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
@@ -140,8 +140,9 @@ export default function MapView() {
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
 
       {/* ── Header ─────────────────────────────────────── */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <div className="md:col-span-2 space-y-1.5">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+        {/* Desktop Header (Always visible on md+) or Mobile Default (When no building selected) */}
+        <div className={`space-y-1.5 ${selectedBuilding ? 'hidden md:block' : 'block'}`}>
           <span className="bg-amber-100 text-[#735c00] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">
             Barrie, Ontario
           </span>
@@ -150,13 +151,30 @@ export default function MapView() {
             <strong>101 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
           </p>
         </div>
-        {/* <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Security Contact</p>
-          <p className="text-xs font-semibold text-[#000a1e] flex items-center gap-1.5">
-            <Phone className="w-3.5 h-3.5 text-[#735c00]" /> +1 (705) 728-1968
-          </p>
-          <span className="text-[10px] text-slate-400 block">Available 24/7 for safe walking escorts.</span>
-        </div> */}
+
+        {/* Mobile Selected Venue Header (Visible only on mobile when a building is selected) */}
+        {selectedBuilding && (
+          <div className="space-y-1.5 block md:hidden">
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${selectedBuilding.isVenue ? 'bg-[#fed65b]/20 text-[#735c00]' : 'bg-slate-100 text-slate-600'}`}>
+              {selectedBuilding.isVenue ? 'Conference Venue' : 'Campus Building'}
+            </span>
+            <div className="flex items-center gap-2">
+              <h2 className="font-serif text-xl font-bold text-[#000a1e] leading-tight">{selectedBuilding.name}</h2>
+              <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-extrabold shrink-0 border ${selectedBuilding.isVenue ? 'bg-[#fed65b] text-[#735c00] border-[#fed65b]' : 'bg-slate-600 text-white border-slate-500'}`}>
+                {selectedBuilding.id}
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-3">{selectedBuilding.desc}</p>
+            {selectedBuilding.maplink && (
+              <div className="pt-1">
+                <a href={selectedBuilding.maplink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs text-blue-700 font-semibold hover:text-blue-900 transition-colors group">
+                  <MapPin className="w-3.5 h-3.5 text-blue-600/70 group-hover:text-blue-900" />
+                  Open in Google Maps
+                </a>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ── Map + Panel ─────────────────────────────────── */}
