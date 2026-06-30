@@ -337,7 +337,7 @@ export default function ScheduleView() {
               alt="RCC building"
               className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
             />
-            <p className="text-white mt-5 font-serif text-xl sm:text-2xl font-medium tracking-wide">RCC Building</p>
+            <p className="text-white mt-5 font-serif text-xl sm:text-2xl font-medium tracking-wide">Front enterance of RCC Building</p>
           </div>
         </div>
       )}

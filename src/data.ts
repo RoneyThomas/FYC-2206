@@ -4,20 +4,20 @@ import vicar2 from './assets/vicar-2.webp';
 import vicar3 from './assets/vicar-3.webp';
 export const SPEAKERS: Speaker[] = [
   {
-    id: 'sp-timothy',
-    name: 'Rev. Fr. Dr. Timothy Thomas',
-    role: 'Director of Sunday School Ministry',
-    diocese: 'Northeast American Diocese',
-    imageUrl: vicar1,
-    bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Director of the Sunday School Ministry for the Northeast American Diocese. He is a prominent scholar in pastoral theology and ecclesiastical youth ministry, dedicating his service to fostering spiritual literacy, traditional Orthodox liturgical music, and dynamic youth engagement schemas.'
-  },
-  {
     id: 'sp-johns',
     name: 'Very. Rev. Dr. Johns Abraham',
     role: 'Reesh Cor Episcopa',
     diocese: 'Malankara Malpan',
     imageUrl: vicar2,
     bio: 'Very Rev. Dr. Johns Abraham is a highly distinguished scholar, designated Reesh Cor Episcopa and Malankara Malpan (Teacher of the Church). Widely celebrated for his profound understanding of Syriac Theology, Patristics, and the liturgical heritage of the Malankara Orthodox Syrian Church. He provides apostolic guidance to clergy and laypeople alike.'
+  },
+  {
+    id: 'sp-timothy',
+    name: 'Rev. Fr. Dr. Timothy Thomas',
+    role: 'Director of Sunday School Ministry',
+    diocese: 'Northeast American Diocese',
+    imageUrl: vicar1,
+    bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Director of the Sunday School Ministry for the Northeast American Diocese. He is a prominent scholar in pastoral theology and ecclesiastical youth ministry, dedicating his service to fostering spiritual literacy, traditional Orthodox liturgical music, and dynamic youth engagement schemas.'
   },
   {
     id: 'sp-abraham',
@@ -119,7 +119,7 @@ export const SESSIONS: Session[] = [
     timestamp: '2026-07-02T22:00:00',
     day: 1,
     location: 'RCC',
-    description: 'Bedtime for all participants.',
+    description: 'Bedtime.',
     category: 'General'
   },
 
@@ -461,7 +461,7 @@ export const SESSIONS: Session[] = [
     timestamp: '2026-07-04T07:00:00',
     day: 3,
     location: 'ABSC Event Space (Building N, 3rd Floor, Room N302B)',
-    description: 'Morning prayer & Holy Qurbana',
+    description: 'Morning prayer & Holy Qurbana.',
     category: 'Liturgy'
   },
   {
@@ -539,7 +539,7 @@ export const SESSIONS: Session[] = [
 export const SONGS: Song[] = [
   {
     id: 'song-1',
-    title: 'Lokathin Sainyam',
+    title: 'ലോകത്തിൻ സൈന്യം',
     category: 'General worship',
     englishTitle: 'Lokathin Sainyam',
     lyricsEnglish: `Lokathin sainyam paalayamirangum
@@ -632,7 +632,7 @@ Swarggeeya Daivam koodeyundu (2)`,
   },
   {
     id: 'song-2',
-    title: 'Ente daivam karunayalenne',
+    title: 'എന്റെ ദൈവം കരുണയാലെന്നെ',
     category: 'General worship',
     englishTitle: 'Ente daivam karunayalenne',
     lyricsEnglish: `Ente daivam karunayalenne
@@ -680,7 +680,7 @@ En prananennum anandhikkum (2)`,
   },
   {
     id: 'song-3',
-    title: 'Dhinam Thorum Enne',
+    title: 'Dhinam Thorum Enne - ൈിന്ംല ോെും എറെ',
     category: 'General worship',
     englishTitle: 'Dhinam Thorum Enne',
     lyricsEnglish: `Dhinam thorum enne nadathunna krupaykkai
@@ -755,7 +755,7 @@ Poornamaai enne samarppikkunnu (2)`,
   },
   {
     id: 'song-4',
-    title: 'Nanniyode Njan Sthuthi Paadidum',
+    title: 'നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും',
     category: 'General worship',
     englishTitle: 'Nanniyode Njan Sthuthi Paadidum',
     lyricsEnglish: `Nanniyode njan Sthuthi Paadidum
