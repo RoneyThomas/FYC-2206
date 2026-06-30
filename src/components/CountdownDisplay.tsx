@@ -15,10 +15,10 @@ const CARD_H = 21;  // vh  – total card height
 const CARD_W = 13;  // vh  – card width (portrait ratio like real panels)
 const FONT = 18;  // vh  – digit font size
 
-const FLIP_MS    = 260; // top-fall duration
-const RISE_MS    = 340; // bottom-rise duration (longer — includes bounce)
+const FLIP_MS = 260; // top-fall duration
+const RISE_MS = 340; // bottom-rise duration (longer — includes bounce)
 const RISE_DELAY = 170; // ms before bottom starts rising
-const TOTAL_MS   = RISE_MS + RISE_DELAY + 60; // settle buffer
+const TOTAL_MS = RISE_MS + RISE_DELAY + 60; // settle buffer
 
 // Keyframes injected once; not in index.css to keep this page self-contained
 const KEYFRAMES = `
@@ -165,9 +165,9 @@ function SplitFlapChar({ value }: { value: string }) {
         }}
       >
         {/* Layer 1 – back-top: next char's top half (revealed as front falls) */}
-        <FlapHalf char={value} pos="top"    zIndex={1} />
+        <FlapHalf char={value} pos="top" zIndex={1} />
         {/* Layer 2 – back-bottom: current char's bottom (static while rise plays) */}
-        <FlapHalf char={prev}  pos="bottom" zIndex={2} />
+        <FlapHalf char={prev} pos="bottom" zIndex={2} />
 
         {/* Shadow sweeps the back-top while the front flap is still falling */}
         {flipping && (
@@ -303,7 +303,7 @@ export default function CountdownDisplay() {
 
   return (
     <motion.div
-      className="w-screen h-screen overflow-hidden bg-transparent text-white flex flex-col items-center justify-between select-none relative"
+      className="w-screen h-screen overflow-hidden bg-[#000a1e] text-white flex flex-col items-center justify-between select-none relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.6, ease: 'easeOut' }}
@@ -311,25 +311,43 @@ export default function CountdownDisplay() {
       {/* Inject flip keyframes */}
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
-      {/* ── Atmosphere overlay (silk canvas is behind via Silk wrapper) ── */}
+      {/* ── Atmosphere ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Dot grid texture */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute top-1/2 left-1/2 rounded-full"
+          style={{
+            transform: 'translate(-50%, -50%)',
+            width: '75vw',
+            height: '75vh',
+            background:
+              'radial-gradient(ellipse at center, rgba(0,50,100,0.35) 0%, rgba(0,33,71,0.15) 50%, transparent 75%)',
+          }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 rounded-full"
+          style={{
+            transform: 'translate(-50%, -48%)',
+            width: '35vw',
+            height: '35vh',
+            background:
+              'radial-gradient(ellipse at center, rgba(254,214,91,0.045) 0%, transparent 70%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.045]"
           style={{
             backgroundImage:
               'radial-gradient(circle at 1.5px 1.5px, rgba(255,255,255,0.7) 1px, transparent 0)',
             backgroundSize: '2.8vw 2.8vw',
           }}
         />
-        {/* Edge vignettes for readability */}
         <div
           className="absolute inset-x-0 top-0"
-          style={{ height: '28vh', background: 'linear-gradient(to bottom, rgba(0,6,20,0.75), transparent)' }}
+          style={{ height: '22vh', background: 'linear-gradient(to bottom, rgba(0,10,30,0.7), transparent)' }}
         />
         <div
           className="absolute inset-x-0 bottom-0"
-          style={{ height: '28vh', background: 'linear-gradient(to top, rgba(0,6,20,0.75), transparent)' }}
+          style={{ height: '22vh', background: 'linear-gradient(to top, rgba(0,10,30,0.7), transparent)' }}
         />
       </div>
 
