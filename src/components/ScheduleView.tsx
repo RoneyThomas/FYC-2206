@@ -82,7 +82,7 @@ export default function ScheduleView() {
       case 'Youth': return 'bg-pink-100/60 text-pink-800 border-pink-200';
       case 'Kids': return 'bg-blue-100/60 text-blue-800 border-blue-200';
       case 'Ladies': return 'bg-red-100/60 text-red-800 border-red-200';
-      case 'Family': return 'bg-green-100/60 text-green-800 border-green-200';
+      case 'Seniors': return 'bg-green-100/60 text-green-800 border-green-200';
       default: return 'bg-blue-100/60 text-blue-800 border-blue-200';
     }
   };
@@ -139,7 +139,7 @@ export default function ScheduleView() {
               <option value="Youth">Youth Movement</option>
               <option value="Kids">Kids</option>
               <option value="Ladies">Ladies</option>
-              <option value="Family">Family</option>
+              <option value="Seniors">Seniors</option>
             </select>
             <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>

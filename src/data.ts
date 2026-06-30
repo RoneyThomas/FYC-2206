@@ -359,7 +359,7 @@ export const SESSIONS: Session[] = [
     day: 2,
     location: 'Class room K217, Building K, near Alumini Hall (2nd Floor)',
     description: 'Spiritual Organizations Meeting - Seniors Forum',
-    category: 'Family'
+    category: 'Seniors'
   },
   {
     id: 'sess-213-ocym',
@@ -680,7 +680,7 @@ En prananennum anandhikkum (2)`,
   },
   {
     id: 'song-3',
-    title: 'Dhinam Thorum Enne - ൈിന്ംല ോെും എറെ',
+    title: 'ദിനംതോറും എന്നെ നടത്തുന്ന കൃപയ്ക്കായ്',
     category: 'General worship',
     englishTitle: 'Dhinam Thorum Enne',
     lyricsEnglish: `Dhinam thorum enne nadathunna krupaykkai

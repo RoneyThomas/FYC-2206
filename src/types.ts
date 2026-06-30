@@ -16,7 +16,7 @@ export interface Session {
   location: string;
   speakerId?: string;
   description: string;
-  category: 'Liturgy' | 'General' | 'Workshop' | 'Social' | 'Youth' | 'Kids' | 'Ladies' | 'Family';
+  category: 'Liturgy' | 'General' | 'Workshop' | 'Social' | 'Youth' | 'Kids' | 'Ladies' | 'Seniors';
 }
 
 export interface Song {
