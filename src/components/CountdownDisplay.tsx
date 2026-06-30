@@ -15,19 +15,31 @@ const CARD_H = 21;  // vh  – total card height
 const CARD_W = 13;  // vh  – card width (portrait ratio like real panels)
 const FONT = 18;  // vh  – digit font size
 
-const FLIP_MS = 230; // duration of each half-flip
-const RISE_DELAY = 150; // ms offset before bottom rises
-const TOTAL_MS = FLIP_MS + RISE_DELAY + 30; // settle buffer
+const FLIP_MS    = 260; // top-fall duration
+const RISE_MS    = 340; // bottom-rise duration (longer — includes bounce)
+const RISE_DELAY = 170; // ms before bottom starts rising
+const TOTAL_MS   = RISE_MS + RISE_DELAY + 60; // settle buffer
 
 // Keyframes injected once; not in index.css to keep this page self-contained
 const KEYFRAMES = `
+  /* Gravity-driven fall — cubic-bezier: slow start → fast finish */
   @keyframes sfTopFall {
-    from { transform: rotateX(0deg);   }
-    to   { transform: rotateX(-90deg); }
+    0%   { transform: rotateX(0deg);   }
+    100% { transform: rotateX(-90deg); }
   }
+  /* Mechanical settle: overshoots then springs back */
   @keyframes sfBottomRise {
-    from { transform: rotateX(90deg);  }
-    to   { transform: rotateX(0deg);   }
+    0%   { transform: rotateX(90deg);  }
+    55%  { transform: rotateX(-12deg); }
+    75%  { transform: rotateX(5deg);   }
+    90%  { transform: rotateX(-2deg);  }
+    100% { transform: rotateX(0deg);   }
+  }
+  /* Shadow sweeps the revealed back-top as the front flap falls away */
+  @keyframes sfShadow {
+    0%   { opacity: 0;    }
+    50%  { opacity: 0.45; }
+    100% { opacity: 0;    }
   }
 `;
 
@@ -50,9 +62,9 @@ function FlapHalf({
 
   const animStyle: CSSProperties =
     anim === 'fall'
-      ? { animation: `sfTopFall ${FLIP_MS}ms ease-in forwards` }
+      ? { animation: `sfTopFall ${FLIP_MS}ms cubic-bezier(0.5, 0, 0.85, 0.1) forwards` }
       : anim === 'rise'
-        ? { animation: `sfBottomRise ${FLIP_MS}ms ease-out ${RISE_DELAY}ms both` }
+        ? { animation: `sfBottomRise ${RISE_MS}ms linear ${RISE_DELAY}ms both` }
         : {};
 
   return (
@@ -141,35 +153,49 @@ function SplitFlapChar({ value }: { value: string }) {
       perspective must live on the PARENT of the rotating element.
       No overflow:hidden here so the 3D rotation isn't clipped.
     */
-    <div style={{ perspective: '700px', flexShrink: 0 }}>
+    <div style={{ perspective: '1000px', flexShrink: 0 }}>
       <div
         style={{
           position: 'relative',
           width: `${CARD_W}vh`,
           height: `${CARD_H}vh`,
           borderRadius: '3px',
-          // Thin border visible at card edges
           boxShadow:
             '0 0 0 1px rgba(255,255,255,0.08), 0 8px 28px rgba(0,0,0,0.55)',
         }}
       >
-        {/* Layer 1 – back-top: shows next char's top half */}
-        <FlapHalf char={value} pos="top" zIndex={1} />
-        {/* Layer 2 – back-bottom: shows current char's bottom half */}
-        <FlapHalf char={prev} pos="bottom" zIndex={1} />
+        {/* Layer 1 – back-top: next char's top half (revealed as front falls) */}
+        <FlapHalf char={value} pos="top"    zIndex={1} />
+        {/* Layer 2 – back-bottom: current char's bottom (static while rise plays) */}
+        <FlapHalf char={prev}  pos="bottom" zIndex={2} />
+
+        {/* Shadow sweeps the back-top while the front flap is still falling */}
+        {flipping && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              height: '50%',
+              background: 'rgba(0,0,0,0.6)',
+              animation: `sfShadow ${FLIP_MS}ms ease-in forwards`,
+              zIndex: 3,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         {/* Layer 3 – front-top: current char, falls to -90deg */}
         <FlapHalf
           char={prev}
           pos="top"
-          zIndex={2}
+          zIndex={4}
           anim={flipping ? 'fall' : undefined}
         />
-        {/* Layer 4 – front-bottom: next char, rises from 90deg */}
+        {/* Layer 4 – front-bottom: next char, rises from 90deg with bounce */}
         <FlapHalf
           char={value}
           pos="bottom"
-          zIndex={2}
+          zIndex={5}
           anim={flipping ? 'rise' : undefined}
         />
 
@@ -277,7 +303,7 @@ export default function CountdownDisplay() {
 
   return (
     <motion.div
-      className="w-screen h-screen overflow-hidden bg-[#000a1e] text-white flex flex-col items-center justify-between select-none relative"
+      className="w-screen h-screen overflow-hidden bg-transparent text-white flex flex-col items-center justify-between select-none relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.6, ease: 'easeOut' }}
@@ -285,43 +311,25 @@ export default function CountdownDisplay() {
       {/* Inject flip keyframes */}
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
-      {/* ── Atmosphere ── */}
+      {/* ── Atmosphere overlay (silk canvas is behind via Silk wrapper) ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Dot grid texture */}
         <div
-          className="absolute top-1/2 left-1/2 rounded-full"
-          style={{
-            transform: 'translate(-50%, -50%)',
-            width: '75vw',
-            height: '75vh',
-            background:
-              'radial-gradient(ellipse at center, rgba(0,50,100,0.35) 0%, rgba(0,33,71,0.15) 50%, transparent 75%)',
-          }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 rounded-full"
-          style={{
-            transform: 'translate(-50%, -48%)',
-            width: '35vw',
-            height: '35vh',
-            background:
-              'radial-gradient(ellipse at center, rgba(254,214,91,0.045) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.045]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
               'radial-gradient(circle at 1.5px 1.5px, rgba(255,255,255,0.7) 1px, transparent 0)',
             backgroundSize: '2.8vw 2.8vw',
           }}
         />
+        {/* Edge vignettes for readability */}
         <div
           className="absolute inset-x-0 top-0"
-          style={{ height: '22vh', background: 'linear-gradient(to bottom, rgba(0,10,30,0.7), transparent)' }}
+          style={{ height: '28vh', background: 'linear-gradient(to bottom, rgba(0,6,20,0.75), transparent)' }}
         />
         <div
           className="absolute inset-x-0 bottom-0"
-          style={{ height: '22vh', background: 'linear-gradient(to top, rgba(0,10,30,0.7), transparent)' }}
+          style={{ height: '28vh', background: 'linear-gradient(to top, rgba(0,6,20,0.75), transparent)' }}
         />
       </div>
 
@@ -373,9 +381,9 @@ export default function CountdownDisplay() {
           className="font-serif font-extrabold text-white leading-[1.06] tracking-tight"
           style={{ fontSize: '8.2vh' }}
         >
-          Family &amp; Youth
+          Family &amp; Youth Conference
           <br />
-          <span className="text-[#ffe088]">Conference 2026</span>
+          <span>2026</span>
         </h1>
 
         <div className="flex items-center" style={{ gap: '1.2vw' }}>
