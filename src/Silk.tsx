@@ -68,12 +68,13 @@ const FRAG = `
     float f = fbm(uv + 3.0 * r + t * 0.05);
     f = 0.5 + 0.5 * f;
 
-    float brightness = pow(clamp(f, 0.0, 1.0), 1.8) * u_noise;
-    vec3 col = u_color * brightness * 0.55;
+    // Linear brightness — no pow-darkening so highlights are always clearly visible
+    float brightness = f * u_noise * 0.8;
+    vec3 col = u_color * brightness;
 
-    // Subtle shimmer pass (higher-frequency noise at perpendicular drift)
+    // Shimmer layer (higher-frequency, perpendicular drift)
     float shimmer = fbm(uv * 2.0 + vec2(t * 0.4, -t * 0.3));
-    col += u_color * 0.08 * max(0.0, shimmer);
+    col += u_color * 0.25 * max(0.0, shimmer);
 
     // Navy base so empty areas stay on-brand, not pure black
     col += vec3(0.0, 0.039, 0.118);
@@ -141,10 +142,14 @@ export default function Silk({
     gl.uniform1f(uRotation, rotation);
 
     const resize = () => {
-      canvas.width  = canvas.clientWidth  * devicePixelRatio;
-      canvas.height = canvas.clientHeight * devicePixelRatio;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
+      const w = Math.round(canvas.clientWidth  * devicePixelRatio);
+      const h = Math.round(canvas.clientHeight * devicePixelRatio);
+      // Guard: setting canvas.width always clears the framebuffer, so skip if unchanged or zero
+      if (!w || !h || (canvas.width === w && canvas.height === h)) return;
+      canvas.width  = w;
+      canvas.height = h;
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(uRes, w, h);
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -172,7 +177,9 @@ export default function Silk({
         ref={canvasRef}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
       />
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%' }}>
+      {/* translateZ(0) forces a GPU compositing layer so the browser always
+          composites children against the canvas rather than painting over it */}
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', transform: 'translateZ(0)' }}>
         {children}
       </div>
     </div>
