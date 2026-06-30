@@ -114,7 +114,7 @@ export const SESSIONS: Session[] = [
   },
   {
     id: 'sess-109',
-    title: 'BED TIME',
+    title: 'Bed Time',
     time: '10:00 PM',
     timestamp: '2026-07-02T22:00:00',
     day: 1,
@@ -444,7 +444,7 @@ export const SESSIONS: Session[] = [
   },
   {
     id: 'sess-221',
-    title: 'BED TIME',
+    title: 'Bed Time',
     time: '09:45 PM',
     timestamp: '2026-07-03T21:45:00',
     day: 2,
