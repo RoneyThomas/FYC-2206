@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/countdown",
+        "destination": "/countdown.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
