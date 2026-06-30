@@ -68,13 +68,12 @@ const FRAG = `
     float f = fbm(uv + 3.0 * r + t * 0.05);
     f = 0.5 + 0.5 * f;
 
-    // Linear brightness — no pow-darkening so highlights are always clearly visible
-    float brightness = f * u_noise * 0.8;
-    vec3 col = u_color * brightness;
+    float brightness = pow(clamp(f, 0.0, 1.0), 1.8) * u_noise;
+    vec3 col = u_color * brightness * 0.55;
 
-    // Shimmer layer (higher-frequency, perpendicular drift)
+    // Subtle shimmer pass (higher-frequency noise at perpendicular drift)
     float shimmer = fbm(uv * 2.0 + vec2(t * 0.4, -t * 0.3));
-    col += u_color * 0.25 * max(0.0, shimmer);
+    col += u_color * 0.08 * max(0.0, shimmer);
 
     // Navy base so empty areas stay on-brand, not pure black
     col += vec3(0.0, 0.039, 0.118);
