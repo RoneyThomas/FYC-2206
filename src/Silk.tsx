@@ -85,7 +85,7 @@ const FRAG = `
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '');
-  return [parseInt(h.slice(0,2),16)/255, parseInt(h.slice(2,4),16)/255, parseInt(h.slice(4,6),16)/255];
+  return [parseInt(h.slice(0, 2), 16) / 255, parseInt(h.slice(2, 4), 16) / 255, parseInt(h.slice(4, 6), 16) / 255];
 }
 
 function compileShader(gl: WebGLRenderingContext, type: number, src: string) {
@@ -104,7 +104,7 @@ export default function Silk({
   children,
 }: SilkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef    = useRef<number>(0);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -114,7 +114,7 @@ export default function Silk({
     if (!gl) return;
 
     const prog = gl.createProgram()!;
-    gl.attachShader(prog, compileShader(gl, gl.VERTEX_SHADER,   VERT));
+    gl.attachShader(prog, compileShader(gl, gl.VERTEX_SHADER, VERT));
     gl.attachShader(prog, compileShader(gl, gl.FRAGMENT_SHADER, FRAG));
     gl.linkProgram(prog);
     gl.useProgram(prog);
@@ -122,31 +122,31 @@ export default function Silk({
     // Full-screen quad (two triangles via TRIANGLE_STRIP)
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     const aPos = gl.getAttribLocation(prog, 'a_pos');
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-    const uTime     = gl.getUniformLocation(prog, 'u_time');
-    const uRes      = gl.getUniformLocation(prog, 'u_res');
-    const uSpeed    = gl.getUniformLocation(prog, 'u_speed');
-    const uScale    = gl.getUniformLocation(prog, 'u_scale');
-    const uColor    = gl.getUniformLocation(prog, 'u_color');
-    const uNoise    = gl.getUniformLocation(prog, 'u_noise');
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+    const uRes = gl.getUniformLocation(prog, 'u_res');
+    const uSpeed = gl.getUniformLocation(prog, 'u_speed');
+    const uScale = gl.getUniformLocation(prog, 'u_scale');
+    const uColor = gl.getUniformLocation(prog, 'u_color');
+    const uNoise = gl.getUniformLocation(prog, 'u_noise');
     const uRotation = gl.getUniformLocation(prog, 'u_rotation');
 
-    gl.uniform1f(uSpeed,    speed);
-    gl.uniform1f(uScale,    scale);
-    gl.uniform3f(uColor,    ...hexToRgb(color));
-    gl.uniform1f(uNoise,    noiseIntensity);
+    gl.uniform1f(uSpeed, speed);
+    gl.uniform1f(uScale, scale);
+    gl.uniform3f(uColor, ...hexToRgb(color));
+    gl.uniform1f(uNoise, noiseIntensity);
     gl.uniform1f(uRotation, rotation);
 
     const resize = () => {
-      const w = Math.round(canvas.clientWidth  * devicePixelRatio);
+      const w = Math.round(canvas.clientWidth * devicePixelRatio);
       const h = Math.round(canvas.clientHeight * devicePixelRatio);
       // Guard: setting canvas.width always clears the framebuffer, so skip if unchanged or zero
       if (!w || !h || (canvas.width === w && canvas.height === h)) return;
-      canvas.width  = w;
+      canvas.width = w;
       canvas.height = h;
       gl.viewport(0, 0, w, h);
       gl.uniform2f(uRes, w, h);

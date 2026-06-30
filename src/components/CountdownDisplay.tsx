@@ -306,7 +306,7 @@ export default function CountdownDisplay() {
 
   return (
     <motion.div
-      className="w-screen h-screen overflow-hidden bg-[#000a1e] text-white flex flex-col items-center justify-between select-none relative"
+      className="w-screen h-screen overflow-hidden bg-transparent text-white flex flex-col items-center justify-between select-none relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.6, ease: 'easeOut' }}
