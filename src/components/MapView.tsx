@@ -219,80 +219,12 @@ export default function MapView() {
                   draggable={false}
                   className="max-w-full max-h-full object-contain pointer-events-none"
                 />
-
-                {/* Building markers — positioned absolutely over the image using padding trick */}
-                {/* We use a 100% × 100% overlay div matched to the rendered image area */}
-                <div className="absolute inset-0 hidden lg:flex items-center justify-center pointer-events-none">
-                  {/* Inner wrapper that matches the natural aspect ratio of the PNG (431:556 ≈ 77.5:100) */}
-                  <div
-                    className="relative"
-                    style={{
-                      // Fill height, constrain width to keep aspect ratio
-                      height: '100%',
-                      aspectRatio: '431 / 556',
-                      maxWidth: '100%',
-                    }}
-                  >
-                    {BUILDINGS.map(building => {
-                      const isSelected = selectedBuilding?.id === building.id;
-                      return (
-                        <button
-                          key={building.id}
-                          data-marker="true"
-                          onClick={(e) => { e.stopPropagation(); setSelectedBuilding(building); }}
-                          title={building.name}
-                          style={{
-                            position: 'absolute',
-                            left: `${building.x}%`,
-                            top: `${building.y}%`,
-                            transform: `translate(-50%, -50%) scale(${1 / zoom})`,
-                            pointerEvents: 'all',
-                            zIndex: isSelected ? 20 : building.isVenue ? 10 : 5,
-                          }}
-                          className="group focus:outline-none"
-                        >
-                          {/* Pulse ring for venue buildings */}
-                          {building.isVenue && (
-                            <span
-                              className="absolute inset-0 rounded-full animate-ping"
-                              style={{
-                                backgroundColor: '#fed65b',
-                                opacity: 0.45,
-                                animationDuration: '2s',
-                                transform: 'scale(1.8)',
-                              }}
-                            />
-                          )}
-                          <span
-                            className={`relative flex items-center justify-center rounded-full text-[10px] font-extrabold shadow-md border-2 transition-all duration-150
-                              ${isSelected
-                                ? 'w-7 h-7 bg-[#000a1e] border-[#fed65b] text-[#ffe088] scale-125'
-                                : building.isVenue
-                                  ? 'w-6 h-6 bg-[#fed65b] border-white text-[#735c00] group-hover:scale-110'
-                                  : 'w-5 h-5 bg-slate-500 border-white text-white group-hover:bg-slate-700 group-hover:scale-110'
-                              }`}
-                          >
-                            {building.id}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
           {/* Legend */}
           <div className="px-4 py-2.5 border-t border-slate-100 flex items-center gap-4 text-[10px] text-slate-500 bg-white">
-            <span className="hidden lg:flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-[#fed65b] border-2 border-white shadow inline-block" />
-              Conference Venue
-            </span>
-            <span className="hidden lg:flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-slate-400 border-2 border-white shadow inline-block" />
-              Campus Building
-            </span>
             <span className="ml-auto text-[9px] text-slate-300 font-mono hidden sm:block">Scroll · zoom · drag · pan</span>
           </div>
         </div>

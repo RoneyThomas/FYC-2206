@@ -88,13 +88,15 @@ export default function App() {
             <Menu className="w-5.5 h-5.5 text-[#ffe088]" />
           </button>
 
-          <button
-            onClick={() => handleTabChange('home')}
-            className="font-serif text-lg font-bold text-white tracking-tight flex items-center gap-1.5 focus:outline-none"
-          >
-            <span className="text-[#ffe088] font-serif uppercase tracking-widest font-extrabold text-sm border-r border-white/20 pr-2 mr-0.5">FYC 2026</span>
-            <span className="hidden sm:inline-block text-xs text-slate-300 font-sans uppercase font-semibold tracking-wider">Diocese of Canada</span>
-          </button>
+          <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 md:left-auto flex items-center pointer-events-none md:pointer-events-auto">
+            <button
+              onClick={() => handleTabChange('home')}
+              className="font-serif text-lg font-bold text-white tracking-tight flex items-center gap-1.5 focus:outline-none pointer-events-auto"
+            >
+              <span className="text-[#ffe088] font-serif uppercase tracking-widest font-extrabold text-sm sm:border-r sm:border-white/20 sm:pr-2 sm:mr-0.5">FYC 2026</span>
+              <span className="hidden sm:inline-block text-xs text-slate-300 font-sans uppercase font-semibold tracking-wider">Diocese of Canada</span>
+            </button>
+          </div>
         </div>
 
         {/* Action icons */}
