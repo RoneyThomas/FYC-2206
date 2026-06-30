@@ -112,7 +112,11 @@ export default function MapView() {
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 2) {
+    if ((e.target as HTMLElement).closest('[data-marker]')) return;
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      dragOrigin.current = { mouseX: e.touches[0].clientX, mouseY: e.touches[0].clientY, panX: pan.x, panY: pan.y };
+    } else if (e.touches.length === 2) {
       lastTouchDist.current = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY,
@@ -120,16 +124,23 @@ export default function MapView() {
     }
   };
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length !== 2) return;
-    e.preventDefault();
-    const d = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY,
-    );
-    const z = Math.max(1, Math.min(4, zoom + (d - lastTouchDist.current) * 0.008));
-    setZoom(z);
-    lastTouchDist.current = d;
+    if (e.touches.length === 1 && isDragging) {
+      e.preventDefault();
+      const dx = e.touches[0].clientX - dragOrigin.current.mouseX;
+      const dy = e.touches[0].clientY - dragOrigin.current.mouseY;
+      setPan(clampPan(dragOrigin.current.panX + dx, dragOrigin.current.panY + dy, zoom));
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const d = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY,
+      );
+      const z = Math.max(1, Math.min(4, zoom + (d - lastTouchDist.current) * 0.008));
+      setZoom(z);
+      lastTouchDist.current = d;
+    }
   };
+  const handleTouchEnd = () => setIsDragging(false);
 
   const getSessionsForBuilding = (buildingId: string) => {
     const keywords = VENUE_SESSION_KEYWORDS[buildingId] ?? [];
@@ -197,6 +208,8 @@ export default function MapView() {
             onWheel={handleWheel}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
           >
             <div
               style={{
