@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type CSSProperties } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, type CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import logoImage from '../assets/logo.webp';
 
@@ -134,19 +134,23 @@ function SplitFlapChar({ value }: { value: string }) {
   const [flipping, setFlipping] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    if (value === prev || flipping) return;
+  // useLayoutEffect runs before the browser paints, so setFlipping(true) triggers
+  // a synchronous re-render that applies the animation before the first visible frame.
+  // This prevents the one-frame flash of an un-animated new character.
+  useLayoutEffect(() => {
+    if (value === prev || timerRef.current) return;
 
     setFlipping(true);
     timerRef.current = setTimeout(() => {
+      timerRef.current = null;
       setPrev(value);
       setFlipping(false);
     }, TOTAL_MS);
+  }, [value, prev]);
 
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [value, prev, flipping]);
+  useEffect(() => {
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []);
 
   return (
     /*
@@ -168,22 +172,6 @@ function SplitFlapChar({ value }: { value: string }) {
         <FlapHalf char={value} pos="top" zIndex={1} />
         {/* Layer 2 – back-bottom: current char's bottom (static while rise plays) */}
         <FlapHalf char={prev} pos="bottom" zIndex={2} />
-
-        {/* Shadow sweeps the back-top while the front flap is still falling */}
-        {flipping && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              height: '50%',
-              background: 'rgba(0,0,0,0.6)',
-              animation: `sfShadow ${FLIP_MS}ms ease-in forwards`,
-              zIndex: 3,
-              pointerEvents: 'none',
-            }}
-          />
-        )}
-
         {/* Layer 3 – front-top: current char, falls to -90deg */}
         <FlapHalf
           char={prev}
@@ -198,6 +186,21 @@ function SplitFlapChar({ value }: { value: string }) {
           zIndex={5}
           anim={flipping ? 'rise' : undefined}
         />
+        {/* Shadow sweeps the back-top while the front flap is falling.
+            Placed last so its insertion never shifts the FlapHalf DOM nodes above. */}
+        {flipping && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              height: '50%',
+              background: 'rgba(0,0,0,0.6)',
+              animation: `sfShadow ${FLIP_MS}ms ease-in forwards`,
+              zIndex: 3,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         {/* Hinge line */}
         <div
