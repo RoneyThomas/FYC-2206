@@ -3,6 +3,20 @@ import { SESSIONS, SPEAKERS } from '../data';
 import { Session } from '../types';
 import { Search, Calendar, Star, MapPin, Clock, ChevronDown, ChevronUp, FileText, Check, ListFilter, Users, Sparkles, Info, ExternalLink, X } from 'lucide-react';
 import frontEntrance from '../assets/front-enterance.webp';
+import { BUILDINGS, VENUE_SESSION_KEYWORDS } from './MapView';
+
+const getMapLinkForSession = (location: string) => {
+  for (const building of BUILDINGS) {
+    if (building.id === 'P' && location.includes('Parking')) {
+      return building.maplink;
+    }
+    const keywords = VENUE_SESSION_KEYWORDS[building.id] || [];
+    if (keywords.some(kw => location.includes(kw))) {
+      return building.maplink;
+    }
+  }
+  return null;
+};
 
 export default function ScheduleView() {
   const [selectedDay, setSelectedDay] = useState<number>(1);
@@ -254,7 +268,17 @@ export default function ScheduleView() {
 
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
                         <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        <span className="truncate">{session.location}</span>
+                        {(() => {
+                          const link = getMapLinkForSession(session.location);
+                          return link ? (
+                            <a href={link} target="_blank" rel="noreferrer" className="truncate hover:text-blue-900 hover:underline inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                              <span className="truncate">{session.location}</span>
+                              <ExternalLink className="w-3 h-3 shrink-0 text-blue-500/70" />
+                            </a>
+                          ) : (
+                            <span className="truncate">{session.location}</span>
+                          );
+                        })()}
                       </div>
                     </div>
 

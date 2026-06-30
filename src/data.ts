@@ -37,7 +37,7 @@ export const SESSIONS: Session[] = [
     time: '03:00 PM - 04:00 PM',
     timestamp: '2026-07-02T15:00:00',
     day: 1,
-    location: 'Residence & Conference Center (RCC)',
+    location: 'RCC - Residence & Conference Center',
     description: 'Participant registration will take place at the Residence & Conference Centre (RCC) of Georgian College. Participants are requested to proceed directly to \"Residence Parking\" area adjacent to the RCC and walk to the RCC reception. The FYC 2026 registration desk will be located near the RCC reception. Upon arrival, participants must collect their room keys and provide their vehicle license plate information at the RCC reception to avail complimentary parking. After obtaining the room key, participants may proceed to complete the FYC 2026 registration process at the FYC registration desk. At the FYC reception, participants will receive their ID and welcome kit.',
     category: 'General'
   },
@@ -47,7 +47,7 @@ export const SESSIONS: Session[] = [
     time: '04:00 PM - 05:15 PM',
     timestamp: '2026-07-02T16:00:00',
     day: 1,
-    location: 'Residence & Conference Center (RCC)',
+    location: 'RCC - Residence & Conference Center',
     description: 'Non-vegetarian and Vegetarian snack boxes will be served along with coffee or tea at the FYC reception. Separate food arrangements are available for vegetarians and individuals with food allergies.',
     category: 'Social'
   },
@@ -118,7 +118,7 @@ export const SESSIONS: Session[] = [
     time: '10:00 PM',
     timestamp: '2026-07-02T22:00:00',
     day: 1,
-    location: 'RCC',
+    location: 'RCC - Residence & Conference Center',
     description: 'Bedtime.',
     category: 'General'
   },
@@ -256,7 +256,7 @@ export const SESSIONS: Session[] = [
     time: '11:00 AM - 12:00 PM',
     timestamp: '2026-07-03T11:00:00',
     day: 2,
-    location: 'Class room K224',
+    location: 'Class room K224, Building K, near Alumini Hall (2nd Floor)',
     description: 'Kids Session.',
     category: 'Kids'
   },
@@ -377,7 +377,7 @@ export const SESSIONS: Session[] = [
     time: '05:00 PM - 06:00 PM',
     timestamp: '2026-07-03T17:00:00',
     day: 2,
-    location: 'RCC',
+    location: 'RCC - Residence & Conference Center',
     description: 'Relax and refresh at RCC Lounge, play Volleyball or Basketball.',
     category: 'Social'
   },
@@ -387,7 +387,7 @@ export const SESSIONS: Session[] = [
     time: '06:00 PM - 06:30 PM',
     timestamp: '2026-07-03T18:00:00',
     day: 2,
-    location: 'RCC',
+    location: 'RCC - Residence & Conference Center',
     description: 'Refresh and prepare for evening prayer.',
     category: 'General'
   },
@@ -448,7 +448,7 @@ export const SESSIONS: Session[] = [
     time: '09:45 PM',
     timestamp: '2026-07-03T21:45:00',
     day: 2,
-    location: 'RCC',
+    location: 'RCC - Residence & Conference Center',
     description: 'Bedtime.',
     category: 'General'
   },

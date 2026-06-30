@@ -6,7 +6,7 @@ import {
   ChevronRight, Clock, Info, ExternalLink,
 } from 'lucide-react';
 
-type Building = {
+export type Building = {
   id: string;
   name: string;
   fullName: string;
@@ -18,7 +18,7 @@ type Building = {
   address: string;
 };
 
-const BUILDINGS: Building[] = [
+export const BUILDINGS: Building[] = [
   {
     id: 'P', name: 'Parking', fullName: 'Student Residence Parking',
     x: 70, y: 22, isVenue: true,
@@ -49,10 +49,10 @@ const BUILDINGS: Building[] = [
   },
 ];
 
-const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
+export const VENUE_SESSION_KEYWORDS: Record<string, string[]> = {
   N: ['Building N', 'ABSC'],
   K: ['Building K', 'Alumni Hall', 'K217', 'K224'],
-  B: ['Student Residence (RCC)', 'Residence & Conference Center (RCC)'],
+  B: ['Student Residence (RCC)', 'Residence & Conference Center (RCC)', 'RCC'],
 };
 
 const DAY_LABELS: Record<number, string> = { 1: 'Thu · Jul 2', 2: 'Fri · Jul 3', 3: 'Sat · Jul 4' };
