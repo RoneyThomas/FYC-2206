@@ -7,7 +7,8 @@
 }
 
 html {
-  font-size: 17px; /* Slight zoom for mobile */
+  font-size: 17px;
+  /* Slight zoom for mobile */
 }
 
 @media (min-width: 1024px) {

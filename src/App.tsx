@@ -16,7 +16,7 @@ import {
   BookOpen,
   Heart,
 } from 'lucide-react';
-import logoImage from './assets/logo.webp';
+import logoImage from './assets/logo-optimized.webp';
 
 // Import our cohesive sub-views & data
 import { SPEAKERS } from './data';
