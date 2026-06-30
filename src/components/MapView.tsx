@@ -140,48 +140,23 @@ export default function MapView() {
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
 
       {/* ── Header ─────────────────────────────────────── */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
-        {/* Desktop Header (Always visible on md+) or Mobile Default (When no building selected) */}
-        <div className={`space-y-1.5 ${selectedBuilding ? 'hidden md:block' : 'block'}`}>
+      <div className="hidden lg:block bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+        <div className="space-y-1.5">
           <span className="bg-amber-100 text-[#735c00] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">
             Barrie, Ontario
           </span>
           <h2 className="font-serif text-2xl font-bold text-[#000a1e]">Georgian College Campus</h2>
           <p className="text-xs text-slate-500 leading-relaxed">
-            <strong>101 Georgian Dr, Barrie, ON L4M 3X9</strong> · Tap a building to explore sessions & details.
+            <strong>101 Georgian Dr, Barrie, ON L4M 3X9</strong>
           </p>
         </div>
-
-        {/* Mobile Selected Venue Header (Visible only on mobile when a building is selected) */}
-        {selectedBuilding && (
-          <div className="space-y-1.5 block md:hidden">
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${selectedBuilding.isVenue ? 'bg-[#fed65b]/20 text-[#735c00]' : 'bg-slate-100 text-slate-600'}`}>
-              {selectedBuilding.isVenue ? 'Conference Venue' : 'Campus Building'}
-            </span>
-            <div className="flex items-center gap-2">
-              <h2 className="font-serif text-xl font-bold text-[#000a1e] leading-tight">{selectedBuilding.name}</h2>
-              <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-extrabold shrink-0 border ${selectedBuilding.isVenue ? 'bg-[#fed65b] text-[#735c00] border-[#fed65b]' : 'bg-slate-600 text-white border-slate-500'}`}>
-                {selectedBuilding.id}
-              </div>
-            </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-3">{selectedBuilding.desc}</p>
-            {selectedBuilding.maplink && (
-              <div className="pt-1">
-                <a href={selectedBuilding.maplink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs text-blue-700 font-semibold hover:text-blue-900 transition-colors group">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600/70 group-hover:text-blue-900" />
-                  Open in Google Maps
-                </a>
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {/* ── Map + Panel ─────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-start">
 
         {/* Map */}
-        <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="lg:col-span-3 order-2 lg:order-1 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
           {/* Toolbar */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-white">
             <h3 className="font-serif text-sm font-bold text-[#000a1e] flex items-center gap-1.5">
@@ -247,7 +222,7 @@ export default function MapView() {
 
                 {/* Building markers — positioned absolutely over the image using padding trick */}
                 {/* We use a 100% × 100% overlay div matched to the rendered image area */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="absolute inset-0 hidden lg:flex items-center justify-center pointer-events-none">
                   {/* Inner wrapper that matches the natural aspect ratio of the PNG (431:556 ≈ 77.5:100) */}
                   <div
                     className="relative"
@@ -310,11 +285,11 @@ export default function MapView() {
 
           {/* Legend */}
           <div className="px-4 py-2.5 border-t border-slate-100 flex items-center gap-4 text-[10px] text-slate-500 bg-white">
-            <span className="flex items-center gap-1.5">
+            <span className="hidden lg:flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-[#fed65b] border-2 border-white shadow inline-block" />
               Conference Venue
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="hidden lg:flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-slate-400 border-2 border-white shadow inline-block" />
               Campus Building
             </span>
@@ -323,11 +298,11 @@ export default function MapView() {
         </div>
 
         {/* ── Right Info Panel ────────────────────────── */}
-        <div className="lg:col-span-2 space-y-3">
+        <div className="lg:col-span-2 order-1 lg:order-2 space-y-3">
 
           {/* Selected building card */}
           {selectedBuilding && (
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div className="hidden lg:block bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
               <div className={`px-4 py-4 ${selectedBuilding.isVenue ? 'bg-[#000a1e]' : 'bg-slate-700'}`}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1 min-w-0">
@@ -402,24 +377,43 @@ export default function MapView() {
           <div className="space-y-2">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Conference Venues</p>
             {BUILDINGS.filter(b => b.isVenue).map(b => (
-              <button
-                key={b.id}
-                onClick={() => setSelectedBuilding(b)}
-                className={`w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 cursor-pointer ${selectedBuilding?.id === b.id
-                  ? 'bg-[#ffe088]/15 border-[#fed65b] text-[#735c00]'
-                  : 'bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50'
-                  }`}
-              >
-                <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${selectedBuilding?.id === b.id ? 'bg-[#fed65b] text-[#735c00]' : 'bg-[#000a1e] text-[#ffe088]'
-                  }`}>
-                  {b.id}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold leading-tight">{b.name}</p>
-                  <p className="text-[10px] text-slate-400 truncate">{b.fullName}</p>
-                </div>
-                <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-40" />
-              </button>
+              <React.Fragment key={b.id}>
+                {/* Desktop: Select Building */}
+                <button
+                  onClick={() => setSelectedBuilding(b)}
+                  className={`hidden lg:flex w-full text-left p-3 rounded-xl border transition-all items-center gap-3 cursor-pointer ${selectedBuilding?.id === b.id
+                    ? 'bg-[#ffe088]/15 border-[#fed65b] text-[#735c00]'
+                    : 'bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50'
+                    }`}
+                >
+                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${selectedBuilding?.id === b.id ? 'bg-[#fed65b] text-[#735c00]' : 'bg-[#000a1e] text-[#ffe088]'
+                    }`}>
+                    {b.id}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold leading-tight">{b.name}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{b.fullName}</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-40" />
+                </button>
+
+                {/* Mobile: Open Map Link */}
+                <a
+                  href={b.maplink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="lg:hidden flex w-full text-left p-3 rounded-xl border transition-all items-center gap-3 cursor-pointer bg-white border-slate-200 text-slate-700 hover:border-[#fed65b]/50 hover:bg-slate-50"
+                >
+                  <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 bg-[#000a1e] text-[#ffe088]">
+                    {b.id}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold leading-tight">{b.name}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{b.fullName}</p>
+                  </div>
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-40" />
+                </a>
+              </React.Fragment>
             ))}
           </div>
         </div>
