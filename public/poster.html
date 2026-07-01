@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1170" />
+  <title>FYC 2026 Poster</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1170px;
+      height: 2532px;
+      overflow: hidden;
+      background: #000a1e;
+    }
+
+    .poster {
+      width: 1170px;
+      height: 2532px;
+      position: relative;
+      overflow: hidden;
+      background: #000a1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Background layers ── */
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 55% at 50% 8%,  rgba(31,2,149,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 40% at 20% 60%, rgba(20,0,100,0.40) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 35% at 80% 75%, rgba(31,2,149,0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 50% 100%,rgba(10,0,60,0.60) 0%, transparent 70%);
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* Top vignette */
+    .vignette-top {
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      height: 400px;
+      background: linear-gradient(to bottom, rgba(0,6,20,0.70), transparent);
+      pointer-events: none;
+    }
+    /* Bottom vignette */
+    .vignette-bottom {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 500px;
+      background: linear-gradient(to top, rgba(0,2,15,0.90), transparent);
+      pointer-events: none;
+    }
+
+    /* ── Gold decorative lines ── */
+    .gold-line {
+      width: 320px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,224,136,0.6), transparent);
+    }
+    .gold-line-full {
+      width: 640px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,224,136,0.5), transparent);
+    }
+    .gold-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,224,136,0.7);
+    }
+
+    /* ── Content ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 80px 90px;
+    }
+
+    .church-logo {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(31,2,149,0.8));
+    }
+
+    .church-name {
+      margin-top: 36px;
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      color: rgba(255,224,136,0.75);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .diocese {
+      font-family: 'EB Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+    }
+
+    .spacer-1 { flex: 1; }
+
+    .welcome-label {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.30em;
+      color: rgba(255,224,136,0.6);
+      margin-bottom: 30px;
+    }
+
+    .title-welcome {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      letter-spacing: 0.28em;
+      color: rgba(255,224,136,0.6);
+      margin-bottom: 28px;
+    }
+
+    .conference-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 114px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 120px rgba(31,2,149,0.9), 0 4px 40px rgba(0,0,0,0.8);
+    }
+
+    .conference-year {
+      font-family: 'EB Garamond', serif;
+      font-size: 130px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 0.95;
+      text-shadow: 0 0 120px rgba(31,2,149,0.9), 0 4px 40px rgba(0,0,0,0.8);
+      letter-spacing: 0.04em;
+    }
+
+    .divider-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 52px 0;
+    }
+
+    .theme-quote {
+      font-family: 'EB Garamond', serif;
+      font-size: 50px;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,224,136,0.90);
+      text-align: center;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+      padding: 0 40px;
+    }
+
+    .spacer-2 { flex: 1.4; }
+
+    .dates-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dates-label {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      letter-spacing: 0.30em;
+      color: rgba(255,224,136,0.55);
+    }
+
+    .dates-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 54px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.90);
+      letter-spacing: 0.06em;
+    }
+
+    .spacer-3 { flex: 1; }
+
+    .scripture-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      padding: 0 60px;
+    }
+
+    .scripture-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 38px;
+      font-style: italic;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .scripture-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      letter-spacing: 0.20em;
+      color: rgba(255,224,136,0.45);
+    }
+
+    .bottom-logo {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bottom-church {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      color: rgba(255,224,136,0.40);
+      text-align: center;
+    }
+
+    /* Corner ornament */
+    .ornament {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      opacity: 0.15;
+    }
+    .ornament-tl { top: 40px; left: 40px; }
+    .ornament-tr { top: 40px; right: 40px; transform: scaleX(-1); }
+    .ornament-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
+    .ornament-br { bottom: 40px; right: 40px; transform: scale(-1,-1); }
+  </style>
+</head>
+<body>
+<div class="poster">
+  <!-- Background -->
+  <div class="bg-gradient"></div>
+  <div class="bg-noise"></div>
+  <div class="vignette-top"></div>
+  <div class="vignette-bottom"></div>
+
+  <!-- Corner ornaments (SVG brackets) -->
+  <svg class="ornament ornament-tl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 90 L 10 10 L 90 10" stroke="#ffe088" stroke-width="2" fill="none"/>
+    <path d="M 10 10 L 25 10 M 10 10 L 10 25" stroke="#ffe088" stroke-width="3" fill="none"/>
+  </svg>
+  <svg class="ornament ornament-tr" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 90 L 10 10 L 90 10" stroke="#ffe088" stroke-width="2" fill="none"/>
+    <path d="M 10 10 L 25 10 M 10 10 L 10 25" stroke="#ffe088" stroke-width="3" fill="none"/>
+  </svg>
+  <svg class="ornament ornament-bl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 90 L 10 10 L 90 10" stroke="#ffe088" stroke-width="2" fill="none"/>
+    <path d="M 10 10 L 25 10 M 10 10 L 10 25" stroke="#ffe088" stroke-width="3" fill="none"/>
+  </svg>
+  <svg class="ornament ornament-br" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 90 L 10 10 L 90 10" stroke="#ffe088" stroke-width="2" fill="none"/>
+    <path d="M 10 10 L 25 10 M 10 10 L 10 25" stroke="#ffe088" stroke-width="3" fill="none"/>
+  </svg>
+
+  <!-- Main content -->
+  <div class="content">
+
+    <!-- Church identity -->
+    <img
+      class="church-logo"
+      src="/favicon.svg"
+      alt="Church Crest"
+    />
+    <div class="church-name">THE MALANKARA ORTHODOX SYRIAN CHURCH</div>
+    <div class="diocese">Diocese of Canada</div>
+
+    <div class="spacer-1"></div>
+
+    <!-- Welcome + Title -->
+    <div class="welcome-label">WELCOME TO</div>
+
+    <div class="divider-row" style="margin: 0 0 40px;">
+      <div class="gold-line"></div>
+      <div class="gold-dot"></div>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="conference-title">Family &amp; Youth</div>
+    <div class="conference-title">Conference</div>
+    <div class="conference-year">2026</div>
+
+    <div class="divider-row">
+      <div class="gold-line-full"></div>
+    </div>
+
+    <!-- Theme -->
+    <div class="theme-quote">"Timeless Truth for a Changing World"</div>
+
+    <div class="spacer-2"></div>
+
+    <!-- Date -->
+    <div class="dates-block">
+      <div class="dates-label">CONFERENCE DATES</div>
+      <div class="divider-row" style="margin: 8px 0;">
+        <div class="gold-line"></div>
+        <div class="gold-dot"></div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="dates-text">July 2 – 4, 2026</div>
+    </div>
+
+    <div class="spacer-3"></div>
+
+    <!-- Scripture -->
+    <div class="scripture-block">
+      <div class="divider-row" style="margin: 0;">
+        <div class="gold-line"></div>
+        <div class="gold-dot"></div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="scripture-text">
+        "Jesus Christ is the same yesterday<br>and today and forever."
+      </div>
+      <div class="scripture-ref">— HEBREWS 13:8</div>
+    </div>
+
+    <!-- Bottom church name -->
+    <div class="bottom-logo">
+      <div class="divider-row" style="margin: 30px 0 20px;">
+        <div class="gold-line"></div>
+      </div>
+      <div class="bottom-church">MALANKARA ORTHODOX SYRIAN CHURCH · DIOCESE OF CANADA</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

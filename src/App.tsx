@@ -17,6 +17,7 @@ import {
   Heart,
 } from 'lucide-react';
 import logoImage from './assets/logo-optimized.webp';
+import metropolitanImage from './assets/Assistant-Metropolitan.jpg';
 
 // Import our cohesive sub-views & data
 import { SPEAKERS } from './data';
@@ -283,6 +284,48 @@ export default function App() {
                 </div>
               </section>
             </div>
+
+            {/* 2.5. Message from the Assistant Diocesan Metropolitan */}
+            <section className="px-4 max-w-5xl mx-auto space-y-10">
+              <div className="text-center relative">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold uppercase tracking-widest text-[#000a1e] relative inline-block">
+                  From the Assistant Metropolitan
+                  <span className="absolute -bottom-2.5 left-1/4 right-1/4 h-0.5 bg-[#fed65b]"></span>
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs">
+                {/* Portrait & attribution */}
+                <div className="lg:col-span-4 flex flex-col items-center lg:items-start gap-4">
+                  <div className="w-full max-w-[220px] aspect-[2/3] rounded-2xl overflow-hidden border-4 border-slate-200 shadow-sm shrink-0">
+                    <img
+                      src={metropolitanImage}
+                      alt="H.G. Zachariah Mar Nicholovos"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="text-center lg:text-left">
+                    <h4 className="font-serif text-base font-extrabold text-[#000a1e] leading-tight">H.G. Zachariah Mar Nicholovos</h4>
+                    <p className="text-[11px] font-bold text-[#735c00] uppercase tracking-wide">Assistant Metropolitan</p>
+                    <p className="text-[10px] text-slate-400 font-sans tracking-wide">Diocese of Canada</p>
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div className="lg:col-span-8 space-y-4 border-t lg:border-t-0 lg:border-l border-slate-200 pt-6 lg:pt-0 lg:pl-8">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                    The annual Family &amp; Youth Conference has been a celebrated and dynamic ministry of our Diocese for several decades. It is an avenue where our clergy and faithful from all corners of our Diocese gather together in prayer, fellowship, and reflection culminating in worship at Holy Qurbana on the final day.
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                    This ministry has served as a platform for further growth in our Diocese, and where ministries have been able to collaborate with each other to edify our people. We pray that this major annual gathering of our Diocese continues to be a place for spiritual growth and fostering great relationships amongst our clergy and people.
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                    We seek the prayerful participation of our clergy and faithful alike for 2026 Family &amp; Youth Conference. The committee is actively preparing for this conference with great speakers and resource persons to engage us in further growth. May God's mercies and blessings upon all those who are working hard for the coming annual conference. Your prayers, and participation are anticipated for our 2026 Family &amp; Youth Conference.
+                  </p>
+                </div>
+              </div>
+            </section>
 
             {/* 3. Welcome narrative & bento buttons cards */}
             <section className="px-4 max-w-4xl mx-auto text-center space-y-8">
