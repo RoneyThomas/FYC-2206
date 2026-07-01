@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920" />
+  <title>FYC 2026 Poster 16×9</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #000a1e;
+    }
+
+    .poster {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      background: #000a1e;
+      display: flex;
+      align-items: stretch;
+    }
+
+    /* ── Background ── */
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 100% at 50% 50%,  rgba(31,2,149,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 10% 50%,  rgba(20,0,100,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 80% at 90% 50%,  rgba(20,0,100,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 50% at 50% 0%,   rgba(31,2,149,0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(5,0,40,0.70)   0%, transparent 60%);
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* Edge vignettes */
+    .vignette-left {
+      position: absolute; inset-block: 0; left: 0; width: 300px;
+      background: linear-gradient(to right, rgba(0,4,15,0.75), transparent);
+    }
+    .vignette-right {
+      position: absolute; inset-block: 0; right: 0; width: 300px;
+      background: linear-gradient(to left, rgba(0,4,15,0.75), transparent);
+    }
+    .vignette-top {
+      position: absolute; inset-inline: 0; top: 0; height: 200px;
+      background: linear-gradient(to bottom, rgba(0,4,15,0.65), transparent);
+    }
+    .vignette-bottom {
+      position: absolute; inset-inline: 0; bottom: 0; height: 220px;
+      background: linear-gradient(to top, rgba(0,2,12,0.85), transparent);
+    }
+
+    /* ── Corner ornaments ── */
+    .ornament {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      opacity: 0.18;
+    }
+    .ornament-tl { top: 32px; left: 32px; }
+    .ornament-tr { top: 32px; right: 32px; transform: scaleX(-1); }
+    .ornament-bl { bottom: 32px; left: 32px; transform: scaleY(-1); }
+    .ornament-br { bottom: 32px; right: 32px; transform: scale(-1,-1); }
+
+    /* ── Thin vertical gold rules ── */
+    .v-rule {
+      position: absolute;
+      top: 60px; bottom: 60px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,224,136,0.25) 20%, rgba(255,224,136,0.25) 80%, transparent);
+    }
+    .v-rule-l { left: 340px; }
+    .v-rule-r { right: 340px; }
+
+    /* ── Layout columns ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 340px 1fr 340px;
+      align-items: center;
+      padding: 0;
+    }
+
+    /* Left panel */
+    .panel-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 60px 40px;
+      height: 100%;
+    }
+
+    .church-logo {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(31,2,149,0.8));
+    }
+
+    .church-name {
+      font-family: 'Cinzel', serif;
+      font-size: 13.5px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      color: rgba(255,224,136,0.70);
+      text-align: center;
+      line-height: 1.65;
+    }
+
+    .diocese {
+      font-family: 'EB Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.60);
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .left-divider {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,224,136,0.45), transparent);
+    }
+
+    .dates-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dates-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: rgba(255,224,136,0.50);
+    }
+
+    .dates-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.05em;
+    }
+
+    .location-text {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(255,224,136,0.40);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* Center panel */
+    .panel-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 70px 60px;
+      height: 100%;
+    }
+
+    .welcome-label {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.34em;
+      color: rgba(255,224,136,0.55);
+      margin-bottom: 22px;
+    }
+
+    .h-rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+    .h-rule-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,224,136,0.5), transparent);
+    }
+    .h-rule-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(255,224,136,0.65);
+      flex-shrink: 0;
+    }
+
+    .conference-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 98px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 100px rgba(31,2,149,0.85), 0 4px 30px rgba(0,0,0,0.7);
+    }
+
+    .conference-year {
+      font-family: 'EB Garamond', serif;
+      font-size: 108px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 0.95;
+      text-shadow: 0 0 100px rgba(31,2,149,0.85), 0 4px 30px rgba(0,0,0,0.7);
+      letter-spacing: 0.05em;
+      margin-bottom: 30px;
+    }
+
+    .theme-quote {
+      font-family: 'EB Garamond', serif;
+      font-size: 30px;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,224,136,0.88);
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+      margin-top: 8px;
+    }
+
+    /* Right panel */
+    .panel-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 60px 40px;
+      height: 100%;
+    }
+
+    .scripture-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .scripture-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: rgba(255,255,255,0.50);
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    .scripture-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      letter-spacing: 0.20em;
+      color: rgba(255,224,136,0.40);
+    }
+
+    .qr-placeholder {
+      width: 110px;
+      height: 110px;
+      border: 1px solid rgba(255,224,136,0.18);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .register-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: rgba(255,224,136,0.38);
+      text-align: center;
+    }
+
+    .bottom-strip {
+      position: absolute;
+      bottom: 28px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bottom-church {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.20em;
+      color: rgba(255,224,136,0.28);
+    }
+  </style>
+</head>
+<body>
+<div class="poster">
+  <div class="bg-gradient"></div>
+  <div class="bg-noise"></div>
+  <div class="vignette-left"></div>
+  <div class="vignette-right"></div>
+  <div class="vignette-top"></div>
+  <div class="vignette-bottom"></div>
+
+  <!-- Corner ornaments -->
+  <svg class="ornament ornament-tl" viewBox="0 0 100 100" fill="none"><path d="M10 90 L10 10 L90 10" stroke="#ffe088" stroke-width="1.5" fill="none"/></svg>
+  <svg class="ornament ornament-tr" viewBox="0 0 100 100" fill="none"><path d="M10 90 L10 10 L90 10" stroke="#ffe088" stroke-width="1.5" fill="none"/></svg>
+  <svg class="ornament ornament-bl" viewBox="0 0 100 100" fill="none"><path d="M10 90 L10 10 L90 10" stroke="#ffe088" stroke-width="1.5" fill="none"/></svg>
+  <svg class="ornament ornament-br" viewBox="0 0 100 100" fill="none"><path d="M10 90 L10 10 L90 10" stroke="#ffe088" stroke-width="1.5" fill="none"/></svg>
+
+  <!-- Vertical gold rules -->
+  <div class="v-rule v-rule-l"></div>
+  <div class="v-rule v-rule-r"></div>
+
+  <div class="content">
+
+    <!-- LEFT: Church identity + dates -->
+    <div class="panel-left">
+      <img class="church-logo" src="/favicon.svg" alt="Church Crest" />
+      <div class="church-name">THE MALANKARA ORTHODOX<br>SYRIAN CHURCH</div>
+      <div class="diocese">Diocese of Canada</div>
+      <div class="left-divider"></div>
+      <div class="dates-block">
+        <div class="dates-label">CONFERENCE DATES</div>
+        <div class="dates-text">July 2 – 4, 2026</div>
+        <div class="location-text">Georgian College<br>Barrie, Ontario</div>
+      </div>
+    </div>
+
+    <!-- CENTER: Title + theme -->
+    <div class="panel-center">
+      <div class="welcome-label">WELCOME TO</div>
+      <div class="h-rule">
+        <div class="h-rule-line"></div>
+        <div class="h-rule-dot"></div>
+        <div class="h-rule-line"></div>
+      </div>
+      <div class="conference-title">Family &amp; Youth</div>
+      <div class="conference-title">Conference</div>
+      <div class="conference-year">2026</div>
+      <div class="h-rule">
+        <div class="h-rule-line"></div>
+        <div class="h-rule-dot"></div>
+        <div class="h-rule-line"></div>
+      </div>
+      <div class="theme-quote">"Timeless Truth for a Changing World"</div>
+    </div>
+
+    <!-- RIGHT: Scripture + register -->
+    <div class="panel-right">
+      <div class="left-divider"></div>
+      <div class="scripture-block">
+        <div class="scripture-text">
+          "Jesus Christ is the same<br>yesterday and today<br>and forever."
+        </div>
+        <div class="scripture-ref">— HEBREWS 13:8</div>
+      </div>
+      <div class="left-divider"></div>
+    </div>
+
+  </div>
+
+  <div class="bottom-strip">
+    <div class="bottom-church">MALANKARA ORTHODOX SYRIAN CHURCH · DIOCESE OF CANADA · FYC 2026</div>
+  </div>
+</div>
+</body>
+</html>

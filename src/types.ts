@@ -18,13 +18,13 @@ export interface Session {
   location: string;
   speakerId?: string;
   description: string;
-  category: 'Liturgy' | 'General' | 'Workshop' | 'Social' | 'Youth' | 'Kids' | 'Ladies' | 'Seniors';
+  category: 'Liturgy' | 'General' | 'Family' | 'Reflection' | 'Social' | 'Youth' | 'Kids' | 'Ladies' | 'Seniors';
 }
 
 export interface Song {
   id: string;
   title: string;
-  category: 'General worship';
+  category: 'Hymn';
   englishTitle?: string;
   lyricsEnglish: string;
   lyricsTransliterated: string;

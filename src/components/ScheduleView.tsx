@@ -91,12 +91,13 @@ export default function ScheduleView() {
   const getCategoryColor = (cat: string) => {
     switch (cat) {
       case 'Liturgy': return 'bg-amber-100/60 text-amber-800 border-amber-200';
-      case 'Workshop': return 'bg-purple-100/60 text-purple-800 border-purple-200';
+      case 'Refelection': return 'bg-purple-100/60 text-purple-800 border-purple-200';
       case 'Social': return 'bg-teal-100/60 text-teal-800 border-teal-200';
       case 'Youth': return 'bg-pink-100/60 text-pink-800 border-pink-200';
       case 'Kids': return 'bg-blue-100/60 text-blue-800 border-blue-200';
       case 'Ladies': return 'bg-red-100/60 text-red-800 border-red-200';
       case 'Seniors': return 'bg-green-100/60 text-green-800 border-green-200';
+      case 'Family': return 'bg-orange-100/60 text-orange-800 border-orange-200';
       default: return 'bg-blue-100/60 text-blue-800 border-blue-200';
     }
   };
@@ -147,13 +148,14 @@ export default function ScheduleView() {
             >
               <option value="All">All Categories</option>
               <option value="Liturgy">Divine Liturgy</option>
-              <option value="General">Plenary Talks</option>
-              <option value="Workshop">Workshops</option>
+              <option value="General">General</option>
+              <option value="Refelection">Refelection</option>
               <option value="Social">Dinner & Fellowship</option>
               <option value="Youth">Youth Movement</option>
               <option value="Kids">Kids</option>
               <option value="Ladies">Ladies</option>
               <option value="Seniors">Seniors</option>
+              <option value='Family'>Family</option>
             </select>
             <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>

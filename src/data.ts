@@ -200,7 +200,7 @@ export const SESSIONS: Session[] = [
     day: 2,
     location: 'Alumni Hall, Room K229 (Building K, 2nd Floor)',
     description: 'Keynote address for Family by Rev. Fr. Dr. Timothy Thomas.',
-    category: 'General',
+    category: 'Family',
     speakerId: 'sp-timothy'
   },
   {
@@ -242,7 +242,7 @@ export const SESSIONS: Session[] = [
     day: 2,
     location: 'Alumni Hall, Room K229 (Building K, 2nd Floor)',
     description: 'Keynote address for Family by Rev. Fr. Dr. Timothy Thomas.',
-    category: 'General',
+    category: 'Family',
     speakerId: 'sp-timothy'
   },
   {
@@ -315,7 +315,7 @@ export const SESSIONS: Session[] = [
     day: 2,
     location: 'Various Rooms & Lounges Available',
     description: 'Group Discussions.',
-    category: 'Workshop'
+    category: 'Reflection'
   },
   {
     id: 'sess-211-kids',
@@ -425,7 +425,7 @@ export const SESSIONS: Session[] = [
     day: 2,
     location: 'ABSC Event Space (Building N, 3rd Floor, Room N302B)',
     description: 'Flash feedback session.',
-    category: 'General'
+    category: 'Reflection'
   },
   {
     id: 'sess-219',
@@ -546,7 +546,7 @@ export const SONGS: Song[] = [
   {
     id: 'song-1',
     title: 'ലോകത്തിൻ സൈന്യം',
-    category: 'General worship',
+    category: 'Hymn',
     englishTitle: 'Lokathin Sainyam',
     lyricsEnglish: `Lokathin sainyam paalayamirangum
 Njaan bhayappedilla bhayappedilla (2)
@@ -639,7 +639,7 @@ Swarggeeya Daivam koodeyundu (2)`,
   {
     id: 'song-2',
     title: 'എന്റെ ദൈവം കരുണയാലെന്നെ',
-    category: 'General worship',
+    category: 'Hymn',
     englishTitle: 'Ente daivam karunayalenne',
     lyricsEnglish: `Ente daivam karunayalenne
 Oro nimishavum vazhinadathum (2)
@@ -687,7 +687,7 @@ En prananennum anandhikkum (2)`,
   {
     id: 'song-3',
     title: 'ദിനംതോറും എന്നെ നടത്തുന്ന കൃപയ്ക്കായ്',
-    category: 'General worship',
+    category: 'Hymn',
     englishTitle: 'Dhinam Thorum Enne',
     lyricsEnglish: `Dhinam thorum enne nadathunna krupaykkai
 Yaagamaai enne samarppikkunnu (2)
@@ -762,7 +762,7 @@ Poornamaai enne samarppikkunnu (2)`,
   {
     id: 'song-4',
     title: 'നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും',
-    category: 'General worship',
+    category: 'Hymn',
     englishTitle: 'Nanniyode Njan Sthuthi Paadidum',
     lyricsEnglish: `Nanniyode njan Sthuthi Paadidum
 Ente Yeshu Naadha
@@ -841,13 +841,40 @@ Innu nanni chollunnu njan (2)`,
 
 export const GEORGIAN_COLLEGE_PLACES = [
   {
-    name: 'Subway',
-    type: 'Café',
-    desc: 'Subway is a casual counter-serve chain offering customizable sandwiches and salads, popular for quick and affordable lunches.',
-    distance: '1.3 km from college (4 min drive)',
-    address: '367 Cundles Rd E Unit H2, Barrie, ON L4M 0G9',
-    maplink: 'https://maps.app.goo.gl/vgwZUrmvDBhsCPVJ9'
+    name: 'Martyrs\' Shrine',
+    type: 'Sightseeing',
+    desc: 'The Shrine of the Canadian Martyrs, commonly known as the Martyrs\' Shrine, is a Roman Catholic and historic place of worship.',
+    distance: '48 km North (36-min drive)',
+    address: '16163 ON-12, Midland, ON L4R 4K6',
+    maplink: 'https://maps.app.goo.gl/FQxgZQ6zRoPyTJAm9'
   },
+  {
+    name: 'Centennial Park',
+    type: 'Sightseeing',
+    desc: 'Sandy lakeside swimming beach with a boardwalk, boat ramps, shady picnic areas & trails.',
+    distance: '7.2 km South (15-min drive)',
+    address: 'Lakeshore Dr, Barrie, ON L4N 7Y9',
+    maplink: 'https://maps.app.goo.gl/bQmFvuQ1hcrKhbMt5'
+  },
+  {
+    name: 'Elmvale Jungle Zoo',
+    type: 'Sightseeing',
+    desc: 'The Elmvale Jungle Zoo is a zoo in Springwater, Ontario, Canada.',
+    distance: '23 km North (21-min drive)',
+    address: '14191 Simcoe County Rd 27, Phelpston, ON L0L 1P0',
+    maplink: 'https://maps.app.goo.gl/9P6S3JkF2SAGkaU7A'
+  },
+  {
+    name: 'Wasaga Beach',
+    type: 'Sightseeing',
+    desc: 'Wasaga Beach is a town in Simcoe County, Ontario, Canada, on the southeast Georgian Bay coast.',
+    distance: '38 km North (41-min drive)',
+    address: '11 22nd Street North, Wasaga Beach, ON, L9Z 2V9',
+    maplink: 'https://maps.app.goo.gl/o4QW8wSBB5BJCeHX9'
+  }
+];
+
+export const FOOD_SPOTS = [
   {
     name: 'Tim Hortons',
     type: 'Café',
@@ -863,37 +890,24 @@ export const GEORGIAN_COLLEGE_PLACES = [
     distance: '1.8 km from college (7 min drive)',
     address: '637 Cundles Rd E Bldg R Bldg R, Barrie, ON L4M 0K4',
     maplink: 'https://maps.app.goo.gl/KLETPmR45kHDuT956'
-  },
-  {
-    name: 'Starbucks',
-    type: 'Café',
-    desc: 'Premium coffee, espresso drinks, and pastries.',
-    distance: '1.7 km from college (5 min drive)',
-    address: '607 Cundles Rd E, Barrie, ON L4M 0J7',
-    maplink: 'https://maps.app.goo.gl/Xdj5PcM5v9irU9Nn8'
-  },
-  {
-    name: 'Osmow\'s Shawarma',
-    type: 'Restaurant',
-    desc: 'Modern Mediterranean cuisine specializing in shawarma.',
-    distance: '1.7 km from college (6 min drive)',
-    address: '547 Cundles Rd E, Barrie, ON L4M 0J7',
-    maplink: 'https://maps.app.goo.gl/AjpeuMQy4AUZvp2NA'
-  },
-  {
-    name: '705 Cravings',
-    type: 'Restaurant',
-    desc: 'A vibrant mix of Kerala classics and regional favorites',
-    distance: '1.3 km from college (5 min drive)',
-    address: '130 Bell Farm Rd Unit 12-B, Barrie, ON L4M 6J4',
-    maplink: 'https://maps.app.goo.gl/wQZf2C3VkUjFywtX8'
-  },
-  {
-    name: 'Centennial Park',
-    type: 'Sightseeing',
-    desc: 'Sandy lakeside swimming beach with a boardwalk, boat ramps, shady picnic areas & trails.',
-    distance: '7.2 km South (15-min drive)',
-    address: 'Lakeshore Dr, Barrie, ON L4N 7Y9',
-    maplink: 'https://maps.app.goo.gl/bQmFvuQ1hcrKhbMt5'
   }
-];
+]
+
+export const MEDICAL_FACILITIES = [
+  {
+    name: 'Royal Victoria Regional Health Centre',
+    type: 'Hospital',
+    desc: 'Comprehensive healthcare facility serving the Barrie and surrounding area.',
+    distance: '7.2 km South (15-min drive)',
+    address: '201 Georgian Dr, Barrie, ON L4M 6M2',
+    maplink: 'https://maps.app.goo.gl/k3Zrr9wvyf1HitEZA'
+  },
+  {
+    name: 'Shoppers Drug Mart',
+    type: 'Pharmacy',
+    desc: 'Pharmacy',
+    distance: '7.2 km South (15-min drive)',
+    address: '567 Cundles Rd E, Barrie, ON L4M 5L1',
+    maplink: 'https://maps.app.goo.gl/zJrGsG92MaWGuFBEA'
+  }
+]

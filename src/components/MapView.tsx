@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { SESSIONS, GEORGIAN_COLLEGE_PLACES } from '../data';
+import { SESSIONS, GEORGIAN_COLLEGE_PLACES, FOOD_SPOTS, MEDICAL_FACILITIES } from '../data';
 import {
   Compass, Phone, X, Download, Maximize2,
   ZoomIn, ZoomOut, RotateCcw, Calendar, MapPin,
@@ -30,7 +30,7 @@ export const BUILDINGS: Building[] = [
     id: 'N', name: 'ABSC Event Space', fullName: 'Peter B. Moore Centre (Building N)',
     x: 56, y: 18, isVenue: true,
     desc: 'Main conference hall. Hosts the inaugural ceremony, all meals (breakfast, lunch, dinner), evening prayers, cultural programs, devotional addresses, and Holy Qurbana.',
-    maplink: 'https://maps.app.goo.gl/76Xk9GQkyHKGknBJ6',
+    maplink: 'https://maps.app.goo.gl/KJwCLTQ5nh5aUjgF6',
     address: 'Building N, 3rd Floor, Room N302B'
   },
   {
@@ -72,6 +72,7 @@ export default function MapView() {
   const [isDragging, setIsDragging] = useState(false);
   const dragOrigin = useRef({ mouseX: 0, mouseY: 0, panX: 0, panY: 0 });
   const lastTouchDist = useRef(0);
+  const touchOrigin = useRef({ midX: 0, midY: 0, panX: 0, panY: 0 });
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const clampPan = useCallback((px: number, py: number, z: number) => {
@@ -111,33 +112,36 @@ export default function MapView() {
     setPan(p => clampPan(p.x, p.y, z));
   };
 
+  // Single-finger touch is left to the browser for native page scrolling
+  // (panning the map with one finger was hijacking vertical scroll on mobile).
+  // A two-finger gesture pans (via the midpoint) and pinches to zoom the map.
   const handleTouchStart = (e: React.TouchEvent) => {
     if ((e.target as HTMLElement).closest('[data-marker]')) return;
-    if (e.touches.length === 1) {
-      setIsDragging(true);
-      dragOrigin.current = { mouseX: e.touches[0].clientX, mouseY: e.touches[0].clientY, panX: pan.x, panY: pan.y };
-    } else if (e.touches.length === 2) {
-      lastTouchDist.current = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY,
-      );
+    if (e.touches.length === 2) {
+      const [t0, t1] = [e.touches[0], e.touches[1]];
+      lastTouchDist.current = Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY);
+      touchOrigin.current = {
+        midX: (t0.clientX + t1.clientX) / 2,
+        midY: (t0.clientY + t1.clientY) / 2,
+        panX: pan.x,
+        panY: pan.y,
+      };
     }
   };
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length === 1 && isDragging) {
+    if (e.touches.length === 2) {
       e.preventDefault();
-      const dx = e.touches[0].clientX - dragOrigin.current.mouseX;
-      const dy = e.touches[0].clientY - dragOrigin.current.mouseY;
-      setPan(clampPan(dragOrigin.current.panX + dx, dragOrigin.current.panY + dy, zoom));
-    } else if (e.touches.length === 2) {
-      e.preventDefault();
-      const d = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY,
-      );
+      const [t0, t1] = [e.touches[0], e.touches[1]];
+      const d = Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY);
       const z = Math.max(1, Math.min(4, zoom + (d - lastTouchDist.current) * 0.008));
       setZoom(z);
       lastTouchDist.current = d;
+
+      const midX = (t0.clientX + t1.clientX) / 2;
+      const midY = (t0.clientY + t1.clientY) / 2;
+      const dx = midX - touchOrigin.current.midX;
+      const dy = midY - touchOrigin.current.midY;
+      setPan(clampPan(touchOrigin.current.panX + dx, touchOrigin.current.panY + dy, z));
     }
   };
   const handleTouchEnd = () => setIsDragging(false);
@@ -200,7 +204,7 @@ export default function MapView() {
           {/* Zoomable map stage */}
           <div
             className={`relative overflow-hidden bg-slate-100 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-            style={{ height: 380, touchAction: 'none' }}
+            style={{ height: 380, touchAction: 'pan-y' }}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -391,14 +395,11 @@ export default function MapView() {
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
           <MapPin className="w-4 h-4 text-[#735c00]" />
-          <h3 className="font-serif text-sm font-bold text-[#000a1e]">Nearby Spots</h3>
+          <h3 className="font-serif text-sm font-bold text-[#000a1e]">Nearby Attractions</h3>
         </div>
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           {GEORGIAN_COLLEGE_PLACES.map((place, i) => {
             const typeColors: Record<string, string> = {
-              Accommodation: 'bg-teal-100 text-teal-700 border-teal-200',
-              Dining: 'bg-orange-100 text-orange-700 border-orange-200',
-              Café: 'bg-amber-100 text-amber-700 border-amber-200',
               Sightseeing: 'bg-blue-100 text-blue-700 border-blue-200',
             };
             return (
@@ -418,7 +419,85 @@ export default function MapView() {
                     <MapPin className="w-2.5 h-2.5" /> {place.distance}
                   </span>
                   {place.address && (
-                    <span className="text-[10px] text-slate-400 flex items-center gap-1 truncate max-w-[120px]" title={place.address}>
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1 truncate max-w-[320px]" title={place.address}>
+                      {place.address}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-[#735c00]" />
+          <h3 className="font-serif text-sm font-bold text-[#000a1e]">Nearby Hospitals & Pharmacies</h3>
+        </div>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {MEDICAL_FACILITIES.map((place, i) => {
+            const typeColors: Record<string, string> = {
+              Pharmacy: 'bg-green-100 text-green-700 border-green-200',
+              Hospital: 'bg-red-100 text-red-700 border-red-200'
+            };
+            return (
+              <a key={i} href={(place as any).maplink} target="_blank" rel="noreferrer" className="block bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 hover:border-[#fed65b]/50 hover:bg-[#fed65b]/5 transition-colors group">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-[#000a1e] leading-tight group-hover:text-[#735c00] transition-colors">{place.name}</p>
+                    <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-[#735c00] transition-colors" />
+                  </div>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${typeColors[place.type] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                    {place.type}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">{place.desc}</p>
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                    <MapPin className="w-2.5 h-2.5" /> {place.distance}
+                  </span>
+                  {place.address && (
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1 truncate max-w-[320px]" title={place.address}>
+                      {place.address}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-[#735c00]" />
+          <h3 className="font-serif text-sm font-bold text-[#000a1e]">Nearby Food Spots</h3>
+        </div>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {FOOD_SPOTS.map((place, i) => {
+            const typeColors: Record<string, string> = {
+              Dining: 'bg-orange-100 text-orange-700 border-orange-200',
+              Café: 'bg-amber-100 text-amber-700 border-amber-200',
+            };
+            return (
+              <a key={i} href={(place as any).maplink} target="_blank" rel="noreferrer" className="block bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 hover:border-[#fed65b]/50 hover:bg-[#fed65b]/5 transition-colors group">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-[#000a1e] leading-tight group-hover:text-[#735c00] transition-colors">{place.name}</p>
+                    <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-[#735c00] transition-colors" />
+                  </div>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${typeColors[place.type] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                    {place.type}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">{place.desc}</p>
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                    <MapPin className="w-2.5 h-2.5" /> {place.distance}
+                  </span>
+                  {place.address && (
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1 truncate max-w-[320px]" title={place.address}>
                       {place.address}
                     </span>
                   )}
