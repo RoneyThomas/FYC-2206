@@ -5,27 +5,33 @@ import vicar3 from './assets/vicar-3.webp';
 export const SPEAKERS: Speaker[] = [
   {
     id: 'sp-johns',
-    name: 'Very. Rev. Dr. Johns Abraham',
-    role: 'Reesh Cor Episcopa',
-    diocese: 'Malankara Malpan',
+    name: 'Very Rev. Dr. Johns Abraham Konat',
+    name1: 'Reesh Cor-Episcopa',
+    role: 'Malankara Malpan',
+    diocese: '',
     imageUrl: vicar2,
-    bio: 'Very Rev. Dr. Johns Abraham is a highly distinguished scholar, designated Reesh Cor Episcopa and Malankara Malpan (Teacher of the Church). Widely celebrated for his profound understanding of Syriac Theology, Patristics, and the liturgical heritage of the Malankara Orthodox Syrian Church. He provides apostolic guidance to clergy and laypeople alike.'
+    bio: 'Very Rev. Dr. Johns Abraham Konat Reesh Cor-Episcopa is the Principal Secretary to the Catholicos of the East and Malankara Metropolitan and the Official Spokesperson of the Malankara Orthodox Syrian Church. Elevated as Malankara Malpan and ordained Reesh Cor-Episcopa in 2024, he previously served two consecutive terms as Priest Trustee of the Malankara Church (2007–2017).',
+    bio2: 'A distinguished Syriac scholar, theologian, and educator, he serves as Professor and former Principal of the Orthodox Theological Seminary, Kottayam. Renowned for his expertise in Church history, Syriac heritage, Liturgy, and Church canons, he has authored numerous scholarly works and continues to make significant contributions to Orthodox theology and ecclesiastical leadership.'
   },
   {
     id: 'sp-timothy',
-    name: 'Rev. Fr. Dr. Timothy Thomas',
+    name: 'Rev. Fr. Dr. Timothy (Tenny) Thomas',
+    name1: '',
     role: 'Director of Sunday School Ministry',
     diocese: 'Northeast American Diocese',
     imageUrl: vicar1,
-    bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Director of the Sunday School Ministry for the Northeast American Diocese. He is a prominent scholar in pastoral theology and ecclesiastical youth ministry, dedicating his service to fostering spiritual literacy, traditional Orthodox liturgical music, and dynamic youth engagement schemas.'
+    bio: 'Rev. Fr. Dr. Timothy Thomas serves as the Vicar of St. Gregorios Orthodox Church, Raleigh, North Carolina, and as the Director of Sunday School Ministry for the Northeast American Diocese of the Malankara Orthodox Syrian Church. He holds a Ph.D. in Religious Education from Fordham University and a Master of Theology from St. Vladimir\'s Orthodox Theological Seminary. Fr. Timothy is an Adjunct Assistant Professor of Theology at St. John\'s University, New York, and a Guest Lecturer at St. Tikhon\'s Orthodox Theological Seminary. A respected retreat speaker and theologian, he is the creator of the Ascetic Echoes podcast and the author of The Uncontainable God in a Manger and Whispers of Repentance. His ministry is dedicated to nurturing spiritual formation, theological education, and the faith of the Church across generations.',
+    bio2: ''
   },
   {
     id: 'sp-abraham',
-    name: 'Rev. Fr. Dr. Abraham George',
-    role: 'Vicar, St. Thomas Orthodox Church',
-    diocese: 'Long Island',
+    name: 'Rev. Fr. Dr. Abraham (Abey) George',
+    name1: '',
+    role: 'Vicar, St. Thomas Orthodox Church, Long Island',
+    diocese: '',
     imageUrl: vicar3,
-    bio: 'Rev. Fr. Dr. Abraham George is the Vicar of St. Thomas Orthodox Church in Long Island. A modern theological intellectual, he focuses heavily on equipping young families and modern youth with strategies to understand "Timeless Truths" within a highly visual, distracting, digitalized world. His pastoral counsels are deeply treasured.'
+    bio: 'Rev. Fr. Dr. Abraham (Abey) George is the Vicar of St. Thomas Malankara Orthodox Church, Long Island, New York, and serves as Principal Secretary to His Grace Zachariah Mar Nicholovos, Metropolitan of the Northeast American Diocese. He holds degrees in Physics, Divinity, Christian Spirituality, and a Doctor of Ministry from St. Vladimir\'s Orthodox Theological Seminary. Alongside his pastoral ministry, Fr. Abraham serves as a Board-Certified Hospital Chaplain with the United States Department of Veterans Affairs. Widely appreciated for his pastoral care, engaging teaching, and practical spiritual guidance, he ministers to individuals and families through preaching, retreats, and leadership within the Church.',
+    bio2: ''
   }
 ];
 
@@ -34,7 +40,7 @@ export const SESSIONS: Session[] = [
   {
     id: 'sess-101',
     title: 'Registration',
-    time: '03:00 PM - 04:00 PM',
+    time: '03:00 PM - 05:00 PM',
     timestamp: '2026-07-02T15:00:00',
     day: 1,
     location: 'RCC - Residence & Conference Center',
@@ -353,12 +359,12 @@ export const SESSIONS: Session[] = [
   },
   {
     id: 'sess-213-seniors',
-    title: 'Seniors Forum Meeting',
+    title: 'SDOF & SJOF Meeting',
     time: '04:00 PM - 05:00 PM',
     timestamp: '2026-07-03T16:00:00',
     day: 2,
     location: 'Class room K217, Building K, near Alumini Hall (2nd Floor)',
-    description: 'Spiritual Organizations Meeting - Seniors Forum',
+    description: 'Spiritual Organization Meeting for St. Dionysius & St. Joseph Fellowship Meeting',
     category: 'Seniors'
   },
   {

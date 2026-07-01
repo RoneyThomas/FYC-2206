@@ -36,8 +36,8 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                   setSelectedSpeaker(s);
                 }}
                 className={`w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 border ${selectedSpeaker?.id === s.id
-                    ? 'bg-white border-secondary-container shadow-sm text-primary font-medium'
-                    : 'bg-transparent border-transparent text-slate-600 hover:bg-slate-100'
+                  ? 'bg-white border-secondary-container shadow-sm text-primary font-medium'
+                  : 'bg-transparent border-transparent text-slate-600 hover:bg-slate-100'
                   }`}
               >
                 <img
@@ -48,7 +48,7 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                     }`}
                 />
                 <div className="min-w-0">
-                  <p className="font-serif text-sm truncate leading-tight">{s.name.replace('Rev. Fr. Dr. ', '').replace('Very. Rev. Dr. ', '')}</p>
+                  <p className="font-serif text-xs truncate leading-tight">{s.name + ' ' + s.name1}</p>
                   <p className="text-[11px] text-slate-500 truncate mt-0.5">{s.role}</p>
                 </div>
               </button>
@@ -69,22 +69,21 @@ export default function SpeakersBiosModal({ onClose, isOpenInline = false }: Spe
                   className="w-24 h-24 rounded-full object-cover border-4 border-[#fed65b] shadow-ambient"
                 />
                 <div className="space-y-1">
+                  <h3 className="font-serif text-xl font-bold text-[#000a1e]">{selectedSpeaker.name + ' ' + selectedSpeaker.name1}</h3>
                   <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] uppercase tracking-wide font-semibold rounded-md">
                     <Award className="w-3 h-3 text-[#735c00]" /> {selectedSpeaker.role}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-[#000a1e]">{selectedSpeaker.name}</h3>
-                  <p className="text-sm font-semibold text-[#735c00]">{selectedSpeaker.diocese}</p>
-                  <div className="flex items-center gap-1 justify-center sm:justify-start text-xs text-slate-500">
-                    <MapPin className="w-3 h-3" /> Malankara Orthodox Syrian Church
                   </div>
                 </div>
               </div>
 
               {/* Bio description */}
               <div className="space-y-2">
-                <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Theological Bio</h4>
+                <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Profile</h4>
                 <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 italic">
-                  "{selectedSpeaker.bio}"
+                  {selectedSpeaker.bio}
+                  <br />
+                  <br />
+                  {selectedSpeaker.bio2}
                 </p>
               </div>
 

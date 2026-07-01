@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import logoImage from './assets/logo-optimized.webp';
 import metropolitanImage from './assets/Assistant-Metropolitan.jpg';
+import holinessImage from './assets/Metropolitan.jpg';
 
 // Import our cohesive sub-views & data
 import { SPEAKERS } from './data';
@@ -285,19 +286,37 @@ export default function App() {
               </section>
             </div>
 
+            {/* 2.4. His Holiness the Metropolitan portrait */}
+            <section className="px-4 max-w-5xl mx-auto">
+              <div className="flex flex-col items-center text-center gap-5">
+                <div className="w-full max-w-[320px] aspect-[2/3] rounded-2xl overflow-hidden border-4 border-slate-200 shadow-md">
+                  <img
+                    src={holinessImage}
+                    alt="His Holiness Moran Mar Baselios Marthoma Mathews III"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg sm:text-xl font-extrabold text-[#000a1e] leading-tight">His Holiness Moran Mar Baselios Marthoma Mathews III</h4>
+                  <p className="text-[11px] font-bold text-[#735c00] uppercase tracking-wide">Catholicos of the East & Malankara Metropolitan</p>
+                </div>
+              </div>
+            </section>
+
             {/* 2.5. Message from the Assistant Diocesan Metropolitan */}
             <section className="px-4 max-w-5xl mx-auto space-y-10">
-              <div className="text-center relative">
+              {/* <div className="text-center relative">
                 <h3 className="font-serif text-xl sm:text-2xl font-bold uppercase tracking-widest text-[#000a1e] relative inline-block">
                   From the Assistant Metropolitan
                   <span className="absolute -bottom-2.5 left-1/4 right-1/4 h-0.5 bg-[#fed65b]"></span>
                 </h3>
-              </div>
+              </div> */}
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs">
                 {/* Portrait & attribution */}
                 <div className="lg:col-span-4 flex flex-col items-center lg:items-start gap-4">
-                  <div className="w-full max-w-[220px] aspect-[2/3] rounded-2xl overflow-hidden border-4 border-slate-200 shadow-sm shrink-0">
+                  <div className="w-full max-w-[260px] aspect-[2/3] rounded-2xl overflow-hidden border-4 border-slate-200 shadow-sm shrink-0">
                     <img
                       src={metropolitanImage}
                       alt="H.G. Zachariah Mar Nicholovos"
@@ -308,20 +327,17 @@ export default function App() {
                   <div className="text-center lg:text-left">
                     <h4 className="font-serif text-base font-extrabold text-[#000a1e] leading-tight">H.G. Zachariah Mar Nicholovos</h4>
                     <p className="text-[11px] font-bold text-[#735c00] uppercase tracking-wide">Assistant Metropolitan</p>
-                    <p className="text-[10px] text-slate-400 font-sans tracking-wide">Diocese of Canada</p>
+                    <p className="text-[10px] text-slate-950 font-sans tracking-wide">Diocese of Canada</p>
                   </div>
                 </div>
 
                 {/* Message */}
                 <div className="lg:col-span-8 space-y-4 border-t lg:border-t-0 lg:border-l border-slate-200 pt-6 lg:pt-0 lg:pl-8">
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                    The annual Family &amp; Youth Conference has been a celebrated and dynamic ministry of our Diocese for several decades. It is an avenue where our clergy and faithful from all corners of our Diocese gather together in prayer, fellowship, and reflection culminating in worship at Holy Qurbana on the final day.
+                    The FYC 2026 marks a historic milestone as the first-ever Family &amp; Youth Conference of the Diocese of Canada of the Malankara Orthodox Syrian Church. Bringing together clergy, families, youth, and faithful from across the country, this gathering offers a unique opportunity for worship, fellowship, learning, and spiritual renewal. Rooted in the theme "Timeless Truth for a Changing World" FYC 2026 seeks to strengthen our faith, deepen our unity, and inspire us to live faithfully in today's world. We invite you to join us in prayer as we celebrate this blessed beginning and seek God's guidance for the journey ahead.
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                    This ministry has served as a platform for further growth in our Diocese, and where ministries have been able to collaborate with each other to edify our people. We pray that this major annual gathering of our Diocese continues to be a place for spiritual growth and fostering great relationships amongst our clergy and people.
-                  </p>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                    We seek the prayerful participation of our clergy and faithful alike for 2026 Family &amp; Youth Conference. The committee is actively preparing for this conference with great speakers and resource persons to engage us in further growth. May God's mercies and blessings upon all those who are working hard for the coming annual conference. Your prayers, and participation are anticipated for our 2026 Family &amp; Youth Conference.
+                    This inaugural gathering serves as a powerful catalyst for spiritual maturity and community collaboration. We invite the prayerful participation of our entire community as we embark on this exciting new chapter. May God shower His blessings upon everyone working diligently to make this inaugural event a success.
                   </p>
                 </div>
               </div>
@@ -339,7 +355,7 @@ export default function App() {
               {/* Bento Grid layout */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto text-left">
                 {/* Gold Card -> Schedule */}
-                <button
+                {/* <button
                   onClick={() => handleTabChange('schedule')}
                   className="group relative overflow-hidden rounded-2xl bg-[#fed65b] p-6 transition-all hover:-translate-y-1 hover:shadow-md flex flex-col items-start justify-between min-h-[160px] text-slate-900 border border-[#735c00]/20 cursor-pointer"
                 >
@@ -353,10 +369,10 @@ export default function App() {
                   <span className="absolute bottom-6 right-6 p-1.5 bg-[#735c00]/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                     <ArrowRight className="w-4 h-4 text-[#735c00]" />
                   </span>
-                </button>
+                </button> */}
 
                 {/* Navy Card -> Song library */}
-                <button
+                {/* <button
                   onClick={() => handleTabChange('songs')}
                   className="group relative overflow-hidden rounded-2xl bg-[#000a1e] p-6 transition-all hover:-translate-y-1 hover:shadow-md flex flex-col items-start justify-between min-h-[160px] text-white border border-white/10 cursor-pointer"
                 >
@@ -370,39 +386,7 @@ export default function App() {
                   <span className="absolute bottom-6 right-6 p-1.5 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                     <ArrowRight className="w-4 h-4 text-[#ffe088]" />
                   </span>
-                </button>
-              </div>
-            </section>
-
-            {/* 4. Dates & venue horizontal items Strip */}
-            <section className="bg-slate-100 py-8 border-y border-slate-200">
-              <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                {/* Date item */}
-                <div className="flex items-center gap-3.5 p-4.5 bg-white rounded-xl border border-slate-200 shadow-xs">
-                  <div className="p-3 bg-[#fed65b]/20 text-[#735c00] rounded-xl shrink-0">
-                    <CalendarDays className="w-5.5 h-5.5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Assigned Date</span>
-                    <p className="font-serif text-base font-extrabold text-[#000a1e]">July 2 - 4, 2026</p>
-                  </div>
-                </div>
-
-                {/* Location item */}
-                <div
-                  onClick={() => handleTabChange('map')}
-                  className="flex items-center gap-3.5 p-4.5 bg-white rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-[#fed65b] transition-colors"
-                >
-                  <div className="p-3 bg-[#fed65b]/20 text-[#735c00] rounded-xl shrink-0">
-                    <MapPin className="w-5.5 h-5.5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Assigned Location</span>
-                    <p className="font-serif text-base font-extrabold text-[#000a1e] hover:text-[#735c00]">Georgian College, Barrie</p>
-                  </div>
-                </div>
-
+                </button> */}
               </div>
             </section>
 
@@ -472,7 +456,7 @@ export default function App() {
                       <Heart className="w-5.5 h-5.5" />
                     </div>
                     <div className="space-y-1">
-                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Timeless Truth</h5>
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Timeless Truth for a Changing World</h5>
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
                         Rooted in this theme, the conference seeks to reflect on the unchanging truth of Christ in a rapidly changing world. FYC 2026 aims to strengthen Orthodox identity, nurture strong Christian families, guide youth in faith, and deepen communion within the Church community.
                       </p>
@@ -485,12 +469,9 @@ export default function App() {
                       <BookOpen className="w-5.5 h-5.5" />
                     </div>
                     <div className="space-y-1">
-                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Sacraments, Workshops &amp; Guidance</h5>
+                      <h5 className="font-serif text-sm sm:text-base font-bold text-[#000a1e]">Divine Worship, Inspiring Sessions</h5>
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
                         The conference will include Divine Liturgy, canonical prayers, spiritual reflections, family and youth sessions, workshops, and fellowship opportunities rooted in the faith and traditions of the Malankara Orthodox Church. Sessions will address key aspects of Christian life, including biblical teachings, sacramental life, family relationships, youth challenges, social issues, and personal spiritual growth.
-                      </p>
-                      <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-sans pt-1">
-                        The conference will also include additional resource persons who will share insights and guidance for families and youth in the context of Orthodox Christian life.
                       </p>
                     </div>
                   </div>
@@ -533,6 +514,7 @@ export default function App() {
 
                     <div className="space-y-1">
                       <h4 className="font-serif text-sm font-extrabold text-[#000a1e] leading-tight px-1.5">{s.name}</h4>
+                      <h4 className="font-serif text-sm font-extrabold text-[#000a1e] leading-tight px-1.5">{s.name1}</h4>
                       <p className="text-[11px] font-bold text-[#735c00] uppercase tracking-wide px-1.5">{s.role}</p>
                       <p className="text-[10px] text-slate-400 font-sans tracking-wide leading-none">{s.diocese}</p>
                     </div>
@@ -620,7 +602,8 @@ export default function App() {
             </div> */}
 
           </div>
-        )}
+        )
+        }
 
         {/* Dynamic subcomponents mounting depending on routing states */}
         {activeTab === 'schedule' && <ScheduleView />}
@@ -658,34 +641,36 @@ export default function App() {
           </div>
         )} */}
 
-      </main>
+      </main >
 
       {/* ================= BOTTOM NAVIGATION BAR (Mobile Only Overlay) ================= */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-[safe] h-18 border-t border-slate-200 bg-white shadow-lg transition-colors">
-        {[
-          { id: 'home', label: 'Home', icon: Home },
-          { id: 'schedule', label: 'Schedule', icon: Calendar },
-          { id: 'songs', label: 'Songs', icon: Music },
-          // { id: 'connect', label: 'Connect', icon: Users },
-          { id: 'map', label: 'Map', icon: Map }
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className={`flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${isActive
-                ? 'bg-[#ffe088] text-[#735c00] rounded-2xl px-3 py-1 scale-102 font-bold'
-                : 'text-slate-500 hover:text-[#000a1e]'
-                }`}
-            >
-              <Icon className="w-5 h-5 shrink-0" />
-              <span className="text-[10px] leading-tight font-sans mt-0.5">{tab.label}</span>
-            </button>
-          );
-        })}
-      </nav>
-    </div>
+      < nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-[safe] h-18 border-t border-slate-200 bg-white shadow-lg transition-colors" >
+        {
+          [
+            { id: 'home', label: 'Home', icon: Home },
+            { id: 'schedule', label: 'Schedule', icon: Calendar },
+            { id: 'songs', label: 'Songs', icon: Music },
+            // { id: 'connect', label: 'Connect', icon: Users },
+            { id: 'map', label: 'Map', icon: Map }
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${isActive
+                  ? 'bg-[#ffe088] text-[#735c00] rounded-2xl px-3 py-1 scale-102 font-bold'
+                  : 'text-slate-500 hover:text-[#000a1e]'
+                  }`}
+              >
+                <Icon className="w-5 h-5 shrink-0" />
+                <span className="text-[10px] leading-tight font-sans mt-0.5">{tab.label}</span>
+              </button>
+            );
+          })
+        }
+      </nav >
+    </div >
   );
 }

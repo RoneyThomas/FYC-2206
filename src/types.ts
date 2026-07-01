@@ -1,9 +1,11 @@
 export interface Speaker {
   id: string;
   name: string;
+  name1: string;
   role: string;
   diocese: string;
   bio: string;
+  bio2: string;
   imageUrl: string;
 }
 

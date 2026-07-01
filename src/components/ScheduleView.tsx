@@ -329,8 +329,8 @@ export default function ScheduleView() {
                           />
                           <div className="min-w-0">
                             <p className="text-[10px] font-bold text-[#735c00] uppercase tracking-wider">Session Keynote Host</p>
-                            <p className="font-serif text-sm font-semibold text-[#000a1e] leading-tight mt-0.5">{speaker.name}</p>
-                            <p className="text-[10px] text-slate-500 truncate">{speaker.role} • {speaker.diocese}</p>
+                            <p className="font-serif text-sm font-semibold text-[#000a1e] leading-tight mt-0.5">{speaker.name + ' ' + speaker.name1}</p>
+                            <p className="text-[10px] text-slate-500 truncate">{speaker.role}</p>
                           </div>
                         </div>
                       )}
